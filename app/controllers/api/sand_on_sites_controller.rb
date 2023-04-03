@@ -1,0 +1,2 @@
+class SandOnSitesController < ApplicationController
+end

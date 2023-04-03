@@ -1,0 +1,2 @@
+class SandUsed < ApplicationRecord
+end

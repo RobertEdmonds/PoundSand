@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  truck: MyString
+  mine: MyString
+  date: MyString
+  tare_weight: 1
+  gross_weight: 1
+  ship_to: MyString
+  po: MyString
+  total: 1
+
+two:
+  truck: MyString
+  mine: MyString
+  date: MyString
+  tare_weight: 1
+  gross_weight: 1
+  ship_to: MyString
+  po: MyString
+  total: 1
