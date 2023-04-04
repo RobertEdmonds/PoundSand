@@ -3,8 +3,8 @@ class CreateSites < ActiveRecord::Migration[7.0]
     create_table :sites do |t|
       t.string :location
       t.boolean :completed, default: false
-      t.integer :total_on_site
-      t.integer :total_sand_used
+      t.integer :total_on_site, default: 0
+      t.integer :total_sand_used, default: 0
 
       t.timestamps
     end

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :sand_on_sites
-    resources :sand_useds
-    resources :trucks
+    # resources :sand_on_sites
+    resources :sand_useds, only: [:index, :create]
+    resources :trucks, only: [:index, :create]
     resources :sites, except: [:show]
     resources :users
 

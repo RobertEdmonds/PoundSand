@@ -6,7 +6,7 @@ class SandUsed < ApplicationRecord
 
     def right_time
         if !self.date.after?(self.sites.start_time)
-        errors.add(:start_time, "must be earlier than end time")
+        errors.add(:date, "must be later than start of this site")
         end
     end
 end
