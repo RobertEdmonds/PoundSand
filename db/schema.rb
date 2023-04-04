@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_163740) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
   create_table "sand_on_sites", force: :cascade do |t|
     t.integer "pounds"
     t.float "moisture"
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_163740) do
     t.integer "site_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_amount_per_day", default: 0
     t.index ["site_id"], name: "index_sand_useds_on_site_id"
   end
 
@@ -39,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_163740) do
     t.integer "total_sand_used", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "start_date"
   end
 
   create_table "trucks", force: :cascade do |t|
@@ -54,6 +56,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_163740) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id"], name: "index_trucks_on_site_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.string "password_digest"
+    t.boolean "boss", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "log_number", default: 0
   end
 
   add_foreign_key "sand_on_sites", "sites"

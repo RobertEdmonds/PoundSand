@@ -5,7 +5,7 @@ class SandUsed < ApplicationRecord
     validate :right_time 
 
     def right_time
-        if !self.date.after?(self.sites.start_time)
+        if self.date >= self.sites.start_time
         errors.add(:date, "must be later than start of this site")
         end
     end

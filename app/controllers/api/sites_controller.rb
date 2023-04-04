@@ -1,4 +1,5 @@
 class Api::SitesController < ApplicationController
+    skip_before_action :authorize
     before_action :set_site, only: [:update, :destroy]
 
     def index
