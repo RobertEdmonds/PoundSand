@@ -8,7 +8,7 @@ class CreateTrucks < ActiveRecord::Migration[7.0]
       t.integer :gross_weight
       t.string :ship_to
       t.string :po
-      t.integer :total
+      t.integer :total, default: 0
       t.belongs_to :site, null: false, foreign_key: true
 
       t.timestamps

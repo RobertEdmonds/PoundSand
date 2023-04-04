@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
     t.integer "gross_weight"
     t.string "ship_to"
     t.string "po"
-    t.integer "total"
+    t.integer "total", default: 0
     t.integer "site_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
