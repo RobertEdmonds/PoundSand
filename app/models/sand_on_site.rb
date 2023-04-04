@@ -1,2 +1,3 @@
-class Api::SandOnSite < ApplicationRecord
+class SandOnSite < ApplicationRecord
+    
 end

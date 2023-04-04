@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_171839) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
   create_table "sand_on_sites", force: :cascade do |t|
     t.integer "pounds"
     t.float "moisture"
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_171839) do
     t.integer "site_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_amount_per_day"
     t.index ["site_id"], name: "index_sand_useds_on_site_id"
   end
 
@@ -39,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_171839) do
     t.integer "total_sand_used"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "start_date"
   end
 
   create_table "trucks", force: :cascade do |t|
@@ -63,7 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_171839) do
     t.boolean "boss", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "log_number", default: 1
+    t.integer "log_number", default: 0
   end
 
   add_foreign_key "sand_on_sites", "sites"

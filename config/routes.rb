@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :sand_on_sites
     resources :sand_useds
     resources :trucks
-    resources :sites
+    resources :sites, except: [:show]
     resources :users
 
     post '/signup', to: 'users#create'
