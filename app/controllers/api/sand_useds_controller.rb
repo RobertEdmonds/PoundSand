@@ -17,4 +17,10 @@ class Api::SandUsedsController < ApplicationController
         end
     end
 
+    private
+
+    def sand_used_params
+        params.permit(:pounds, :stage, :date, :moisture)
+    end
+
 end
