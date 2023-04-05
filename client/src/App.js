@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react';
+import { Routes, Route} from 'react-router-dom'
+import DisplaySite from './components/DisplaySite';
 import Header from "./components/Header";
+import Homepage from './components/Homepage';
 import DownHole from "./forms/DownHole";
 import TruckLoad from "./forms/TruckLoad";
 
 
 function App() {
+  const [ sites, setSites ] = useState([])
+  const [ siteId, setSiteId] = useState(0)
+  useEffect(() => {
+    fetch('/api/sites')
+    .then(resp => resp.json().then(site => setSites(site)))
+  },[])
   function handleSiteInfo(){
     fetch('/api/sites')
     .then(resp => resp.json())
@@ -18,7 +28,7 @@ function App() {
 
   function createSite(){
     const formData = {
-      location: "Utah",
+      location: "Texas",
     }
     fetch('/api/sites', {
       method: "POST",
@@ -29,13 +39,16 @@ function App() {
     }).then(resp => resp.json())
     .then(site => console.log(site))
   }
-
-
+  console.log(siteId)
   return (
     <div>
-      <Header/>
+      <Header sites={sites} setSiteId={setSiteId}/>
       <TruckLoad />
       <DownHole />
+      <Routes>
+        <Route path='/' element={<Homepage />}/>
+        <Route path={`/site/:location/:id`} element={<DisplaySite siteId={siteId}/>}/>
+      </Routes>
       <div className="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
         <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio1" autoComplete="off"/>
         <label className="btn btn-outline-danger" htmlFor="vbtn-radio1">Radio 1</label>
