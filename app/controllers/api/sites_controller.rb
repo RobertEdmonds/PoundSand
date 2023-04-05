@@ -7,6 +7,11 @@ class Api::SitesController < ApplicationController
         render json: sites, status: :ok
     end
 
+    def completed_index
+        sites = Site.where(completed: true)
+        render json: sites, status: :ok
+    end
+
     def create 
         site = Site.create!(site_params)
         render json: site, status: :created 

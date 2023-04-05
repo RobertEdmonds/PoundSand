@@ -1,5 +1,4 @@
 class Api::SandUsedsController < ApplicationController
-    skip_before_action :authorize
     def index
         render json: SandUsed.all, status: :ok
     end
