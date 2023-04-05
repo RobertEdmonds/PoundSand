@@ -1,14 +1,10 @@
 // import { format } from 'date-fns'
 
 function TruckLoad(){
-    const tempDate = new Date()
-    const today = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() 
-    console.log(today)
     const handleTruckLoad = () => {
         const formData = {
             truck: "5440", 
-            mine: "Blue", 
-            date: today, 
+            mine: "Blue",  
             tare_weight: 32399, 
             gross_weight: 99399, 
             ship_to: "florida", 
