@@ -6,9 +6,17 @@ class Api::TrucksController < ApplicationController
 
     def create 
        truck = Truck.create!(truck_params)
-       truck.update!(total: (truck.gross_weight - truck.tare_weight), date: "2022-03-05") 
+       truck.update!(total: (truck.gross_weight - truck.tare_weight)) 
        site = Site.find_by(id: truck.site_id)
        site.update(total_on_site: (site.total_on_site + truck.total))
+        if Truck.where(date: truck.date).length() > 1
+            truck_list = Truck.where(date: truck.date)
+            total = 0
+            truck_list.map { |trk| total += trk.pounds }
+            truck.update!(total_amount_per_day: total)
+        else
+            truck.update!(total_amount_per_day: truck.pounds)
+        end
        render json: truck, status: :created
     end
 

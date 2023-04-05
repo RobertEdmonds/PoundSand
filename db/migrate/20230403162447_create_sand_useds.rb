@@ -3,7 +3,7 @@ class CreateSandUseds < ActiveRecord::Migration[7.0]
     create_table :sand_useds do |t|
       t.integer :pounds
       t.string :stage
-      t.date :date
+      t.date :date, default: Date.current()
       t.float :moisture
       t.belongs_to :site, null: false, foreign_key: true
 

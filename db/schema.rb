@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
   create_table "sand_useds", force: :cascade do |t|
     t.integer "pounds"
     t.string "stage"
-    t.date "date"
+    t.date "date", default: "2023-04-05"
     t.float "moisture"
     t.integer "site_id", null: false
     t.datetime "created_at", null: false
@@ -40,18 +40,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
     t.integer "total_sand_used", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "start_date"
+    t.date "start_date", default: "2023-04-05"
   end
 
   create_table "trucks", force: :cascade do |t|
     t.string "truck"
     t.string "mine"
-    t.string "date"
+    t.string "date", default: "2023-04-05"
     t.integer "tare_weight"
     t.integer "gross_weight"
     t.string "ship_to"
     t.string "po"
     t.integer "total", default: 0
+    t.integer "total_amount_per_day", default: 0
     t.integer "site_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
