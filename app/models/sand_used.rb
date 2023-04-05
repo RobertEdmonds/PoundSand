@@ -2,11 +2,5 @@ class SandUsed < ApplicationRecord
     belongs_to :site
 
     validates :pounds, :stage, :moisture, {presence: true}
-    # validate :right_time 
-
-    # def right_time
-    #     if self.date >= self.sites.start_time
-    #     errors.add(:date, "must be later than start of this site")
-    #     end
-    # end
+    
 end

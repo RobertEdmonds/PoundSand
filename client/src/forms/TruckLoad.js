@@ -7,7 +7,7 @@ function TruckLoad(){
             mine: "Blue",  
             tare_weight: 32399, 
             gross_weight: 99399, 
-            ship_to: "florida", 
+            ship_to: "texas", 
             po: "702000069", 
             site_id: 2
         }

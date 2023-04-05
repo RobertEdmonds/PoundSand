@@ -1,5 +1,5 @@
 class Api::TrucksController < ApplicationController
-    
+    skip_before_action :authorize
     def index
         render json: Truck.all, status: :ok
     end
@@ -12,10 +12,10 @@ class Api::TrucksController < ApplicationController
         if Truck.where(date: truck.date).length() > 1
             truck_list = Truck.where(date: truck.date)
             total = 0
-            truck_list.map { |trk| total += trk.pounds }
+            truck_list.map { |trk| total += trk.total}
             truck.update!(total_amount_per_day: total)
         else
-            truck.update!(total_amount_per_day: truck.pounds)
+            truck.update!(total_amount_per_day: truck.total)
         end
        render json: truck, status: :created
     end

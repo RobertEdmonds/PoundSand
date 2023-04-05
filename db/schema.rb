@@ -11,16 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
-  create_table "sand_on_sites", force: :cascade do |t|
-    t.integer "pounds"
-    t.float "moisture"
-    t.date "date"
-    t.integer "site_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["site_id"], name: "index_sand_on_sites_on_site_id"
-  end
-
   create_table "sand_useds", force: :cascade do |t|
     t.integer "pounds"
     t.string "stage"
@@ -69,7 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
     t.integer "log_number", default: 0
   end
 
-  add_foreign_key "sand_on_sites", "sites"
   add_foreign_key "sand_useds", "sites"
   add_foreign_key "trucks", "sites"
 end

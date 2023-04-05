@@ -1,3 +1,0 @@
-class SandOnSite < ApplicationRecord
-    
-end
