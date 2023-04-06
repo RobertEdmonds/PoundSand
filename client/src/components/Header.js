@@ -1,13 +1,12 @@
 import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 
-function Header({sites, setSiteId}){
+function Header({sites}){
     const [ buttonInfo, setButtonInfo ] = useState('Job Site')
     const navigate = useNavigate()
 
     const handleHeaderButton = (site) => {
         setButtonInfo(site.location)
-        setSiteId(site)
         navigate(`/site/${site.location}/${site.id}`)
     }
     return(

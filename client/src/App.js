@@ -9,7 +9,7 @@ import TruckLoad from "./forms/TruckLoad";
 
 function App() {
   const [ sites, setSites ] = useState([])
-  const [ siteId, setSiteId] = useState(0)
+
   useEffect(() => {
     fetch('/api/sites')
     .then(resp => resp.json().then(site => setSites(site)))
@@ -39,15 +39,15 @@ function App() {
     }).then(resp => resp.json())
     .then(site => console.log(site))
   }
-  console.log(siteId)
+  // console.log(siteId)
   return (
     <div>
-      <Header sites={sites} setSiteId={setSiteId}/>
+      <Header sites={sites} />
       <TruckLoad />
       <DownHole />
       <Routes>
         <Route path='/' element={<Homepage />}/>
-        <Route path={`/site/:location/:id`} element={<DisplaySite siteId={siteId}/>}/>
+        <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites}/>}/>
       </Routes>
       <div className="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
         <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio1" autoComplete="off"/>
