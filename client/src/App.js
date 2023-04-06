@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route} from 'react-router-dom'
+import { Routes, Route, useNavigate} from 'react-router-dom'
 import DisplaySite from './components/DisplaySite';
 import Header from "./components/Header";
 import Homepage from './components/Homepage';
@@ -9,6 +9,8 @@ import TruckLoad from "./forms/TruckLoad";
 
 function App() {
   const [ sites, setSites ] = useState([])
+  const [ buttonInfo, setButtonInfo ] = useState('Job Site')
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch('/api/sites')
@@ -39,15 +41,20 @@ function App() {
     }).then(resp => resp.json())
     .then(site => console.log(site))
   }
+
+  const handleSiteDisplayButton = (site) => {
+    setButtonInfo(site.location)
+    navigate(`/site/${site.location}/${site.id}`)
+  }
   // console.log(siteId)
   return (
     <div>
-      <Header sites={sites} />
+      <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo}/>
       <TruckLoad />
       <DownHole />
       <Routes>
-        <Route path='/' element={<Homepage />}/>
-        <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites}/>}/>
+        <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
+        <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites} setButtonInfo={setButtonInfo}/>}/>
       </Routes>
       <div className="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
         <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio1" autoComplete="off"/>

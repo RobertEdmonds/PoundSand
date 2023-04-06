@@ -1,18 +1,9 @@
-import {useState} from 'react';
-import { useNavigate } from "react-router-dom";
+function Header({sites, handleSiteDisplayButton, buttonInfo}){
 
-function Header({sites}){
-    const [ buttonInfo, setButtonInfo ] = useState('Job Site')
-    const navigate = useNavigate()
-
-    const handleHeaderButton = (site) => {
-        setButtonInfo(site.location)
-        navigate(`/site/${site.location}/${site.id}`)
-    }
     return(
         <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">
-                <h1 className="navbar-brand">Pound Sand</h1>
+                <span className="navbar-brand mb-0 h1">Pound Sand</span>
                 <div className="btn-group">
                     <button className="btn btn-secondary btn-lg" type="button">
                         {buttonInfo}
@@ -23,7 +14,7 @@ function Header({sites}){
                     <ul className="dropdown-menu">
                         {sites.map(site => {
                             return(
-                                <li onClick={() => handleHeaderButton(site)} key={site.id}>{site.location}</li>
+                                <li onClick={() => handleSiteDisplayButton(site)} key={site.id}>{site.location}</li>
                             )
                         })}
                     </ul>
