@@ -23,9 +23,56 @@ function DownHole(){
                     <h1 className="modal-title fs-5" id="exampleModalLabel">Sand Used</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div className="modal-body">
-                    ...
-                </div>
+                <form>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                    <div className="mb-3 row">
+                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <div className="col-sm-10">
+                        <input type="password" className="form-control" id="inputPassword"/>
+                        </div>
+                    </div>
+                </form>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" className="btn btn-primary" onClick={handleDownHole}>Save changes</button>
