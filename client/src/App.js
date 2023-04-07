@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate} from 'react-router-dom'
 import DisplaySite from './components/DisplaySite';
 import Header from "./components/Header";
 import Homepage from './components/Homepage';
-import DownHole from "./forms/DownHole";
 import TruckLoad from "./forms/TruckLoad";
 
 
@@ -51,7 +50,6 @@ function App() {
     <div>
       <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo}/>
       <TruckLoad />
-      <DownHole />
       <Routes>
         <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
         <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites} setButtonInfo={setButtonInfo}/>}/>

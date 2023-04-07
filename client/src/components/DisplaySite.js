@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import DownHole from "../forms/DownHole";
+import TruckLoad from "../forms/TruckLoad";
+import DisplayNav from "./DisplayNav";
 
 
 function DisplaySite({sites, setButtonInfo}){
@@ -10,13 +13,17 @@ function DisplaySite({sites, setButtonInfo}){
         navigate(`/site/${location}/${id}`)
         setButtonInfo(location)
     },[navigate, location, id, setButtonInfo])
+
+    const handleWeightChange = () => {
+
+    }
+
+    console.log(id)
     return(
         <div>
-            <nav className="navbar bg-body-tertiary">
-                <div className="container-fluid">
-                    <span className="navbar-brand" >{location}</span>
-                </div>
-            </nav>
+            <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
+            <DownHole />
+            <TruckLoad />
             <table className="table">
                 <thead>
                     <tr>
