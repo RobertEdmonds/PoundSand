@@ -22,7 +22,7 @@ function DisplaySite({sites, setButtonInfo}){
     return(
         <div>
             <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
-            <DownHole />
+            <DownHole id={id}/>
             <TruckLoad />
             <table className="table">
                 <thead>
@@ -34,10 +34,10 @@ function DisplaySite({sites, setButtonInfo}){
                     </tr>
                 </thead>
                 <tbody>
-            {sites.filter(site => site.id === id)
+            {sites.filter(site => site.id === parseInt(id))
             .map(site => {
                 return(
-                    <tr>
+                    <tr key={site.id}>
                         {}
                         <th scope="row">1</th>
                         <td>Mark</td>
