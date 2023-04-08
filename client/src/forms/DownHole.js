@@ -35,16 +35,12 @@ function DownHole({id}){
                     <h1 className="modal-title fs-5" id="exampleModalLabel">Sand Used</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div id="liveAlertPlaceholder">
-                    <ul>
-                        {error.map((err) => {
+                    {error.map((err) => {
                         return(
-                                <li key={err}>{err}</li>
+                            <div key={err} className="alert alert-danger" role="alert">{err}</div>
                             )
-                        })}
-                    </ul>
-                </div>
-                <form onSubmit={handleDownHole}>
+                    })}
+                <form>
                     <div className="mb-3 row">
                         <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Pounds </label>
                         <div className="col-sm-10">
@@ -84,7 +80,7 @@ function DownHole({id}){
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" className="btn btn-primary">Save Sand Used</button>
+                        <button type="button" className="btn btn-primary" onClick={() => handleDownHole()}>Save Sand Used</button>
                     </div>
                 </form>
                 </div>

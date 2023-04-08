@@ -1,4 +1,12 @@
-function Header({sites, handleSiteDisplayButton, buttonInfo}){
+import { useNavigate } from "react-router-dom";
+
+function Header({sites, handleSiteDisplayButton, buttonInfo, setButtonInfo}){
+    const navigate = useNavigate()
+
+    const handleGoHome = () => {
+        navigate('/')
+        setButtonInfo('Job Sites')
+    }
 
     return(
         <nav className="navbar bg-body-tertiary">
@@ -17,6 +25,7 @@ function Header({sites, handleSiteDisplayButton, buttonInfo}){
                                 <li onClick={() => handleSiteDisplayButton(site)} key={site.id}>{site.location}</li>
                             )
                         })}
+                        <li onClick={() => handleGoHome()}>Home</li>
                     </ul>
                 </div>
             </div>

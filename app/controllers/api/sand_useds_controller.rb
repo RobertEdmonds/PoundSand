@@ -1,10 +1,12 @@
 class Api::SandUsedsController < ApplicationController
+    skip_before_action :authorize
     def index
         render json: SandUsed.all, status: :ok
     end
 
     def create 
         sand_used = SandUsed.create!(sand_used_params)
+        sand_used.update!(date: Date.current())
         site = Site.find(sand_used.site_id)
         site.update(total_sand_used: (site.total_sand_used + sand_used.pounds), total_on_site: (site.total_on_site - sand_used.pounds))
         if SandUsed.where(date: sand_used.date).length() > 1

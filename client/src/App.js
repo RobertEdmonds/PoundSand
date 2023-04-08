@@ -8,7 +8,7 @@ import TruckLoad from "./forms/TruckLoad";
 
 function App() {
   const [ sites, setSites ] = useState([])
-  const [ buttonInfo, setButtonInfo ] = useState('Job Site')
+  const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function App() {
   // console.log(siteId)
   return (
     <div>
-      <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo}/>
+      <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo} setButtonInfo={setButtonInfo}/>
       <TruckLoad />
       <Routes>
         <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>

@@ -32,51 +32,60 @@ function TruckLoad(){
                 </div>
                 <form>
                     <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <label htmlFor="inputTruck" className="col-sm-2 col-form-label">Truck #</label>
                         <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="inputTruck"
+                            />
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <label htmlFor="inputMine" className="col-sm-2 col-form-label">Mine</label>
                         <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="inputMine"/>
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <label htmlFor="inputTareWeight" className="col-sm-2 col-form-label">Tare Weight</label>
                         <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
+                        <input 
+                            type="number"
+                            min="0" 
+                            className="form-control" 
+                            id="inputTareWeight"/>
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <label htmlFor="inputGrossWeight" className="col-sm-2 col-form-label">Gross Weight</label>
                         <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
+                        <input 
+                            type="number"
+                            min="0" 
+                            className="form-control" 
+                            id="inputGrossWeight"/>
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <label htmlFor="inputShipTo" className="col-sm-2 col-form-label">Ship To</label>
                         <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="inputShipTo"/>
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
+                        <label htmlFor="inputPO" className="col-sm-2 col-form-label">PO #</label>
                         <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                        <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Password</label>
-                        <div className="col-sm-10">
-                        <input type="password" className="form-control" id="inputPassword"/>
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="inputPO"/>
                         </div>
                     </div>
                 </form>
