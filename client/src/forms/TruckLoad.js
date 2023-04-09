@@ -1,25 +1,41 @@
 import { useState } from "react"
 
 
-function TruckLoad(){
+function TruckLoad({id}){
+    const [ truck, setTruck ] = useState('')
+    const [ mine, setMine ] = useState('')
+    const [ tare, setTare ] = useState(0)
+    const [ gross, setGross ] = useState(0)
+    const [ ship, setShip ] = useState('')
+    const [ po, setPo ] = useState('')
+    const [ error, setError ] = useState([])
+    const [ success, setSuccess ] = useState(false)
+
     const handleTruckLoad = () => {
         const formData = {
-            truck: "5440", 
-            mine: "Blue",  
-            tare_weight: 32399, 
-            gross_weight: 99399, 
-            ship_to: "texas", 
-            po: "702000069", 
-            site_id: 2
+            truck, 
+            mine,  
+            tare_weight: tare, 
+            gross_weight: gross, 
+            ship_to: ship, 
+            po: po, 
+            site_id: id
         }
+        setError([])
+        setSuccess(false)
         fetch(`/api/trucks`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
-          }).then(resp => resp.json())
-          .then(truck => console.log(truck))
+          }).then(resp => {
+            if(resp.ok){
+                resp.json().then(truck => console.log(truck))
+            }else{
+                resp.json().then(err => setError(err.errors))
+            }
+        })
     }
 
     return(
@@ -30,6 +46,14 @@ function TruckLoad(){
                     <h1 className="modal-title fs-5" id="exampleModalLabel">Add Sand</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                {success ? ( 
+                        <div className="alert alert-success" role="alert">Success</div>
+                    ):(
+                    error.map((err) => {
+                        return(
+                            <div key={err} className="alert alert-danger" role="alert">{err}</div>
+                            )
+                    }))}
                 <form>
                     <div className="mb-3 row">
                         <label htmlFor="inputTruck" className="col-sm-2 col-form-label">Truck #</label>

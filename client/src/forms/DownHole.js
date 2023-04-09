@@ -5,6 +5,7 @@ function DownHole({id}){
     const [ stage, setStage ] = useState('')
     const [ moisture, setMoisture ] = useState(0.0)
     const [ error, setError ] = useState([])
+    const [ success, setSuccess ] = useState(false)
 
     const handleDownHole = () => {
         const formData = {
@@ -13,6 +14,8 @@ function DownHole({id}){
             moisture,
             site_id: parseInt(id)
         }
+        setError([])
+        setSuccess(false)
         fetch(`/api/sand_useds`, {
             method: "POST",
             headers: {
@@ -21,7 +24,10 @@ function DownHole({id}){
             body: JSON.stringify(formData),
           }).then(resp => {
             if(resp.ok){
-                resp.json().then(truck => console.log(truck))
+                resp.json().then(truck => {
+                    setSuccess(true)
+                    console.log(truck)
+                })
             }else{
                 resp.json().then((err) => setError(err.errors))
             }
@@ -35,11 +41,14 @@ function DownHole({id}){
                     <h1 className="modal-title fs-5" id="exampleModalLabel">Sand Used</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                    {error.map((err) => {
-                        return(
-                            <div key={err} className="alert alert-danger" role="alert">{err}</div>
-                            )
-                    })}
+                {success ? ( 
+                    <div className="alert alert-success" role="alert">Success</div>
+                ):(
+                error.map((err) => {
+                    return(
+                        <div key={err} className="alert alert-danger" role="alert">{err}</div>
+                        )
+                }))}
                 <form>
                     <div className="mb-3 row">
                         <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Pounds </label>

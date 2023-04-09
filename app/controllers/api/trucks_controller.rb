@@ -6,7 +6,7 @@ class Api::TrucksController < ApplicationController
 
     def create 
        truck = Truck.create!(truck_params)
-       truck.update!(total: (truck.gross_weight - truck.tare_weight)) 
+       truck.update!(total: (truck.gross_weight - truck.tare_weight), date: Date.current()) 
        site = Site.find_by(id: truck.site_id)
        site.update(total_on_site: (site.total_on_site + truck.total))
         if Truck.where(date: truck.date).length() > 1

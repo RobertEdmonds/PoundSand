@@ -23,7 +23,7 @@ function DisplaySite({sites, setButtonInfo}){
         <div>
             <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
             <DownHole id={id}/>
-            <TruckLoad />
+            <TruckLoad id={id}/>
             <table className="table">
                 <thead>
                     <tr>
