@@ -1,6 +1,5 @@
 import { useState } from "react"
 
-
 function TruckLoad({id}){
     const [ truck, setTruck ] = useState('')
     const [ mine, setMine ] = useState('')
@@ -19,7 +18,7 @@ function TruckLoad({id}){
             gross_weight: gross, 
             ship_to: ship, 
             po: po, 
-            site_id: id
+            site_id: parseInt(id)
         }
         setError([])
         setSuccess(false)
@@ -31,7 +30,10 @@ function TruckLoad({id}){
             body: JSON.stringify(formData),
           }).then(resp => {
             if(resp.ok){
-                resp.json().then(truck => console.log(truck))
+                resp.json().then(truck => {
+                    console.log(truck)
+                    setSuccess(true)
+                })
             }else{
                 resp.json().then(err => setError(err.errors))
             }
@@ -39,7 +41,13 @@ function TruckLoad({id}){
     }
 
     return(
-        <div className="modal fade" id="truckLoad" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div 
+            className="modal fade modal-lg" 
+            id="truckLoad" 
+            tabIndex="-1" 
+            aria-labelledby="exampleModalLabel" 
+            aria-hidden="true"
+            >
             <div className="modal-dialog">
                 <div className="modal-content">
                 <div className="modal-header">
@@ -55,67 +63,84 @@ function TruckLoad({id}){
                             )
                     }))}
                 <form>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputTruck" className="col-sm-2 col-form-label">Truck #</label>
+                    <div className="mb-3">
+                        <label htmlFor="inputTruck" className="form-label">Truck #</label>
                         <div className="col-sm-10">
                         <input 
                             type="text" 
                             className="form-control" 
                             id="inputTruck"
+                            value={truck}
+                            onChange={(e) => setTruck(e.target.value)}
                             />
                         </div>
                     </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputMine" className="col-sm-2 col-form-label">Mine</label>
+                    <div className="mb-3">
+                        <label htmlFor="inputMine" className="form-label">Mine</label>
                         <div className="col-sm-10">
                         <input 
                             type="text" 
                             className="form-control" 
-                            id="inputMine"/>
+                            id="inputMine"
+                            value={mine}
+                            onChange={(e) => setMine(e.target.value)}
+                            />
                         </div>
                     </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputTareWeight" className="col-sm-2 col-form-label">Tare Weight</label>
+                    <div className="mb-3">
+                        <label htmlFor="inputTareWeight" className="form-label">Tare Weight(pounds)</label>
                         <div className="col-sm-10">
                         <input 
                             type="number"
                             min="0" 
                             className="form-control" 
-                            id="inputTareWeight"/>
+                            id="inputTareWeight"
+                            value={tare}
+                            onChange={(e) => setTare(e.target.value)}
+                            />
                         </div>
                     </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputGrossWeight" className="col-sm-2 col-form-label">Gross Weight</label>
+                    <div className="mb-3">
+                        <label htmlFor="inputGrossWeight" className="form-label">Gross Weight(pounds)</label>
                         <div className="col-sm-10">
                         <input 
                             type="number"
                             min="0" 
                             className="form-control" 
-                            id="inputGrossWeight"/>
+                            id="inputGrossWeight"
+                            value={gross}
+                            onChange={(e) => setGross(e.target.value)}
+                            />
                         </div>
                     </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputShipTo" className="col-sm-2 col-form-label">Ship To</label>
+                    <div className="mb-3">
+                        <label htmlFor="inputShipTo" className="form-label">Ship To</label>
                         <div className="col-sm-10">
                         <input 
                             type="text" 
                             className="form-control" 
-                            id="inputShipTo"/>
+                            id="inputShipTo"
+                            value={ship}
+                            onChange={(e) => setShip(e.target.value)}
+                            />
                         </div>
                     </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputPO" className="col-sm-2 col-form-label">PO #</label>
+                    <div className="mb-3">
+                        <label htmlFor="inputPO" className="form-label">PO #</label>
                         <div className="col-sm-10">
                         <input 
                             type="text" 
                             className="form-control" 
-                            id="inputPO"/>
+                            id="inputPO"
+                            value={po}
+                            onChange={(e) => setPo(e.target.value)}
+                            />
                         </div>
                     </div>
                 </form>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary" onClick={handleTruckLoad}>Save changes</button>
+                    <button type="button" className="btn btn-primary" onClick={() => handleTruckLoad()}>Save changes</button>
                 </div>
                 </div>
             </div>

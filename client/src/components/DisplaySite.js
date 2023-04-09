@@ -18,7 +18,6 @@ function DisplaySite({sites, setButtonInfo}){
 
     }
 
-    console.log(id)
     return(
         <div>
             <DisplayNav location={location} handleWeightChange={handleWeightChange}/>

@@ -3,8 +3,6 @@ import { Routes, Route, useNavigate} from 'react-router-dom'
 import DisplaySite from './components/DisplaySite';
 import Header from "./components/Header";
 import Homepage from './components/Homepage';
-import TruckLoad from "./forms/TruckLoad";
-
 
 function App() {
   const [ sites, setSites ] = useState([])
@@ -49,7 +47,6 @@ function App() {
   return (
     <div>
       <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo} setButtonInfo={setButtonInfo}/>
-      <TruckLoad />
       <Routes>
         <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
         <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites} setButtonInfo={setButtonInfo}/>}/>
