@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get '/me', to: 'users#show'
     post '/login', to: 'sessions#create'
     delete '/logout', to: "sessions#destroy"
-    post '/reset', to: "users#reset_password"
+    post '/reset/:id', to: "users#reset_password"
     patch "/user_employee_update/:id", to: 'users#update_employee'
     get '/completed_sites', to: 'sites#completed_index'
   end

@@ -2,9 +2,9 @@ import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 
 
-function Login({setUser}){
-    const [username, setUsername] = useState("")
+function ResetPW({setUser, user}){
     const [password, setPassword] = useState('')
+    const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState([])
     const navigate = useNavigate()
@@ -13,10 +13,10 @@ function Login({setUser}){
         e.preventDefault();
         setLoading(true);
         const dataForm = {
-          username,
           password,
+          password_confirmation: passwordConfirmation
         };
-        fetch("/login", {
+        fetch(`/api/reset/${user.id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -26,16 +26,11 @@ function Login({setUser}){
           setLoading(false);
           if (r.ok) {
             r.json().then((user) => {
-                if(user.log_number === 1){
-                    setUser(user)
-                    navigate(`/reset_password/${user.id}`)
-                }else{
                     setUser(user)
                     navigate("/");
-                }
             })
-            setUsername("");
             setPassword("");
+            setPasswordConfirmation('');
           } else {
             r.json().then((err) => {
                 setError(err.errors)
@@ -43,7 +38,6 @@ function Login({setUser}){
           }
         });
       }
-
     return(
         <>
             {error.map((err) => {
@@ -51,24 +45,24 @@ function Login({setUser}){
             })}
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="formGroupExampleInput" className="form-label">Username</label>
+                    <label htmlFor="formGroupExampleInput" className="form-label">Password</label>
                     <input 
-                        type="text" 
+                        type="password" 
                         className="form-control" 
                         id="formGroupExampleInput" 
                         placeholder="Username" 
-                        value={username}
-                        onChange={e => setUsername(e.target.value.trim())} />
+                        value={password}
+                        onChange={e => setPassword(e.target.value.trim())} />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="formGroupExampleInput2" className="form-label">Password</label>
+                    <label htmlFor="formGroupExampleInput2" className="form-label">Password Confirmation</label>
                     <input 
                         type="password" 
                         className="form-control" 
                         id="formGroupExampleInput2" 
                         placeholder="Password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}/>
+                        value={passwordConfirmation}
+                        onChange={e => setPasswordConfirmation(e.target.value)}/>
                 </div>
                 {loading ? (
                     <button className="btn btn-primary" type="button" disabled>
@@ -85,4 +79,4 @@ function Login({setUser}){
     )
 }
 
-export default Login;
+export default ResetPW;

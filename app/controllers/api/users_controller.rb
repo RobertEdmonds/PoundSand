@@ -18,7 +18,7 @@ class Api::UsersController < ApplicationController
     end
 
     def reset_password
-        user = User.find(username: params[:username])
+        user = User.find(params[:id])
         user.update(user_password_params)
         session[:id] = user.id
         render json: user, status: :created 
