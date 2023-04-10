@@ -3,10 +3,13 @@ import { Routes, Route, useNavigate} from 'react-router-dom'
 import DisplaySite from './components/DisplaySite';
 import Header from "./components/Header";
 import Homepage from './components/Homepage';
+import Login from './forms/Login';
+import SandSite from './forms/SandSite';
 
 function App() {
   const [ sites, setSites ] = useState([])
   const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
+  const [ user, setUser ] = useState(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -50,19 +53,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
         <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites} setButtonInfo={setButtonInfo}/>}/>
+        {!user && (
+        <Route path='/login' element={<Login setUser={setUser}/>}/>
+        )}
       </Routes>
-      <div className="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-        <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio1" autoComplete="off"/>
-        <label className="btn btn-outline-danger" htmlFor="vbtn-radio1">Radio 1</label>
-        <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio2" autoComplete="off"/>
-        <label className="btn btn-outline-danger" htmlFor="vbtn-radio2">Radio 2</label>
-        <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio3" autoComplete="off"/>
-        <label className="btn btn-outline-danger" htmlFor="vbtn-radio3">Radio 3</label>
-      </div>
-      <button onClick={() => handleSiteInfo()}>Hello</button>
-      <button onClick={() => handleFinishedSite()}>Finished</button>
-      <button onClick={() => createSite()}>Create <br/> Site</button>
-      <h1>Hello</h1>
+      <SandSite />
     </div>
   );
 }
