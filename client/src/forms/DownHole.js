@@ -49,10 +49,10 @@ function DownHole({id}){
                         <div key={err} className="alert alert-danger" role="alert">{err}</div>
                         )
                 }))}
-                <form>
+                <form className="row">
                     <div className="mb-3 row">
                         <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Pounds </label>
-                        <div className="col-sm-10">
+                        <div className="input-group">
                         <input type="number"
                             pattern="[0-9]*" 
                             className="form-control" 
@@ -64,7 +64,7 @@ function DownHole({id}){
                     </div>
                     <div className="mb-3 row">
                         <label htmlFor="inputStage" className="col-sm-2 col-form-label">Stage</label>
-                        <div className="col-sm-10">
+                        <div className="input-group">
                         <input type="text" 
                             className="form-control" 
                             id="inputStage"
@@ -75,7 +75,7 @@ function DownHole({id}){
                     </div>
                     <div className="mb-3 row">
                         <label htmlFor="inputMoisture" className="col-sm-2 col-form-label">Moisture</label>
-                        <div className="col-sm-10">
+                        <div className="input-group">
                         <input type="number"
                             step="0.01"
                             min='0'

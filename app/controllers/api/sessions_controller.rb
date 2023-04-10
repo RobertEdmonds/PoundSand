@@ -3,9 +3,8 @@ class Api::SessionsController < ApplicationController
 
     def create 
         user = User.find_by(username: params[:username])
-        if user&.authenticate(params[:password])
+        if user&.authenticate(params[:password]) 
             session[:user_id] = user.id
-            user.update(log_number: (user.log_number + 1)) 
             render json: user, status: :created 
         else
             render json: {errors: ["Password or Email doesn't match our file"]}, status: :unauthorized

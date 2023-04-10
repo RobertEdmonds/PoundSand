@@ -38,7 +38,7 @@ class Api::UsersController < ApplicationController
     end
 
     def user_password_params
-        params.permit(:password, :password_confirmation)
+        params.permit(:password, :password_confirmation, :log_number)
     end
 
     def update_employee_params 
