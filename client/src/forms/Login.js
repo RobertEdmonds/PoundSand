@@ -16,7 +16,7 @@ function Login({setUser}){
           username,
           password,
         };
-        fetch("/login", {
+        fetch("/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -24,6 +24,7 @@ function Login({setUser}){
           body: JSON.stringify(dataForm),
         }).then((r) => {
           setLoading(false);
+
           if (r.ok) {
             r.json().then((user) => {
                 if(user.log_number === 1){

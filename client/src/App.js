@@ -1,32 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate} from 'react-router-dom'
-import DisplaySite from './components/DisplaySite';
-import Header from "./components/Header";
-import Homepage from './components/Homepage';
-import Login from './forms/Login';
-import ResetPW from './forms/ResetPW';
-import SandSite from './forms/SandSite';
+import { BrowserRouter as Router } from 'react-router-dom'
+import Authenticated from './authenticate/Authenticated'
+import Unauthenticated from './authenticate/Unauthenticated'
 
 function App() {
-  const [ sites, setSites ] = useState([])
-  const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
   const [ user, setUser ] = useState(null)
-  const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('/api/sites')
-    .then(resp => resp.json().then(site => setSites(site)))
-  },[])
-
-  useEffect(() => {
-    fetch("/me").then((resp) => {
+    fetch("/api/me").then((resp) => {
       if (resp.ok) {
-        resp.json().then((user) => setUser(user));
-      }else{
-        navigate('/login')
+        resp.json().then((user) => {
+          console.log(user)
+          setUser(user)
+        });
       }
     });
-  }, [setUser, navigate]);
+  }, [setUser]);
 
   // function handleFinishedSite(){
   //   fetch('/api/completed_sites')
@@ -48,30 +37,24 @@ function App() {
   //   .then(site => console.log(site))
   // }
 
-  const handleSiteDisplayButton = (site) => {
-    setButtonInfo(site.location)
-    navigate(`/site/${site.location}/${site.id}`)
-  }
-  // console.log(siteId)
+  console.log(user)
   return (
-    <div>
-      <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo} setButtonInfo={setButtonInfo}/>
-      <Routes>
-        {!!user && (
-          <>
-            <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
-            <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites} setButtonInfo={setButtonInfo}/>}/>
-          </>
-        )}
-        {!user && (
-          <Route path='/login' element={<Login setUser={setUser}/>}/>
-        )}
-        {!!user && user.log_number === 1 && (
-          <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
-        )}
-      </Routes>
-      <SandSite />
-    </div>
+    <>
+    <Router>
+      {user ? (
+          <Authenticated
+            setUser={setUser}
+            user={user}
+          />
+        ) : (
+          <Unauthenticated
+            setUser={setUser}
+            user={user}
+          />
+        )
+      }
+    </Router>
+    </>
   );
 }
 
