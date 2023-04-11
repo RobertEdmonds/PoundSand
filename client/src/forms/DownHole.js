@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function DownHole({id}){
+function DownHole({id, handleUseSand}){
     const [ pounds, setPounds ] = useState(0)
     const [ stage, setStage ] = useState('')
     const [ moisture, setMoisture ] = useState(0.0)
@@ -24,9 +24,9 @@ function DownHole({id}){
             body: JSON.stringify(formData),
           }).then(resp => {
             if(resp.ok){
-                resp.json().then(truck => {
+                resp.json().then(sand => {
                     setSuccess(true)
-                    console.log(truck)
+                    handleUseSand(sand)
                 })
             }else{
                 resp.json().then((err) => setError(err.errors))

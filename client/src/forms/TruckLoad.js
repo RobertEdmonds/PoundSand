@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function TruckLoad({id}){
+function TruckLoad({id, handleAddSand}){
     const [ truck, setTruck ] = useState('')
     const [ mine, setMine ] = useState('')
     const [ tare, setTare ] = useState(0)
@@ -31,7 +31,7 @@ function TruckLoad({id}){
           }).then(resp => {
             if(resp.ok){
                 resp.json().then(truck => {
-                    console.log(truck)
+                    handleAddSand(truck)
                     setSuccess(true)
                 })
             }else{

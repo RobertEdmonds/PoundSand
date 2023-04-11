@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function SandSite(){
+function SandSite({handleAddSite}){
     const [ location, setLocation ] = useState('')
     const [ success, setSuccess ] = useState(false)
     const [ error, setError ] = useState([])
@@ -19,9 +19,9 @@ function SandSite(){
         body: JSON.stringify(formData),
         }).then(resp => {
             if(resp.ok){
-                resp.json().then(truck => {
+                resp.json().then(site => {
                     setSuccess(true)
-                    console.log(truck)
+                    handleAddSite(site)
                 })
             }else{
                 resp.json().then((err) => setError(err.errors))
@@ -33,7 +33,7 @@ function SandSite(){
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSiteModal">
                 Create New Site
             </button>
-            <div className="modal fade" id="createSiteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="createSiteModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">

@@ -23,7 +23,38 @@ function Authenticated({user, setUser}){
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
         navigate(`/site/${site.location}/${site.id}`)
-      }
+    }
+
+    const handleAddSite = (newSite) => {
+        setSites([...sites, newSite])
+    }
+
+    const handleAddSand = (truck) => {
+        const updatedSite = sites.filter(site => {
+            if(site.id === truck.site_id){
+                site.total_on_site += truck.total 
+                setOnSite(site.total_on_site)
+                return site
+            }else{
+                return site
+            }
+        })
+        setSites(updatedSite)
+    }
+
+    const handleUseSand = (useSand) => {
+        const updatedSite = sites.filter(site => {
+            if(site.id === useSand.site_id){
+                site.total_sand_used += useSand.pounds
+                setOnSite(site.total_on_site - useSand.pounds) 
+                setTSandUsed(site.total_sand_used)
+                return site
+            }else{
+                return site
+            }
+        })
+        setSites(updatedSite)
+    }
 
     function handleLogout() {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
@@ -44,12 +75,14 @@ function Authenticated({user, setUser}){
                 setButtonInfo={setButtonInfo}
                 tSandUsed={tSandUsed}
                 onSite={onSite}
+                handleAddSand={handleAddSand}
+                handleUseSand={handleUseSand}
                 />}/>
                 {!!user && user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
             </Routes>
-            <SandSite />
+            <SandSite handleAddSite={handleAddSite}/>
             <button onClick={handleLogout}>logout</button>
         </div>
     )

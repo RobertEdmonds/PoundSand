@@ -10,7 +10,6 @@ function App() {
     fetch("/api/me").then((resp) => {
       if (resp.ok) {
         resp.json().then((user) => {
-          console.log(user)
           setUser(user)
         });
       }
@@ -23,9 +22,6 @@ function App() {
   //   .then(comp => console.log(comp))
   // }
 
-
-
-  console.log(user)
   return (
     <>
     <Router>
@@ -37,7 +33,6 @@ function App() {
         ) : (
           <Unauthenticated
             setUser={setUser}
-            user={user}
           />
         )
       }
