@@ -14,6 +14,7 @@ class Api::SitesController < ApplicationController
 
     def create 
         site = Site.create!(site_params)
+        site.update(start_date: Date.current())
         render json: site, status: :created 
     end
 

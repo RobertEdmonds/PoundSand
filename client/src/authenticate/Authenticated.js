@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
@@ -34,12 +34,11 @@ function Authenticated({user, setUser}){
         <div>
             <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo} setButtonInfo={setButtonInfo}/>
             <Routes>
-                <Route path='/homepage' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
+                <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
                 <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites} setButtonInfo={setButtonInfo}/>}/>
-                {!!user && user.log_number === 1 && (
+                {!!user && user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
-                <Route path='*' element={<Navigate to='/homepage' />} />
             </Routes>
             <SandSite />
             <button onClick={handleLogout}>logout</button>

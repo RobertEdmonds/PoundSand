@@ -23,19 +23,7 @@ function App() {
   //   .then(comp => console.log(comp))
   // }
 
-  // function createSite(){
-  //   const formData = {
-  //     location: "Texas",
-  //   }
-  //   fetch('/api/sites', {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formData),
-  //   }).then(resp => resp.json())
-  //   .then(site => console.log(site))
-  // }
+
 
   console.log(user)
   return (
