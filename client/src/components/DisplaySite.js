@@ -12,7 +12,7 @@ function DisplaySite({sites,
     handleAddSand,
     handleUseSand
     }){
-    const { location, id } = useParams()
+    const { location, id} = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {

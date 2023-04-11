@@ -46,7 +46,8 @@ function Authenticated({user, setUser}){
         const updatedSite = sites.filter(site => {
             if(site.id === useSand.site_id){
                 site.total_sand_used += useSand.pounds
-                setOnSite(site.total_on_site - useSand.pounds) 
+                site.total_on_site -= useSand.pounds
+                setOnSite(onSite - useSand.pounds) 
                 setTSandUsed(site.total_sand_used)
                 return site
             }else{
@@ -60,7 +61,6 @@ function Authenticated({user, setUser}){
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
             setUser(null);
-            navigate("/login");
           }
         });
     }

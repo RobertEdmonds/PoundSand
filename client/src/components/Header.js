@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-function Header({sites, handleSiteDisplayButton, buttonInfo, setButtonInfo}){
+function Header({sites, 
+    handleSiteDisplayButton, 
+    buttonInfo, 
+    setButtonInfo,
+}){
     const navigate = useNavigate()
 
     const handleGoHome = () => {
