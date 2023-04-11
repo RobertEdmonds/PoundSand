@@ -5,7 +5,7 @@ import TruckLoad from "../forms/TruckLoad";
 import DisplayNav from "./DisplayNav";
 
 
-function DisplaySite({sites, setButtonInfo}){
+function DisplaySite({sites, setButtonInfo, onSite, tSandUsed}){
     const { location, id } = useParams()
     const navigate = useNavigate()
 
@@ -23,6 +23,20 @@ function DisplaySite({sites, setButtonInfo}){
             <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
             <DownHole id={id}/>
             <TruckLoad id={id}/>
+            <div class="container text-center">
+                <div class="row justify-content-md-center">
+                    <div class="col-6">
+                        Total Sand On Site:
+                        <br/>
+                        {onSite}
+                    </div>
+                    <div class="col-6">
+                        Total Sand Used:
+                        <br/>
+                        {tSandUsed}
+                    </div>
+                </div>
+            </div>
             <table className="table">
                 <thead>
                     <tr>

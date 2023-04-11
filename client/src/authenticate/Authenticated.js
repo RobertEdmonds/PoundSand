@@ -9,6 +9,8 @@ import ResetPW from '../forms/ResetPW';
 function Authenticated({user, setUser}){
     const [ sites, setSites ] = useState([])
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
+    const [ tSandUsed, setTSandUsed ] = useState(0)
+    const [ onSite, setOnSite ] = useState(0)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -18,6 +20,8 @@ function Authenticated({user, setUser}){
 
     const handleSiteDisplayButton = (site) => {
         setButtonInfo(site.location)
+        setTSandUsed(site.total_sand_used)
+        setOnSite(site.total_on_site)
         navigate(`/site/${site.location}/${site.id}`)
       }
 
@@ -35,7 +39,12 @@ function Authenticated({user, setUser}){
             <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo} setButtonInfo={setButtonInfo}/>
             <Routes>
                 <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
-                <Route path={`/site/:location/:id`} element={<DisplaySite sites={sites} setButtonInfo={setButtonInfo}/>}/>
+                <Route path={`/site/:location/:id`} element={<DisplaySite 
+                sites={sites} 
+                setButtonInfo={setButtonInfo}
+                tSandUsed={tSandUsed}
+                onSite={onSite}
+                />}/>
                 {!!user && user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
