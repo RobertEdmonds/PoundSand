@@ -38,7 +38,24 @@ function DisplaySite({sites,
     for(let i = 0; i < Object.values(dictionaryUsed).length; i++){
         displaySandUsed.push(sandUsed[0][(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
-    }      
+    } 
+     
+    const truckAmount = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)
+    const dictionaryTruck = {}
+        for(let i = 0; i < truckAmount[0].length; i++){
+            if(dictionaryTruck.hasOwnProperty(truckAmount[0][i].date)){
+                dictionaryTruck[truckAmount[0][i].date] += 1
+            }else{
+                dictionaryTruck[truckAmount[0][i].date] = 1
+            }
+        }
+    const displayTruckLoad = [] 
+    let amount = 0
+    for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
+        displayTruckLoad.push(truckAmount[0][(Object.values(dictionaryUsed)[i])+ amount - 1])
+        amount += (Object.values(dictionaryUsed)[i])
+    }
+    console.log(displayTruckLoad)    
     return(
         <div>
             <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
