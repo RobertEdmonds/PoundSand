@@ -24,6 +24,18 @@ function DisplaySite({sites,
 
     }
 
+    const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)
+    const dictionaryUsed = {}
+            for(let i = 0; i < sandUsed[0].length; i++){
+                if(dictionaryUsed.hasOwnProperty(sandUsed[0][i].date)){
+                    console.log(sandUsed[0][i].date)
+                    dictionaryUsed[sandUsed[0][i].date] += 1
+                }else{
+                    console.log(sandUsed[0][i].date)
+                    dictionaryUsed[sandUsed[0][i].date] = 1
+                }
+            }       
+    console.log(dictionaryUsed)
     return(
         <div>
             <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
@@ -53,19 +65,19 @@ function DisplaySite({sites,
                     </tr>
                 </thead>
                 <tbody>
-            {sites.filter(site => site.id === parseInt(id))
-            .map(site => {
-                console.log(site)
-                return(
-                    <tr key={site.id}>
-                        {}
+                {for(let i = 0; i < dictionaryUsed; i++){
+                    if(){
+                        return(
+                    <tr >
                         <th scope="row">1</th>
                         <td>Mark</td>
                         <td>Otto</td>
                         <td>@mdo</td>
-                    </tr>   
-                )
-            })}
+                    </tr>
+                        )
+                    }
+                    }   
+                }
                 </tbody>
             </table>
         </div>
