@@ -26,16 +26,19 @@ function DisplaySite({sites,
 
     const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)
     const dictionaryUsed = {}
-            for(let i = 0; i < sandUsed[0].length; i++){
-                if(dictionaryUsed.hasOwnProperty(sandUsed[0][i].date)){
-                    console.log(sandUsed[0][i].date)
-                    dictionaryUsed[sandUsed[0][i].date] += 1
-                }else{
-                    console.log(sandUsed[0][i].date)
-                    dictionaryUsed[sandUsed[0][i].date] = 1
-                }
-            }       
-    console.log(dictionaryUsed)
+        for(let i = 0; i < sandUsed[0].length; i++){
+            if(dictionaryUsed.hasOwnProperty(sandUsed[0][i].date)){
+                dictionaryUsed[sandUsed[0][i].date] += 1
+            }else{
+                dictionaryUsed[sandUsed[0][i].date] = 1
+            }
+        }
+    const displaySandUsed = [] 
+    let count = 0
+    for(let i = 0; i < Object.values(dictionaryUsed).length; i++){
+        displaySandUsed.push(sandUsed[0][(Object.values(dictionaryUsed)[i])+ count - 1])
+        count += (Object.values(dictionaryUsed)[i])
+    }      
     return(
         <div>
             <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
@@ -59,25 +62,25 @@ function DisplaySite({sites,
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">Sand on Site</th>
-                        <th scope="col">Sand Used</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Pounds</th>
+                        <th scope="col">Stage</th>
+                        <th scope="col">Moisture</th>
+                        <th scope="col">Total Per Day</th>
                     </tr>
                 </thead>
                 <tbody>
-                {for(let i = 0; i < dictionaryUsed; i++){
-                    if(){
+                {displaySandUsed.map(sand => {
                         return(
-                    <tr >
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+                            <tr key={sand.id}>
+                                <th scope="row">{sand.date}</th>
+                                <td>{sand.pounds}</td>
+                                <td>{sand.stage}</td>
+                                <td>{sand.moisture}</td>
+                                <td>{sand.total_amount_per_day}</td>
+                            </tr>
                         )
-                    }
-                    }   
-                }
+                    })
+                }        
                 </tbody>
             </table>
         </div>
