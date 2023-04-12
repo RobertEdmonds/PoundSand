@@ -55,6 +55,7 @@ function DisplaySite({sites,
                 <tbody>
             {sites.filter(site => site.id === parseInt(id))
             .map(site => {
+                console.log(site)
                 return(
                     <tr key={site.id}>
                         {}

@@ -9,8 +9,8 @@ class Api::SandUsedsController < ApplicationController
         sand_used.update!(date: Date.current())
         site = Site.find(sand_used.site_id)
         site.update(total_sand_used: (site.total_sand_used + sand_used.pounds), total_on_site: (site.total_on_site - sand_used.pounds))
-        if SandUsed.where(date: sand_used.date).length() > 1
-            sand_used_list = SandUsed.where(date: sand_used.date)
+        if SandUsed.where(date: sand_used.date).length() > 1 && SandUsed.where(site_id: site.id).length() > 1
+            sand_used_list = SandUsed.where(date: sand_used.date, site_id: site.id)
             total = 0
             sand_used_list.map { |sand| total += sand.pounds }
             sand_used.update!(total_amount_per_day: total)

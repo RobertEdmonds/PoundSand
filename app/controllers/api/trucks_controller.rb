@@ -9,8 +9,8 @@ class Api::TrucksController < ApplicationController
        truck.update!(total: (truck.gross_weight - truck.tare_weight), date: Date.current()) 
        site = Site.find_by(id: truck.site_id)
        site.update(total_on_site: (site.total_on_site + truck.total))
-        if Truck.where(date: truck.date).length() > 1
-            truck_list = Truck.where(date: truck.date)
+        if Truck.where(date: truck.date).length() > 1 && Truck.where(site_id: site.id).length() > 1 
+            truck_list = Truck.where(date: truck.date, site_id: site.id)
             total = 0
             truck_list.map { |trk| total += trk.total}
             truck.update!(total_amount_per_day: total)
