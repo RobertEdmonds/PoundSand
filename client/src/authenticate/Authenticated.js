@@ -1,22 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
 import SandSite from '../forms/SandSite';
 import ResetPW from '../forms/ResetPW';
+// , useEffect
 
-function Authenticated({user, setUser}){
-    const [ sites, setSites ] = useState([])
+function Authenticated({user, setUser, sites, setSites}){
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
     const navigate = useNavigate()
-
-    useEffect(() => {
-        fetch('/api/sites')
-        .then(resp => resp.json().then(site => setSites(site)))
-    },[])
 
     const handleSiteDisplayButton = (site) => {
         setButtonInfo(site.location)
@@ -67,7 +62,12 @@ function Authenticated({user, setUser}){
 
     return(
         <div>
-            <Header sites={sites} handleSiteDisplayButton={handleSiteDisplayButton} buttonInfo={buttonInfo} setButtonInfo={setButtonInfo}/>
+            <Header 
+            sites={sites} 
+            handleSiteDisplayButton={handleSiteDisplayButton} 
+            buttonInfo={buttonInfo} 
+            setButtonInfo={setButtonInfo} 
+            />
             <Routes>
                 <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
                 <Route path={`/site/:location/:id`} element={<DisplaySite 
