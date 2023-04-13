@@ -10,7 +10,7 @@ function DisplaySite({sites,
     onSite, 
     tSandUsed,
     handleAddSand,
-    handleUseSand
+    handleUseSand,
     }){
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)

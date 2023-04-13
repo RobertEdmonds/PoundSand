@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
@@ -82,6 +82,9 @@ function Authenticated({user, setUser}){
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
             </Routes>
+            {!!user && user.log_number === 0 && (
+                <Navigate to={`/reset_password/${user.id}`} />
+            )}
             <SandSite handleAddSite={handleAddSite}/>
             <button onClick={handleLogout}>logout</button>
         </div>
