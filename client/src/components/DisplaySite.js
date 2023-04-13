@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DownHole from "../forms/DownHole";
 import TruckLoad from "../forms/TruckLoad";
@@ -13,6 +13,7 @@ function DisplaySite({sites,
     handleUseSand
     }){
     const { location, id} = useParams()
+    const [ displayInfo, setDisplayInfo ] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -39,7 +40,7 @@ function DisplaySite({sites,
         displaySandUsed.push(sandUsed[0][(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
     } 
-     
+
     const truckAmount = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)
     const dictionaryTruck = {}
         for(let i = 0; i < truckAmount[0].length; i++){
@@ -52,13 +53,13 @@ function DisplaySite({sites,
     const displayTruckLoad = [] 
     let amount = 0
     for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
-        displayTruckLoad.push(truckAmount[0][(Object.values(dictionaryUsed)[i])+ amount - 1])
-        amount += (Object.values(dictionaryUsed)[i])
+        displayTruckLoad.push(truckAmount[0][(Object.values(dictionaryTruck)[i])+ amount - 1])
+        amount += (Object.values(dictionaryTruck)[i])
     }
-    console.log(displayTruckLoad)    
+  
     return(
         <div>
-            <DisplayNav location={location} handleWeightChange={handleWeightChange}/>
+            <DisplayNav location={location} handleWeightChange={handleWeightChange} setDisplayInfo={setDisplayInfo}/>
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} handleAddSand={handleAddSand}/>
             <div className="container text-center">
@@ -75,6 +76,33 @@ function DisplaySite({sites,
                     </div>
                 </div>
             </div>
+            {displayInfo ? (
+                <table className="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Truck Load</th>
+                        <th scope="col">Mine</th>
+                        <th scope="col">PO #</th>
+                        <th scope="col">Total Per Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {displayTruckLoad.map(truck => {
+                        return(
+                            <tr key={truck.id}>
+                                <th scope="row">{truck.date}</th>
+                                <td>{truck.total}</td>
+                                <td>{truck.mine}</td>
+                                <td>{truck.po}</td>
+                                <td>{truck.total_amount_per_day}</td>
+                            </tr>
+                        )
+                    })
+                }        
+                </tbody>
+            </table>
+            ):(
             <table className="table">
                 <thead>
                     <tr>
@@ -100,6 +128,7 @@ function DisplaySite({sites,
                 }        
                 </tbody>
             </table>
+            )}
         </div>
     )
 }
