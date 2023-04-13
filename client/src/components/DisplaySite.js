@@ -14,6 +14,7 @@ function DisplaySite({sites,
     }){
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
+    const [ changeWeight, setChangeWeight ] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -21,8 +22,8 @@ function DisplaySite({sites,
         setButtonInfo(location)
     },[navigate, location, id, setButtonInfo])
 
-    const handleWeightChange = () => {
-
+    const handleWeightChange = (bool) => {
+        setChangeWeight(bool)
     }
 
     const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)
@@ -67,12 +68,12 @@ function DisplaySite({sites,
                     <div className="col-6">
                         Total Sand On Site:
                         <br/>
-                        {onSite}
+                        {changeWeight ? (onSite / 2000) : (onSite)}
                     </div>
                     <div className="col-6">
                         Total Sand Used:
                         <br/>
-                        {tSandUsed}
+                        {changeWeight ? (tSandUsed / 2000) : tSandUsed}
                     </div>
                 </div>
             </div>
@@ -89,13 +90,14 @@ function DisplaySite({sites,
                 </thead>
                 <tbody>
                 {displayTruckLoad.map(truck => {
+                    const truckDate = truck.date.split("-")
                         return(
                             <tr key={truck.id}>
-                                <th scope="row">{truck.date}</th>
-                                <td>{truck.total}</td>
+                                <th scope="row">{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</th>
+                                <td>{changeWeight ? (truck.total / 2000) : truck.total}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
-                                <td>{truck.total_amount_per_day}</td>
+                                <td>{changeWeight ? (truck.total_amount_per_day / 2000) : truck.total_amount_per_day}</td>
                             </tr>
                         )
                     })
@@ -115,13 +117,14 @@ function DisplaySite({sites,
                 </thead>
                 <tbody>
                 {displaySandUsed.map(sand => {
+                    const sandDate = sand.date.split('-')
                         return(
                             <tr key={sand.id}>
-                                <th scope="row">{sand.date}</th>
-                                <td>{sand.pounds}</td>
+                                <th scope="row">{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</th>
+                                <td>{changeWeight ? (sand.pounds / 2000) : sand.pounds}</td>
                                 <td>{sand.stage}</td>
                                 <td>{sand.moisture}</td>
-                                <td>{sand.total_amount_per_day}</td>
+                                <td>{changeWeight ? (sand.total_amount_per_day / 2000) : sand.total_amount_per_day}</td>
                             </tr>
                         )
                     })
