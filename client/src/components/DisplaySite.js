@@ -3,27 +3,16 @@ import {  useParams } from "react-router-dom";
 import DownHole from "../forms/DownHole";
 import TruckLoad from "../forms/TruckLoad";
 import DisplayNav from "./DisplayNav";
-// useNavigate,
-// useEffect, 
-
 
 function DisplaySite({sites, 
-    // setButtonInfo, 
     onSite, 
     tSandUsed,
     handleAddSand,
-    handleUseSand,
-    // setSites,
+    handleUseSand
     }){
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
-    // const navigate = useNavigate()
-
-    // useEffect(() => {
-    //     fetch('/api/sites')
-    //     .then(resp => resp.json().then(site => setSites(site)))
-    // },[])
 
     const handleWeightChange = (bool) => {
         setChangeWeight(bool)

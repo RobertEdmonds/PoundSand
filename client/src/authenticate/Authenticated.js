@@ -1,22 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
 import SandSite from '../forms/SandSite';
 import ResetPW from '../forms/ResetPW';
-// , useEffect
 
-function Authenticated({user, setUser, sites, setSites}){
+function Authenticated({user, setUser}){
+    const [ sites, setSites ] = useState([])
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
     const navigate = useNavigate()
 
+    useEffect(() => {
+        fetch('/api/sites')
+        .then(resp => resp.json().then(site => {
+            setSites(site)
+            const data = window.localStorage.getItem('MY_SAND_SITE')
+            if(data === null){
+                navigate('/')
+            }else{
+                const site = JSON.parse(data)
+                if(site.showSite){
+                    setButtonInfo(site.location)
+                    setTSandUsed(site.total_sand_used)
+                    setOnSite(site.total_on_site)
+                    navigate(`/site/${site.location}/${site.id}`)
+                }
+            }
+        }))
+    },[navigate])
+
     const handleSiteDisplayButton = (site) => {
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
+        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, location: site.location, total_sand_used:site.total_sand_used, total_on_site: site.total_sand_used,  showSite: true}))
         navigate(`/site/${site.location}/${site.id}`)
     }
 
@@ -59,7 +79,7 @@ function Authenticated({user, setUser, sites, setSites}){
           }
         });
     }
-
+    console.log(sites)
     return(
         <div>
             <Header 

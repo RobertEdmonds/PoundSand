@@ -9,7 +9,7 @@ function Header({sites,
 
     const handleGoHome = () => {
         navigate('/')
-        // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
+        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         setButtonInfo('Job Sites')
     }
 

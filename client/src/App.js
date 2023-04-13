@@ -5,7 +5,7 @@ import Unauthenticated from './authenticate/Unauthenticated'
 
 function App() {
   const [ user, setUser ] = useState(null)
-  const [ sites, setSites ] = useState([]) 
+  // const [ sites, setSites ] = useState([]) 
 
   useEffect(() => {
     fetch("/api/me").then((resp) => {
@@ -17,10 +17,7 @@ function App() {
     });
   }, [setUser]);
 
-  useEffect(() => {
-    fetch('/api/sites')
-    .then(resp => resp.json().then(site => setSites(site)))
-},[])
+  
 
   // function handleFinishedSite(){
   //   fetch('/api/completed_sites')
@@ -35,8 +32,8 @@ function App() {
           <Authenticated
             setUser={setUser}
             user={user}
-            sites={sites}
-            setSites={setSites}
+            // sites={sites}
+            // setSites={setSites}
           />
         ) : (
           <Unauthenticated
