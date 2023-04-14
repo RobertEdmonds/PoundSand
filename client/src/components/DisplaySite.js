@@ -16,12 +16,12 @@ function DisplaySite({sites,
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
     const [ truckTime, setTruckTime ] = useState("")
-    const [ sandTime, setSandTime ] = useState('') 
+    const [ sandTime, setSandTime ] = useState('')
 
     const handleWeightChange = (bool) => {
         setChangeWeight(bool)
     }
-
+    console.log(sites)
     const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)
     const dictionaryUsed = {}
         for(let i = 0; i < sandUsed[0].length; i++){
@@ -36,8 +36,8 @@ function DisplaySite({sites,
     for(let i = 0; i < Object.values(dictionaryUsed).length; i++){
         displaySandUsed.push(sandUsed[0][(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
-    } 
-    console.log(displayInfo)
+    }
+
     const truckArray = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)
     const dictionaryTruck = {}
         for(let i = 0; i < truckArray[0].length; i++){

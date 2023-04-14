@@ -1,5 +1,4 @@
 class Api::TrucksController < ApplicationController
-    skip_before_action :authorize
     def index
         render json: Truck.all, status: :ok
     end

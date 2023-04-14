@@ -52,6 +52,7 @@ function Authenticated({user, setUser}){
         const updatedSite = sites.filter(site => {
             if(site.id === truck.site_id){
                 site.total_on_site += truck.total 
+                site.trucks.push(truck)
                 setOnSite(site.total_on_site)
                 return site
             }else{
@@ -66,6 +67,7 @@ function Authenticated({user, setUser}){
             if(site.id === useSand.site_id){
                 site.total_sand_used += useSand.pounds
                 site.total_on_site -= useSand.pounds
+                site.sand_useds.push(useSand)
                 setOnSite(onSite - useSand.pounds) 
                 setTSandUsed(site.total_sand_used)
                 return site
