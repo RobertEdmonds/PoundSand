@@ -36,7 +36,11 @@ function Authenticated({user, setUser}){
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
-        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, location: site.location, total_sand_used:site.total_sand_used, total_on_site: site.total_sand_used,  showSite: true}))
+        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+            location: site.location, 
+            total_sand_used:site.total_sand_used, 
+            total_on_site: site.total_on_site,  
+            showSite: true}))
         navigate(`/site/${site.location}/${site.id}`)
     }
 
@@ -79,7 +83,7 @@ function Authenticated({user, setUser}){
           }
         });
     }
-    console.log(sites)
+
     return(
         <div>
             <Header 

@@ -3,6 +3,8 @@ import {  useParams } from "react-router-dom";
 import DownHole from "../forms/DownHole";
 import TruckLoad from "../forms/TruckLoad";
 import DisplayNav from "./DisplayNav";
+import DisplayTruck from "./DisplayTruck";
+import DisplaySand from "./DisplaySand";
 
 function DisplaySite({sites, 
     onSite, 
@@ -13,6 +15,8 @@ function DisplaySite({sites,
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
+    const [ truckTime, setTruckTime ] = useState("")
+    const [ sandTime, setSandTime ] = useState('') 
 
     const handleWeightChange = (bool) => {
         setChangeWeight(bool)
@@ -34,19 +38,19 @@ function DisplaySite({sites,
         count += (Object.values(dictionaryUsed)[i])
     } 
 
-    const truckAmount = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)
+    const truckArray = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)
     const dictionaryTruck = {}
-        for(let i = 0; i < truckAmount[0].length; i++){
-            if(dictionaryTruck.hasOwnProperty(truckAmount[0][i].date)){
-                dictionaryTruck[truckAmount[0][i].date] += 1
+        for(let i = 0; i < truckArray[0].length; i++){
+            if(dictionaryTruck.hasOwnProperty(truckArray[0][i].date)){
+                dictionaryTruck[truckArray[0][i].date] += 1
             }else{
-                dictionaryTruck[truckAmount[0][i].date] = 1
+                dictionaryTruck[truckArray[0][i].date] = 1
             }
         }
     const displayTruckLoad = [] 
     let amount = 0
     for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
-        displayTruckLoad.push(truckAmount[0][(Object.values(dictionaryTruck)[i])+ amount - 1])
+        displayTruckLoad.push(truckArray[0][(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
     }
   
@@ -55,6 +59,8 @@ function DisplaySite({sites,
             <DisplayNav location={location} handleWeightChange={handleWeightChange} setDisplayInfo={setDisplayInfo}/>
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} handleAddSand={handleAddSand}/>
+            <DisplayTruck truckArray={truckArray[0]} truckTime={truckTime}/>
+            <DisplaySand sandUsed={sandUsed[0]} sandTime={sandTime}/>
             <div className="container text-center">
                 <div className="row justify-content-md-center">
                     <div className="col-6">
@@ -85,7 +91,11 @@ function DisplaySite({sites,
                     const truckDate = truck.date.split("-")
                         return(
                             <tr key={truck.id}>
-                                <th scope="row">{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</th>
+                                <th scope="row"><button type="button" 
+                                className="btn btn-primary" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#staticTruck" 
+                                onClick={() => setTruckTime(truck.date)}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button></th>
                                 <td>{changeWeight ? (truck.total / 2000) : truck.total}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
@@ -112,7 +122,12 @@ function DisplaySite({sites,
                     const sandDate = sand.date.split('-')
                         return(
                             <tr key={sand.id}>
-                                <th scope="row">{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</th>
+                                <th scope="row"><button 
+                                type="button" 
+                                className="btn btn-primary"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#staticSand" 
+                                onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button></th>
                                 <td>{changeWeight ? (sand.pounds / 2000) : sand.pounds}</td>
                                 <td>{sand.stage}</td>
                                 <td>{sand.moisture}</td>

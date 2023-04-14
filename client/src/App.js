@@ -32,8 +32,6 @@ function App() {
           <Authenticated
             setUser={setUser}
             user={user}
-            // sites={sites}
-            // setSites={setSites}
           />
         ) : (
           <Unauthenticated
