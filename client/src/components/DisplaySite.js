@@ -10,7 +10,7 @@ function DisplaySite({sites,
     onSite, 
     tSandUsed,
     handleAddSand,
-    handleUseSand
+    handleUseSand,
     }){
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -37,7 +37,7 @@ function DisplaySite({sites,
         displaySandUsed.push(sandUsed[0][(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
     } 
-
+    console.log(displayInfo)
     const truckArray = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)
     const dictionaryTruck = {}
         for(let i = 0; i < truckArray[0].length; i++){
