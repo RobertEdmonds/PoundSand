@@ -21,36 +21,36 @@ function DisplaySite({sites,
     const handleWeightChange = (bool) => {
         setChangeWeight(bool)
     }
-    console.log(sites)
-    const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)
+
+    const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)[0]
     const dictionaryUsed = {}
-        for(let i = 0; i < sandUsed[0].length; i++){
-            if(dictionaryUsed.hasOwnProperty(sandUsed[0][i].date)){
-                dictionaryUsed[sandUsed[0][i].date] += 1
+        for(let i = 0; i < sandUsed.length; i++){
+            if(dictionaryUsed.hasOwnProperty(sandUsed[i].date)){
+                dictionaryUsed[sandUsed[i].date] += 1
             }else{
-                dictionaryUsed[sandUsed[0][i].date] = 1
+                dictionaryUsed[sandUsed[i].date] = 1
             }
         }
     const displaySandUsed = [] 
     let count = 0
     for(let i = 0; i < Object.values(dictionaryUsed).length; i++){
-        displaySandUsed.push(sandUsed[0][(Object.values(dictionaryUsed)[i])+ count - 1])
+        displaySandUsed.push(sandUsed[(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
     }
 
-    const truckArray = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)
+    const truckArray = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)[0]
     const dictionaryTruck = {}
-        for(let i = 0; i < truckArray[0].length; i++){
-            if(dictionaryTruck.hasOwnProperty(truckArray[0][i].date)){
-                dictionaryTruck[truckArray[0][i].date] += 1
+        for(let i = 0; i < truckArray.length; i++){
+            if(dictionaryTruck.hasOwnProperty(truckArray[i].date)){
+                dictionaryTruck[truckArray[i].date] += 1
             }else{
-                dictionaryTruck[truckArray[0][i].date] = 1
+                dictionaryTruck[truckArray[i].date] = 1
             }
         }
     const displayTruckLoad = [] 
     let amount = 0
     for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
-        displayTruckLoad.push(truckArray[0][(Object.values(dictionaryTruck)[i])+ amount - 1])
+        displayTruckLoad.push(truckArray[(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
     }
   
@@ -59,8 +59,8 @@ function DisplaySite({sites,
             <DisplayNav location={location} handleWeightChange={handleWeightChange} setDisplayInfo={setDisplayInfo}/>
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} handleAddSand={handleAddSand}/>
-            <DisplayTruck truckArray={truckArray[0]} truckTime={truckTime}/>
-            <DisplaySand sandUsed={sandUsed[0]} sandTime={sandTime}/>
+            <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
+            <DisplaySand sandUsed={sandUsed} sandTime={sandTime}/>
             <div className="container text-center">
                 <div className="row justify-content-md-center">
                     <div className="col-6">
