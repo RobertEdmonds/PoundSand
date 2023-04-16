@@ -1,4 +1,4 @@
-function DisplayNav({location, handleWeightChange, setDisplayInfo}){
+function DisplayNav({location, handleWeightChange, setDisplayInfo, handleDateChange}){
     return(
         <nav className="navbar bg-body-tertiary">
                 <div className="container-fluid">
@@ -13,6 +13,13 @@ function DisplayNav({location, handleWeightChange, setDisplayInfo}){
 
                         <input type="radio" className="btn-check" name="btnSand" id="btnSandHere" autoComplete="off"/>
                         <label className="btn btn-outline-primary" htmlFor="btnSandHere" onClick={()=> setDisplayInfo(true)}>Sand Here</label>
+                    </div>
+                    <div className="btn-group d-grid d-md-flex justify-content-md-end" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" className="btn-check" name="btnDate" id="btnDown" autoComplete="off" defaultChecked/>
+                        <label className="btn btn-outline-primary" htmlFor="btnDown" onClick={()=> handleDateChange(false)}>Ascending</label>
+
+                        <input type="radio" className="btn-check" name="btnDate" id="btnUp" autoComplete="off" />
+                        <label className="btn btn-outline-primary" htmlFor="btnUp" onClick={()=> handleDateChange(true)}>Descending</label>
                     </div>
                     <div className="btn-group d-grid d-md-flex justify-content-md-end" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" className="btn-check" name="btnWeight" id="btnPounds" autoComplete="off" defaultChecked/>

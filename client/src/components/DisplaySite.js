@@ -15,11 +15,16 @@ function DisplaySite({sites,
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
+    const [ dateDirection, setDateDirection ] = useState(false)
     const [ truckTime, setTruckTime ] = useState("")
     const [ sandTime, setSandTime ] = useState('')
 
     const handleWeightChange = (bool) => {
         setChangeWeight(bool)
+    }
+
+    const handleDateChange = (bool) => {
+        setDateDirection(bool)
     }
 
     const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)[0]
@@ -56,7 +61,7 @@ function DisplaySite({sites,
   
     return(
         <div>
-            <DisplayNav location={location} handleWeightChange={handleWeightChange} setDisplayInfo={setDisplayInfo}/>
+            <DisplayNav location={location} handleWeightChange={handleWeightChange} setDisplayInfo={setDisplayInfo} handleDateChange={handleDateChange}/>
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} handleAddSand={handleAddSand}/>
             <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
@@ -87,7 +92,7 @@ function DisplaySite({sites,
                     </tr>
                 </thead>
                 <tbody>
-                {displayTruckLoad.map(truck => {
+                {(dateDirection ? displayTruckLoad.reverse() : displayTruckLoad).map(truck => {
                     const truckDate = truck.date.split("-")
                         return(
                             <tr key={truck.id}>
@@ -118,7 +123,7 @@ function DisplaySite({sites,
                     </tr>
                 </thead>
                 <tbody>
-                {displaySandUsed.map(sand => {
+                {(dateDirection ? displaySandUsed.reverse() : displaySandUsed).map(sand => {
                     const sandDate = sand.date.split('-')
                         return(
                             <tr key={sand.id}>
