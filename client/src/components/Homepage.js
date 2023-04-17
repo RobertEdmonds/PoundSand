@@ -18,7 +18,7 @@ function Homepage({sites, handleSiteDisplayButton}){
                                 <li className="list-group-item">{site.total_sand_used}</li>
                             </ul>
                             <div className="card-body">
-                                <button className="btn btn-primary" onClick={() => handleSiteDisplayButton(site)}>Go somewhere</button>
+                                <button className="btn btn-primary" onClick={() => handleSiteDisplayButton(site)}>Go {site.location}</button>
                             </div>
                         </div>
                     </div>

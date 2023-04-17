@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import SandSite from "../forms/SandSite";
 
 function Header({sites, 
     handleSiteDisplayButton, 
     buttonInfo, 
     setButtonInfo,
+    setUser,
+    handleAddSite
 }){
     const navigate = useNavigate()
 
@@ -13,11 +16,21 @@ function Header({sites,
         setButtonInfo('Job Sites')
     }
 
+    function handleLogout() {
+        fetch("/api/logout", { method: "DELETE" }).then((r) => {
+          if (r.ok) {
+            setUser(null);
+          }
+        });
+    }
+
     return(
         <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">
                 <span className="navbar-brand mb-0 h1">Pound Sand</span>
+                <SandSite handleAddSite={handleAddSite}/>
                 <div className="btn-group">
+                    <button type="button" className="btn btn-outline-secondary" onClick={handleLogout}>Logout</button>
                     <button className="btn btn-secondary btn-lg" type="button">
                         {buttonInfo}
                     </button>
@@ -27,10 +40,10 @@ function Header({sites,
                     <ul className="dropdown-menu">
                         {sites.map(site => {
                             return(
-                                <li onClick={() => handleSiteDisplayButton(site)} key={site.id}>{site.location}</li>
+                                <li className="dropdown-item" onClick={() => handleSiteDisplayButton(site)} key={site.id}>{site.location}</li>
                             )
                         })}
-                        <li onClick={() => handleGoHome()}>Home</li>
+                        <li className="dropdown-item" onClick={() => handleGoHome()}>Home</li>
                     </ul>
                 </div>
             </div>

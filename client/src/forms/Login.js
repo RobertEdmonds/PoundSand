@@ -86,7 +86,7 @@ function Login({setUser}){
                     <button type="submit" className="btn btn-primary">Login</button>
                 )}
             </form>
-            <button onClick={() => setLoading(!loading)}></button>
+            {/* <button onClick={() => setLoading(!loading)}></button> */}
         </>
     )
 }

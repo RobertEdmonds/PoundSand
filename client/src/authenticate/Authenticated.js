@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
-import SandSite from '../forms/SandSite';
+// import SandSite from '../forms/SandSite';
 import ResetPW from '../forms/ResetPW';
 
 function Authenticated({user, setUser}){
@@ -78,21 +78,15 @@ function Authenticated({user, setUser}){
         setSites(updatedSite)
     }
 
-    function handleLogout() {
-        fetch("/api/logout", { method: "DELETE" }).then((r) => {
-          if (r.ok) {
-            setUser(null);
-          }
-        });
-    }
-
     return(
         <div>
             <Header 
             sites={sites} 
             handleSiteDisplayButton={handleSiteDisplayButton} 
             buttonInfo={buttonInfo} 
-            setButtonInfo={setButtonInfo} 
+            setButtonInfo={setButtonInfo}
+            setUser={setUser} 
+            handleAddSite={handleAddSite}
             />
             <Routes>
                 <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
@@ -111,8 +105,6 @@ function Authenticated({user, setUser}){
             {!!user && user.log_number === 0 && (
                 <Navigate to={`/reset_password/${user.id}`} />
             )}
-            <SandSite handleAddSite={handleAddSite}/>
-            <button onClick={handleLogout}>logout</button>
         </div>
     )
 }
