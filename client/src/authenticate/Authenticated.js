@@ -28,6 +28,7 @@ function Authenticated({user, setUser}){
                     setButtonInfo(site.location)
                     setTSandUsed(site.total_sand_used)
                     setOnSite(site.total_on_site)
+                    setCompletedBool(site.completed)
                     navigate(`/site/${site.location}/${site.id}`)
                 }
             }
@@ -45,10 +46,12 @@ function Authenticated({user, setUser}){
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
+        console.log(site.completed)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
             location: site.location, 
             total_sand_used:site.total_sand_used, 
-            total_on_site: site.total_on_site,  
+            total_on_site: site.total_on_site,
+            completed: site.completed,  
             showSite: true}))
         navigate(`/site/${site.location}/${site.id}`)
     }
@@ -87,6 +90,27 @@ function Authenticated({user, setUser}){
         setSites(updatedSite)
     }
 
+    const handleSiteCompletion = (id) => {
+        const form = {
+            completed: !completedBool,
+          };
+          fetch(`/api/sites/${id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form),
+          }).then(resp => resp.json())
+          .then(site => {
+            setCompletedBool(!completedBool)
+            if(site.completed){
+                setCompletedSites([...completedSites, site])
+            }else{
+                setSites([...sites, site])
+            }
+          })
+    }
+
     return(
         <div>
             <Header 
@@ -108,6 +132,7 @@ function Authenticated({user, setUser}){
                 handleAddSand={handleAddSand}
                 handleUseSand={handleUseSand}
                 completedBool={completedBool}
+                handleSiteCompletion={handleSiteCompletion}
                 />}/>
                 {!!user && user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>

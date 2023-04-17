@@ -11,7 +11,8 @@ function DisplaySite({sites,
     tSandUsed,
     handleAddSand,
     handleUseSand,
-    completedBool
+    completedBool,
+    handleSiteCompletion
     }){
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -61,22 +62,17 @@ function DisplaySite({sites,
         amount += (Object.values(dictionaryTruck)[i])
     }
 
-    const handleSiteCompletion = (id) => {
-        const form = {
-            completed: !completedBool,
-          };
-          fetch(`/api/sites/${id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
-          });
-    }
+    
   
     return(
         <div>
-            <DisplayNav location={location} handleWeightChange={handleWeightChange} setDisplayInfo={setDisplayInfo} handleDateChange={handleDateChange}/>
+            <DisplayNav 
+            location={location} 
+            handleWeightChange={handleWeightChange} 
+            setDisplayInfo={setDisplayInfo} 
+            handleDateChange={handleDateChange}
+            completedBool={completedBool}
+            />
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} handleAddSand={handleAddSand}/>
             <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
