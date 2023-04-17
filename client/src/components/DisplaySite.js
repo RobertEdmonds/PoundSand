@@ -11,11 +11,13 @@ function DisplaySite({sites,
     tSandUsed,
     handleAddSand,
     handleUseSand,
+    completedBool
     }){
     const { location, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
+    // const [ completion, setCompletion ] = useState(false)
     const [ truckTime, setTruckTime ] = useState("")
     const [ sandTime, setSandTime ] = useState('')
 
@@ -57,6 +59,19 @@ function DisplaySite({sites,
     for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
         displayTruckLoad.push(truckArray[(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
+    }
+
+    const handleSiteCompletion = (id) => {
+        const form = {
+            completed: !completedBool,
+          };
+          fetch(`/api/sites/${id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form),
+          });
     }
   
     return(
@@ -144,6 +159,9 @@ function DisplaySite({sites,
                 </tbody>
             </table>
             )}
+            <div className="d-grid gap-2">
+                <button className="btn btn-primary" type="button" onClick={() => handleSiteCompletion(parseInt(id))}>{completedBool ? "Reopen Site" : "Complete This Site"}</button>
+            </div>
         </div>
     )
 }

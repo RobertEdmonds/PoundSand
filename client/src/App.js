@@ -17,14 +17,6 @@ function App() {
     });
   }, [setUser]);
 
-  
-
-  // function handleFinishedSite(){
-  //   fetch('/api/completed_sites')
-  //   .then(resp => resp.json())
-  //   .then(comp => console.log(comp))
-  // }
-
   return (
     <>
     <Router>

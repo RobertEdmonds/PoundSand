@@ -8,9 +8,11 @@ import ResetPW from '../forms/ResetPW';
 
 function Authenticated({user, setUser}){
     const [ sites, setSites ] = useState([])
+    const [ completedSites, setCompletedSites ] = useState([])
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
+    const [ completedBool, setCompletedBool ] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -31,6 +33,13 @@ function Authenticated({user, setUser}){
             }
         }))
     },[navigate])
+
+    useEffect(() => {
+        fetch('/api/completed_sites')
+        .then(resp => resp.json())
+        .then(comp => setCompletedSites(comp))
+    },[])
+
 
     const handleSiteDisplayButton = (site) => {
         setButtonInfo(site.location)
@@ -87,16 +96,18 @@ function Authenticated({user, setUser}){
             setButtonInfo={setButtonInfo}
             setUser={setUser} 
             handleAddSite={handleAddSite}
+            setCompletedBool={setCompletedBool}
             />
             <Routes>
-                <Route path='/' element={<Homepage sites={sites} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
+                <Route path='/' element={<Homepage sites={(completedBool ? completedSites : sites)} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
                 <Route path={`/site/:location/:id`} element={<DisplaySite 
-                sites={sites} 
+                sites={(completedBool ? completedSites : sites)} 
                 setButtonInfo={setButtonInfo}
                 tSandUsed={tSandUsed}
                 onSite={onSite}
                 handleAddSand={handleAddSand}
                 handleUseSand={handleUseSand}
+                completedBool={completedBool}
                 />}/>
                 {!!user && user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>

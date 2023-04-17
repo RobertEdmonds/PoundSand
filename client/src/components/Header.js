@@ -6,15 +6,24 @@ function Header({sites,
     buttonInfo, 
     setButtonInfo,
     setUser,
-    handleAddSite
+    handleAddSite,
+    setCompletedBool
 }){
     const navigate = useNavigate()
 
     const handleGoHome = () => {
         navigate('/')
+        setCompletedBool(false)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         setButtonInfo('Job Sites')
     }
+
+    const handleCompletedBool = () =>{
+        navigate('/')
+        setCompletedBool(true)
+        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
+        setButtonInfo('Completed Sites')
+    } 
 
     function handleLogout() {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
@@ -44,6 +53,7 @@ function Header({sites,
                             )
                         })}
                         <li className="dropdown-item" onClick={() => handleGoHome()}>Home</li>
+                        <li className="dropdown-item" onClick={() => handleCompletedBool()}>Completed Sites</li>
                     </ul>
                 </div>
             </div>
