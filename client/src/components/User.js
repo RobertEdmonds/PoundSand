@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react"
 import SetPWReset from "../forms/SetPWReset"
+import UserAdmin from "../forms/UserAdmin"
 
 export default function User(){
     const [ usersArray, setUsersArray ] = useState([])
     const [ userInfo, setUserInfo ] = useState([])
+    
     useEffect(() => {
         fetch('/api/users')
         .then(resp => resp.json())
         .then(users => setUsersArray(users))
     },[])
+
+    
+
     return(
         <div className="container text-center">
             <div className="row">
@@ -21,7 +26,7 @@ export default function User(){
                             </div>
                             <div className="card-body">
                                 <button className="btn btn-primary" onClick={() => setUserInfo(user)}data-bs-toggle="modal" data-bs-target="#ResetPWModal">Reset Password</button>
-                                <button className="btn btn-primary" onClick={() => console.log(user)}>Give Admin Privilege </button>
+                                <UserAdmin id={user.id} status={user.boss}/>
                             </div>
                         </div>
                     </div>

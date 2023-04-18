@@ -1,4 +1,5 @@
 class Api::UsersController < ApplicationController
+    before_action :authorize_user, only: [:employee_change] 
 
     def index 
         render json: User.all, status: :ok
@@ -33,12 +34,12 @@ class Api::UsersController < ApplicationController
         user = User.find(params[:id])
         user.update(user_password_params)
         user.update(log_number: (user.log_number + 1))
-        render json: user, status: :created
+        render json: @user, status: :created    
     end
 
-    def update_employee
+    def employee_change
         user = User.find(params[:id])
-        user.update(update_employee_params)
+        user.update(boss: !user.boss)
         render json: user, status: :created 
     end
 
@@ -52,7 +53,12 @@ class Api::UsersController < ApplicationController
         params.permit(:password, :password_confirmation, :log_number)
     end
 
-    def update_employee_params 
-        params.permit(:boss)
+    # def update_employee_params 
+    #     params.permit(:boss, :id)
+    # end
+
+    def authorize_user
+        user_can_see = current_user.boss?
+        render json: { error: "Ah ah ah, you didn't say the magic word" }, status: :forbidden unless user_can_see
     end
 end

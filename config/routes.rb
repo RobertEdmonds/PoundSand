@@ -3,14 +3,14 @@ Rails.application.routes.draw do
     resources :sand_useds, only: [:index, :create]
     resources :trucks, only: [:index, :create]
     resources :sites, except: [:show]
-    resources :users
+    resources :users, only: [:index]
 
     post '/signup', to: 'users#create'
     get '/me', to: 'users#show'
     post '/login', to: 'sessions#create'
     delete '/logout', to: "sessions#destroy"
     post '/reset/:id', to: "users#reset_password"
-    patch "/user_employee_update/:id", to: 'users#update_employee'
+    patch "/user_employee_update/:id", to: 'users#employee_change'
     get '/completed_sites', to: 'sites#completed_index'
     patch '/reset_password/:id', to: 'users#admin_reset_password'
   end

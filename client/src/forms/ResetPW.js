@@ -16,6 +16,9 @@ function ResetPW({setUser, user}){
           password,
           password_confirmation: passwordConfirmation
         };
+        if (password !== passwordConfirmation) {
+          alert("Passwords don't match");
+        } else {
         fetch(`/api/reset/${user.id}`, {
           method: "POST",
           headers: {
@@ -37,6 +40,7 @@ function ResetPW({setUser, user}){
             });
           }
         });
+        }
       }
     return(
         <>

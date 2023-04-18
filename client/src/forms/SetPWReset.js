@@ -11,11 +11,13 @@ export default function SetPWReset({userInfo}){
     
     const handleSubmit = () => {
         const dataForm = {
-            // username: userInfo.username,
             password,
             password_confirmation: passwordConfirmation,
             log_number: -1
         }
+        if (password !== passwordConfirmation) {
+            alert("Passwords don't match");
+        } else {
         fetch(`/api/reset_password/${userInfo.id}`, {
             method: "PATCH",
             headers: {
@@ -38,6 +40,7 @@ export default function SetPWReset({userInfo}){
               });
             }
           });
+        }
     }
 
     return(

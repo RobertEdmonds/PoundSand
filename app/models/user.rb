@@ -10,6 +10,5 @@ class User < ApplicationRecord
         /x
     
     validates :name, :username, {presence: true, uniqueness: true}
-    validates :password, format: PASSWORD_REQUIREMENTS, confirmation: true
-    validates :password_confirmation, presence: true
+    validates :password, format: PASSWORD_REQUIREMENTS, confirmation: true, on: :create
 end
