@@ -79,7 +79,6 @@ function ResetPW({setUser, user}){
                     <button type="submit" className="btn btn-primary">Login</button>
                 )}
             </form>
-            <button onClick={() => setLoading(!loading)}></button>
         </>
     )
 }

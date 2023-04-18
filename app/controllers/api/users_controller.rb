@@ -29,6 +29,13 @@ class Api::UsersController < ApplicationController
         render json: user, status: :created 
     end
 
+    def admin_reset_password 
+        user = User.find(params[:id])
+        user.update(user_password_params)
+        user.update(log_number: (user.log_number + 1))
+        render json: user, status: :created
+    end
+
     def update_employee
         user = User.find(params[:id])
         user.update(update_employee_params)

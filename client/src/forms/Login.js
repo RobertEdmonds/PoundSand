@@ -27,7 +27,7 @@ function Login({setUser}){
 
           if (r.ok) {
             r.json().then((user) => {
-                if(user.log_number === 1){
+                if(user.log_number === 0){
                     setUser(user)
                     navigate(`/reset_password/${user.id}`)
                 }else{
