@@ -23,7 +23,12 @@ function Header({sites,
         setCompletedBool(true)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         setButtonInfo('Completed Sites')
-    } 
+    }
+    
+    const handleEmployee = () => {
+        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({employee: true}))
+        navigate('/employee')
+    }
 
     function handleLogout() {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
@@ -52,8 +57,9 @@ function Header({sites,
                                 <li className="dropdown-item" onClick={() => handleSiteDisplayButton(site)} key={site.id}>{site.location}</li>
                             )
                         })}
-                        <li className="dropdown-item" onClick={() => handleGoHome()}>Home</li>
+                        <li className="dropdown-item" onClick={() => handleGoHome()}>Active Sites</li>
                         <li className="dropdown-item" onClick={() => handleCompletedBool()}>Completed Sites</li>
+                        <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
                     </ul>
                 </div>
             </div>

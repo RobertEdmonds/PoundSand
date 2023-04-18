@@ -63,7 +63,7 @@ function SandSite({handleAddSite}){
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" onClick={() => createSite()}>Save Sand Used</button>
+                                <button type="button" className="btn btn-primary" onClick={() => createSite()}>Save New Site</button>
                             </div>
                         </form>
                         </div>

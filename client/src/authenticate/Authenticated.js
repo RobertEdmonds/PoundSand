@@ -5,6 +5,7 @@ import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
 // import SandSite from '../forms/SandSite';
 import ResetPW from '../forms/ResetPW';
+import User from '../components/User';
 
 function Authenticated({user, setUser}){
     const [ sites, setSites ] = useState([])
@@ -24,7 +25,7 @@ function Authenticated({user, setUser}){
                 navigate('/')
             }else{
                 const site = JSON.parse(data)
-                if(site.showSite){
+                if(site.showSite && site.employee === false){
                     setButtonInfo(site.location)
                     setTSandUsed(site.total_sand_used)
                     setOnSite(site.total_on_site)
@@ -137,6 +138,7 @@ function Authenticated({user, setUser}){
                 {!!user && user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
+                <Route path={'/employee'} element={<User />}/>
             </Routes>
             {!!user && user.log_number === 0 && (
                 <Navigate to={`/reset_password/${user.id}`} />
