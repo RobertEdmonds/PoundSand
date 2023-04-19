@@ -13,7 +13,7 @@ export default function UserAdmin({id, status}){
               "Content-Type": "application/json",
             },
             body: JSON.stringify(dataForm),
-          }).then(r => r.json()).then(r => console.log(r));
+          });
     }
 
     return(

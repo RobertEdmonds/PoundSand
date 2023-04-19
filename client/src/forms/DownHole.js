@@ -26,6 +26,9 @@ function DownHole({id, handleUseSand}){
             if(resp.ok){
                 resp.json().then(sand => {
                     setSuccess(true)
+                    setPounds(0)
+                    setStage('')
+                    setMoisture(0.0)
                     handleUseSand(sand)
                 })
             }else{

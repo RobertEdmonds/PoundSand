@@ -12,6 +12,7 @@ function ResetPW({setUser, user}){
     function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
+        setError([])
         const dataForm = {
           password,
           password_confirmation: passwordConfirmation

@@ -34,6 +34,12 @@ function TruckLoad({id, handleAddSand}){
                     handleAddSand(truck)
                     setSuccess(true)
                 })
+                setTruck('')
+                setMine('')
+                setTare(0)
+                setGross(0)
+                setShip('')
+                setPo('')
             }else{
                 resp.json().then(err => setError(err.errors))
             }

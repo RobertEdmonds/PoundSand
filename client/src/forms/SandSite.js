@@ -21,6 +21,7 @@ function SandSite({handleAddSite}){
             if(resp.ok){
                 resp.json().then(site => {
                     setSuccess(true)
+                    setLocation('')
                     handleAddSite(site)
                 })
             }else{
