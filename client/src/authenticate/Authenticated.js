@@ -25,12 +25,15 @@ function Authenticated({user, setUser}){
                 navigate('/')
             }else{
                 const site = JSON.parse(data)
-                if(site.showSite && site.employee === false){
+                if(site.showSite && !site.employee){
                     setButtonInfo(site.location)
                     setTSandUsed(site.total_sand_used)
                     setOnSite(site.total_on_site)
                     setCompletedBool(site.completed)
                     navigate(`/site/${site.location}/${site.id}`)
+                }else if(site.showSite && site.employee){
+                    setButtonInfo("Employee")
+                    navigate('/employee')
                 }
             }
         }))
@@ -47,7 +50,7 @@ function Authenticated({user, setUser}){
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
-        console.log(site.completed)
+        // console.log(site.completed)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
             location: site.location, 
             total_sand_used:site.total_sand_used, 
@@ -122,6 +125,7 @@ function Authenticated({user, setUser}){
             setUser={setUser} 
             handleAddSite={handleAddSite}
             setCompletedBool={setCompletedBool}
+            user={user}
             />
             <Routes>
                 <Route path='/' element={<Homepage sites={(completedBool ? completedSites : sites)} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
@@ -138,7 +142,9 @@ function Authenticated({user, setUser}){
                 {!!user && user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
+                {!!user && user.boss && (
                 <Route path={'/employee'} element={<User />}/>
+                )}
             </Routes>
             {!!user && user.log_number === 0 && (
                 <Navigate to={`/reset_password/${user.id}`} />

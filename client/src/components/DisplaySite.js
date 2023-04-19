@@ -18,7 +18,6 @@ function DisplaySite({sites,
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
-    // const [ completion, setCompletion ] = useState(false)
     const [ truckTime, setTruckTime ] = useState("")
     const [ sandTime, setSandTime ] = useState('')
 

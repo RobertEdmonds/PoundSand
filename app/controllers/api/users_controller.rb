@@ -53,10 +53,6 @@ class Api::UsersController < ApplicationController
         params.permit(:password, :password_confirmation, :log_number)
     end
 
-    # def update_employee_params 
-    #     params.permit(:boss, :id)
-    # end
-
     def authorize_user
         user_can_see = current_user.boss?
         render json: { error: "Ah ah ah, you didn't say the magic word" }, status: :forbidden unless user_can_see

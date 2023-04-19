@@ -7,7 +7,8 @@ function Header({sites,
     setButtonInfo,
     setUser,
     handleAddSite,
-    setCompletedBool
+    setCompletedBool,
+    user
 }){
     const navigate = useNavigate()
 
@@ -26,7 +27,7 @@ function Header({sites,
     }
     
     const handleEmployee = () => {
-        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({employee: true}))
+        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: true, employee: true}))
         navigate('/employee')
     }
 
@@ -42,7 +43,9 @@ function Header({sites,
         <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">
                 <span className="navbar-brand mb-0 h1">Pound Sand</span>
+                {!!user && user.boss && (
                 <SandSite handleAddSite={handleAddSite}/>
+                )}
                 <div className="btn-group">
                     <button type="button" className="btn btn-outline-secondary" onClick={handleLogout}>Logout</button>
                     <button className="btn btn-secondary btn-lg" type="button">

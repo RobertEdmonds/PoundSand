@@ -28,7 +28,6 @@ export default function SetPWReset({userInfo}){
             setLoading(false);
             if (r.ok) {
               r.json().then((user) => {
-                console.log(user)
                     setSuccess(true)
                       navigate("/employee");
               })
