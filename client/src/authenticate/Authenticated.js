@@ -50,7 +50,6 @@ function Authenticated({user, setUser}){
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
-        // console.log(site.completed)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
             location: site.location, 
             total_sand_used:site.total_sand_used, 
