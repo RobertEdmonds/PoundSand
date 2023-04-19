@@ -138,14 +138,14 @@ function Authenticated({user, setUser}){
                 completedBool={completedBool}
                 handleSiteCompletion={handleSiteCompletion}
                 />}/>
-                {!!user && user.log_number === 0 && (
+                {user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
-                {!!user && user.boss && (
+                {user.boss && (
                 <Route path={'/employee'} element={<User />}/>
                 )}
             </Routes>
-            {!!user && user.log_number === 0 && (
+            {user.log_number === 0 && (
                 <Navigate to={`/reset_password/${user.id}`} />
             )}
         </div>

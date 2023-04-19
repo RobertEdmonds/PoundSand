@@ -43,8 +43,8 @@ function Header({sites,
         <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">
                 <span className="navbar-brand mb-0 h1">Pound Sand</span>
-                {!!user && user.boss && (
-                <SandSite handleAddSite={handleAddSite}/>
+                {user.boss && (
+                    <SandSite handleAddSite={handleAddSite}/>
                 )}
                 <div className="btn-group">
                     <button type="button" className="btn btn-outline-secondary" onClick={handleLogout}>Logout</button>
@@ -62,7 +62,9 @@ function Header({sites,
                         })}
                         <li className="dropdown-item" onClick={() => handleGoHome()}>Active Sites</li>
                         <li className="dropdown-item" onClick={() => handleCompletedBool()}>Completed Sites</li>
-                        <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
+                        {user.boss && (
+                            <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
+                        )}
                     </ul>
                 </div>
             </div>
