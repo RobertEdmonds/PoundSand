@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
-// import SandSite from '../forms/SandSite';
 import ResetPW from '../forms/ResetPW';
 import User from '../components/User';
 
