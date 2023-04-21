@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import AddEmployee from "../forms/AddEmployee"
 import SetPWReset from "../forms/SetPWReset"
 import UserAdmin from "../forms/UserAdmin"
 
@@ -12,6 +13,9 @@ export default function User(){
         .then(users => setUsersArray(users))
     },[])
 
+    const handleAddUser = (newUser) => {
+        setUsersArray([...usersArray, newUser])
+    }
     
 
     return(
@@ -34,8 +38,9 @@ export default function User(){
             })}
             </div>
             <div className="d-grid gap-2">
-                <button className="btn btn-primary" type="button" >Add New Employee</button>
+                <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#newUser">Add New Employee</button>
             </div>
+            <AddEmployee handleAddUser={handleAddUser}/>
             <SetPWReset userInfo={userInfo}/>
         </div>
     )
