@@ -77,13 +77,13 @@ function DisplaySite({sites,
             <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime}/>
             <div className="container text-center">
-                <div className="row justify-content-md-center">
-                    <div className="col-6">
+                <div className="row justify-content-md-center ">
+                    <div className="col-6 badge text-bg-info fs-3">
                         Total Sand On Site:
                         <br/>
                         {changeWeight ? (onSite / 2000) : (onSite)}
                     </div>
-                    <div className="col-6">
+                    <div className="col-6 badge text-bg-info fs-3">
                         Total Sand Used:
                         <br/>
                         {changeWeight ? (tSandUsed / 2000) : tSandUsed}

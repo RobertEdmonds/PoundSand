@@ -3,5 +3,6 @@ class Site < ApplicationRecord
     has_many :sand_useds, dependent: :destroy
 
     validates :location, presence: true
+    validates :crew, presence: true
     
 end

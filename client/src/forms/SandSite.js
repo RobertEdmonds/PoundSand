@@ -52,7 +52,18 @@ function SandSite({handleAddSite}){
                         }))}
                         <form className="row">
                             <div className="mb-3 row">
-                                <label htmlFor="inputStage" className="col-sm-2 col-form-label">Stage</label>
+                                <label htmlFor="inputStage" className="col-sm-2 col-form-label">Location</label>
+                                <div className="input-group">
+                                <input type="text" 
+                                    className="form-control" 
+                                    id="inputStage"
+                                    value={location}
+                                    onChange={e => setLocation(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-3 row">
+                                <label htmlFor="inputStage" className="col-sm-2 col-form-label">Crew Name</label>
                                 <div className="input-group">
                                 <input type="text" 
                                     className="form-control" 
