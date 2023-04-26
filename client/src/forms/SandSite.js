@@ -2,15 +2,18 @@ import { useState } from "react";
 
 function SandSite({handleAddSite}){
     const [ location, setLocation ] = useState('')
+    const [ crew, setCrew ] = useState('')
     const [ success, setSuccess ] = useState(false)
     const [ error, setError ] = useState([])
 
     function createSite(){
         const formData = {
             location,
+            crew
         }
         setError([])
         setSuccess(false)
+        console.log(formData)
         fetch('/api/sites', {
             method: "POST",
             headers: {
@@ -68,8 +71,8 @@ function SandSite({handleAddSite}){
                                 <input type="text" 
                                     className="form-control" 
                                     id="inputStage"
-                                    value={location}
-                                    onChange={e => setLocation(e.target.value)}
+                                    value={crew}
+                                    onChange={e => setCrew(e.target.value)}
                                     />
                                 </div>
                             </div>

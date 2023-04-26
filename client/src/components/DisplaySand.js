@@ -1,7 +1,7 @@
 function DisplaySand({sandUsed, sandTime}){
     const sandDateArray = sandUsed.filter(truck => truck.date === sandTime)
     return(
-        <div className="modal fade modal-xl" id="staticSand" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal fade modal-dialog-scrollable modal-xl" id="staticSand"  tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                 <div className="modal-header">
@@ -15,7 +15,7 @@ function DisplaySand({sandUsed, sandTime}){
                                 <th scope="col">Date</th>
                                 <th scope="col">Pounds</th>
                                 <th scope="col">Stage</th>
-                                <th scope="col">Moisture</th>
+                                <th scope="col">Moisture%</th>
                                 <th scope="col">Total Per Day</th>
                             </tr>
                         </thead>
@@ -38,7 +38,6 @@ function DisplaySand({sandUsed, sandTime}){
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Understood</button>
                 </div>
                 </div>
             </div>

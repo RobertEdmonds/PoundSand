@@ -1,11 +1,11 @@
 import { useState } from "react"
 
-function TruckLoad({id, handleAddSand}){
+function TruckLoad({id, handleAddSand, location}){
     const [ truck, setTruck ] = useState('')
     const [ mine, setMine ] = useState('')
     const [ tare, setTare ] = useState(0)
     const [ gross, setGross ] = useState(0)
-    const [ ship, setShip ] = useState('')
+    // const [ ship, setShip ] = useState('')
     const [ po, setPo ] = useState('')
     const [ error, setError ] = useState([])
     const [ success, setSuccess ] = useState(false)
@@ -16,7 +16,7 @@ function TruckLoad({id, handleAddSand}){
             mine,  
             tare_weight: tare, 
             gross_weight: gross, 
-            ship_to: ship, 
+            ship_to: location, 
             po: po, 
             site_id: parseInt(id)
         }
@@ -38,7 +38,7 @@ function TruckLoad({id, handleAddSand}){
                 setMine('')
                 setTare(0)
                 setGross(0)
-                setShip('')
+                // setShip('')
                 setPo('')
             }else{
                 resp.json().then(err => setError(err.errors))
@@ -119,7 +119,7 @@ function TruckLoad({id, handleAddSand}){
                             />
                         </div>
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label htmlFor="inputShipTo" className="form-label">Ship To</label>
                         <div className="col-sm-10">
                         <input 
@@ -130,7 +130,7 @@ function TruckLoad({id, handleAddSand}){
                             onChange={(e) => setShip(e.target.value)}
                             />
                         </div>
-                    </div>
+                    </div> */}
                     <div className="mb-3">
                         <label htmlFor="inputPO" className="form-label">PO #</label>
                         <div className="col-sm-10">

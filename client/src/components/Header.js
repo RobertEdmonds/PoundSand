@@ -8,7 +8,9 @@ function Header({sites,
     setUser,
     handleAddSite,
     setCompletedBool,
-    user
+    user,
+    siteSearch,
+    handleSiteSearch
 }){
     const navigate = useNavigate()
 
@@ -66,6 +68,9 @@ function Header({sites,
                             <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
                         )}
                     </ul>
+                    <form className="d-flex" role="search">
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={siteSearch} onChange={(e) => handleSiteSearch(e.target.value)}/>
+                    </form>
                 </div>
             </div>
         </nav>

@@ -9,6 +9,7 @@ function Homepage({sites, handleSiteDisplayButton}){
                         <div className="card" style={{width: "18rem"}}>
                             <div className="card-body">
                                 <h5 className="card-title">{site.location}</h5>
+                                <h5 className="card-title">{site.crew}</h5>
                                 <p className="card-text">Start Date: {siteDate[1]}/{siteDate[2]}/{siteDate[0]}</p>
                             </div>
                             <ul className="list-group list-group-flush">
@@ -16,6 +17,10 @@ function Homepage({sites, handleSiteDisplayButton}){
                                 <li className="list-group-item">{site.total_on_site}</li>
                                 <li className="list-group-item">Total Sand Used</li>
                                 <li className="list-group-item">{site.total_sand_used}</li>
+                                <li className="list-group-item">Total Sand Delivered</li>
+                                <li className="list-group-item">{site.total_delivered}</li>
+                                <li className="list-group-item">Trash Sand</li>
+                                <li className="list-group-item">{site.trash_sand}</li>
                             </ul>
                             <div className="card-body">
                                 <button className="btn btn-primary" onClick={() => handleSiteDisplayButton(site)}>Go {site.location}</button>

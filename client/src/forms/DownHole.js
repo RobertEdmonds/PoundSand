@@ -77,12 +77,12 @@ function DownHole({id, handleUseSand}){
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputMoisture" className="col-sm-2 col-form-label">Moisture</label>
+                        <label htmlFor="inputMoisture" className="col-sm-2 col-form-label">Moisture%</label>
                         <div className="input-group">
                         <input type="number"
-                            step="0.01"
+                            pattern="[0-9]*" 
                             min='0'
-                            max='5' 
+                            max='15' 
                             className="form-control" 
                             id="inputMoisture"
                             value={moisture}

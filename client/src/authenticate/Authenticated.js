@@ -12,6 +12,8 @@ function Authenticated({user, setUser}){
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
+    const [ siteSearch, setSiteSearch ] = useState('')
+    const [ siteDelivery, setSiteDelivery ] = useState(0)
     const [ completedBool, setCompletedBool ] = useState(false)
     const navigate = useNavigate()
 
@@ -28,8 +30,9 @@ function Authenticated({user, setUser}){
                     setButtonInfo(site.location)
                     setTSandUsed(site.total_sand_used)
                     setOnSite(site.total_on_site)
+                    setSiteDelivery(site.total_delivered)
                     setCompletedBool(site.completed)
-                    navigate(`/site/${site.location}/${site.id}`)
+                    navigate(`/site/${site.location}/${site.crew}/${site.id}`)
                 }else if(site.showSite && site.employee){
                     setButtonInfo("Employee")
                     navigate('/employee')
@@ -49,13 +52,16 @@ function Authenticated({user, setUser}){
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
+        setSiteDelivery(site.total_delivered)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
             location: site.location, 
+            crew: site.crew,
             total_sand_used:site.total_sand_used, 
             total_on_site: site.total_on_site,
+            total_delivered: site.total_delivered,
             completed: site.completed,  
             showSite: true}))
-        navigate(`/site/${site.location}/${site.id}`)
+        navigate(`/site/${site.location}/${site.crew}/${site.id}`)
     }
 
     const handleAddSite = (newSite) => {
@@ -65,9 +71,18 @@ function Authenticated({user, setUser}){
     const handleAddSand = (truck) => {
         const updatedSite = sites.filter(site => {
             if(site.id === truck.site_id){
-                site.total_on_site += truck.total 
+                site.total_on_site += truck.total
+                site.total_delivered += truck.total 
                 site.trucks.push(truck)
                 setOnSite(site.total_on_site)
+                setSiteDelivery(site.total_delivered)
+                window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                    location: site.location, 
+                    total_sand_used:site.total_sand_used, 
+                    total_on_site: site.total_on_site,
+                    total_delivered: site.total_delivered,
+                    completed: site.completed,  
+                    showSite: true}))
                 return site
             }else{
                 return site
@@ -84,6 +99,13 @@ function Authenticated({user, setUser}){
                 site.sand_useds.push(useSand)
                 setOnSite(onSite - useSand.pounds) 
                 setTSandUsed(site.total_sand_used)
+                window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                    location: site.location, 
+                    total_sand_used:site.total_sand_used, 
+                    total_on_site: site.total_on_site,
+                    total_delivered: site.total_delivered,
+                    completed: site.completed,  
+                    showSite: true}))
                 return site
             }else{
                 return site
@@ -113,6 +135,16 @@ function Authenticated({user, setUser}){
           })
     }
 
+    const handleSiteSearch = (value) => {
+        const searchSite = sites.filter(site => {
+            if(value === '') return site;
+            return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
+        })
+        console.log(value === '')
+        setSiteSearch(value)
+        setSites(searchSite)
+    }
+    console.log(siteSearch)
     return(
         <div>
             <Header 
@@ -123,15 +155,18 @@ function Authenticated({user, setUser}){
             setUser={setUser} 
             handleAddSite={handleAddSite}
             setCompletedBool={setCompletedBool}
+            siteSearch={siteSearch}
+            handleSiteSearch={handleSiteSearch}
             user={user}
             />
             <Routes>
                 <Route path='/' element={<Homepage sites={(completedBool ? completedSites : sites)} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
-                <Route path={`/site/:location/:id`} element={<DisplaySite 
+                <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
                 sites={(completedBool ? completedSites : sites)} 
                 setButtonInfo={setButtonInfo}
                 tSandUsed={tSandUsed}
                 onSite={onSite}
+                siteDelivery={siteDelivery}
                 handleAddSand={handleAddSand}
                 handleUseSand={handleUseSand}
                 completedBool={completedBool}

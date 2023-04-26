@@ -9,12 +9,13 @@ import DisplaySand from "./DisplaySand";
 function DisplaySite({sites, 
     onSite, 
     tSandUsed,
+    siteDelivery,
     handleAddSand,
     handleUseSand,
     completedBool,
     handleSiteCompletion
     }){
-    const { location, id} = useParams()
+    const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
@@ -71,19 +72,25 @@ function DisplaySite({sites,
             setDisplayInfo={setDisplayInfo} 
             handleDateChange={handleDateChange}
             completedBool={completedBool}
+            crew={crew}
             />
             <DownHole id={id} handleUseSand={handleUseSand}/>
-            <TruckLoad id={id} handleAddSand={handleAddSand}/>
+            <TruckLoad id={id} location={location} handleAddSand={handleAddSand}/>
             <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime}/>
             <div className="container text-center">
-                <div className="row justify-content-md-center ">
-                    <div className="col-6 badge text-bg-info fs-3">
+                <div className="row align-items-start">
+                    <div className="col badge text-bg-info fs-3">
+                        Total Delivered:
+                        <br/>
+                        {changeWeight ? (siteDelivery / 2000) : (siteDelivery)}
+                    </div>
+                    <div className="col badge text-bg-info fs-3">
                         Total Sand On Site:
                         <br/>
                         {changeWeight ? (onSite / 2000) : (onSite)}
                     </div>
-                    <div className="col-6 badge text-bg-info fs-3">
+                    <div className="col badge text-bg-info fs-3">
                         Total Sand Used:
                         <br/>
                         {changeWeight ? (tSandUsed / 2000) : tSandUsed}

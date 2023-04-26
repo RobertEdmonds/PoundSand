@@ -2,7 +2,7 @@ function DisplayTruck({truckArray, truckTime}){
     const truckDateArray = truckArray.filter(truck => truck.date === truckTime)
 
     return(
-        <div className="modal fade modal-xl" id="staticTruck" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal fade modal-dialog-scrollable modal-xl" id="staticTruck" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                 <div className="modal-header">
