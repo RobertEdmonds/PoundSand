@@ -25,6 +25,7 @@ function SandSite({handleAddSite}){
                 resp.json().then(site => {
                     setSuccess(true)
                     setLocation('')
+                    setCrew('')
                     handleAddSite(site)
                 })
             }else{

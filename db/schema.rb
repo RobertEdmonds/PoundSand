@@ -10,5 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
+  create_table "sand_useds", force: :cascade do |t|
+    t.integer "pounds"
+    t.string "stage"
+    t.date "date", default: "2023-04-26"
+    t.float "moisture"
+    t.integer "site_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "total_amount_per_day", default: 0
+    t.index ["site_id"], name: "index_sand_useds_on_site_id"
+  end
+
+  create_table "sites", force: :cascade do |t|
+    t.string "location"
+    t.string "crew"
+    t.boolean "completed", default: false
+    t.integer "total_on_site", default: 0
+    t.integer "total_sand_used", default: 0
+    t.integer "total_delivered", default: 0
+    t.float "trash_sand", default: 0.0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "start_date", default: "2023-04-26"
+  end
+
+  create_table "trucks", force: :cascade do |t|
+    t.string "truck"
+    t.string "mine"
+    t.string "date", default: "2023-04-26"
+    t.integer "tare_weight"
+    t.integer "gross_weight"
+    t.string "ship_to"
+    t.string "po"
+    t.integer "total", default: 0
+    t.integer "total_amount_per_day", default: 0
+    t.integer "site_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_trucks_on_site_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.string "password_digest"
+    t.boolean "boss", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "log_number", default: 0
+  end
+
+  add_foreign_key "sand_useds", "sites"
+  add_foreign_key "trucks", "sites"
 end

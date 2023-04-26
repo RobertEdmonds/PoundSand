@@ -9,8 +9,7 @@ function Header({sites,
     handleAddSite,
     setCompletedBool,
     user,
-    siteSearch,
-    handleSiteSearch
+    handleSiteSearch,
 }){
     const navigate = useNavigate()
 
@@ -40,6 +39,7 @@ function Header({sites,
           }
         });
     }
+    
 
     return(
         <nav className="navbar bg-body-tertiary">
@@ -69,7 +69,7 @@ function Header({sites,
                         )}
                     </ul>
                     <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={siteSearch} onChange={(e) => handleSiteSearch(e.target.value)}/>
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => handleSiteSearch(e.target.value)}/>
                     </form>
                 </div>
             </div>

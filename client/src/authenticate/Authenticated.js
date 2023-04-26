@@ -8,11 +8,11 @@ import User from '../components/User';
 
 function Authenticated({user, setUser}){
     const [ sites, setSites ] = useState([])
+    const [ allSites, setAllSites ] = useState([])
     const [ completedSites, setCompletedSites ] = useState([])
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
-    const [ siteSearch, setSiteSearch ] = useState('')
     const [ siteDelivery, setSiteDelivery ] = useState(0)
     const [ completedBool, setCompletedBool ] = useState(false)
     const navigate = useNavigate()
@@ -20,6 +20,7 @@ function Authenticated({user, setUser}){
     useEffect(() => {
         fetch('/api/sites')
         .then(resp => resp.json().then(site => {
+            setAllSites(site)
             setSites(site)
             const data = window.localStorage.getItem('MY_SAND_SITE')
             if(data === null){
@@ -39,7 +40,7 @@ function Authenticated({user, setUser}){
                 }
             }
         }))
-    },[navigate])
+    },[navigate, setSites])
 
     useEffect(() => {
         fetch('/api/completed_sites')
@@ -134,17 +135,15 @@ function Authenticated({user, setUser}){
             }
           })
     }
+    
 
     const handleSiteSearch = (value) => {
-        const searchSite = sites.filter(site => {
-            if(value === '') return site;
+        const searchSite = allSites.filter(site => {
             return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
         })
-        console.log(value === '')
-        setSiteSearch(value)
         setSites(searchSite)
     }
-    console.log(siteSearch)
+
     return(
         <div>
             <Header 
@@ -155,7 +154,7 @@ function Authenticated({user, setUser}){
             setUser={setUser} 
             handleAddSite={handleAddSite}
             setCompletedBool={setCompletedBool}
-            siteSearch={siteSearch}
+            setSites={setSites}
             handleSiteSearch={handleSiteSearch}
             user={user}
             />

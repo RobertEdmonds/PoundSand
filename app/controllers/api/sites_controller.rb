@@ -30,7 +30,7 @@ class Api::SitesController < ApplicationController
     private 
 
     def site_params
-        params.permit(:location)
+        params.permit(:location, :crew)
     end
 
     def site_status_params 
