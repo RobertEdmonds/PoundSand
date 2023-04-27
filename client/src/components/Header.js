@@ -9,7 +9,7 @@ function Header({sites,
     handleAddSite,
     setCompletedBool,
     user,
-    handleSiteSearch,
+    handleSiteSearch
 }){
     const navigate = useNavigate()
 
