@@ -19,6 +19,10 @@ class Api::TrucksController < ApplicationController
        render json: truck, status: :created
     end
 
+    def update
+
+    end
+
     def destroy
         truck.find(params[:id])
         head :no_content
