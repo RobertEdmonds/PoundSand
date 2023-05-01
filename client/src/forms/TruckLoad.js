@@ -101,6 +101,7 @@ function TruckLoad({id, handleAddSand, location}){
                             min="0" 
                             className="form-control" 
                             id="inputTareWeight"
+                            placeholder="0"
                             value={tare}
                             onChange={(e) => setTare(e.target.value)}
                             />
@@ -114,6 +115,7 @@ function TruckLoad({id, handleAddSand, location}){
                             min="0" 
                             className="form-control" 
                             id="inputGrossWeight"
+                            placeholder="0"
                             value={gross}
                             onChange={(e) => setGross(e.target.value)}
                             />

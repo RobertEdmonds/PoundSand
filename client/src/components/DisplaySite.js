@@ -5,6 +5,7 @@ import TruckLoad from "../forms/TruckLoad";
 import DisplayNav from "./DisplayNav";
 import DisplayTruck from "./DisplayTruck";
 import DisplaySand from "./DisplaySand";
+import EditTruckLoad from "../forms/EditTruckLoad";
 
 function DisplaySite({sites, 
     onSite, 
@@ -19,8 +20,15 @@ function DisplaySite({sites,
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
+    const [ editTruck, setEditTruck ] = useState([])
     const [ truckTime, setTruckTime ] = useState("")
     const [ sandTime, setSandTime ] = useState('')
+    const [ truck, setTruck ] = useState('')
+    const [ mine, setMine ] = useState('')
+    const [ tare, setTare ] = useState(0)
+    const [ gross, setGross ] = useState(0)
+    const [ ship, setShip ] = useState('')
+    const [ po, setPo ] = useState('')
 
     const handleWeightChange = (bool) => {
         setChangeWeight(bool)
@@ -62,6 +70,16 @@ function DisplaySite({sites,
         amount += (Object.values(dictionaryTruck)[i])
     }
 
+    const goToEditForm = (truck) => {
+        setTruck(truck.truck)
+        setMine(truck.mine)
+        setTare(truck.tare_weight)
+        setGross(truck.gross_weight)
+        setShip(truck.ship_to)
+        setPo(truck.po)
+        setEditTruck(truck)
+    }
+
     
   
     return(
@@ -76,7 +94,21 @@ function DisplaySite({sites,
             />
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} location={location} handleAddSand={handleAddSand}/>
-            <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
+            <EditTruckLoad editTruck={editTruck}
+                setTruck={setTruck}
+                truck={truck}
+                setMine={setMine}
+                mine={mine}
+                setTare={setTare}
+                tare={tare}
+                setGross={setGross}
+                gross={gross}
+                setShip={setShip}
+                ship={ship}
+                setPo={setPo}
+                po={po}
+                 />
+            <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime}/>
             <div className="container text-center">
                 <div className="row align-items-start">

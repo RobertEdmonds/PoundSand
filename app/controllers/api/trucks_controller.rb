@@ -22,14 +22,31 @@ class Api::TrucksController < ApplicationController
     def update
         truck = Truck.find(params[:id])
         firstSite = Site.find(truck.site_id)
-        firstSite.update(total_on_site: (firstSite.total_on_site - truck.total), total_delivered: (firstSite.total_delivered - truck.total))
+        firstSite.update!(total_on_site: (firstSite.total_on_site - truck.total), total_delivered: (firstSite.total_delivered - truck.total))
         truck.update!(truck_params)
+        truck.update!(total: (truck.gross_weight - truck.tare_weight))
         if firstSite.location.upcase == truck.ship_to.upcase
-            firstSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+            firstSite.update!(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+            if Truck.where(date: truck.date).length() > 2 && Truck.where(site_id: firstSite.id).length() > 2 
+                truck_list = Truck.where(date: truck.date, site_id: firstSite.id)
+                total = 0
+                truck_list.map { |trk| total += trk.total}
+                truck.update!(total_amount_per_day: total)
+            else
+                truck.update!(total_amount_per_day: truck.total)
+            end
         else
             secondSite = Site.find_by_upcased_location(truck.ship_to)
             truck.update!(site_id: secondSite.id)
             secondSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+            if Truck.where(date: truck.date).length() > 1 && Truck.where(site_id: secondSite.id).length() > 1 
+                truck_list = Truck.where(date: truck.date, site_id: secondSite.id)
+                total = 0
+                truck_list.map { |trk| total += trk.total}
+                truck.update!(total_amount_per_day: total)
+            else
+                truck.update!(total_amount_per_day: truck.total)
+            end
         end
         render json: truck, status: :created
     end
@@ -42,6 +59,6 @@ class Api::TrucksController < ApplicationController
     private
 
     def truck_params
-        params.permit(:truck, :mine, :tare_weight, :gross_weight, :ship_to, :po, :site_id)
+        params.permit(:id, :truck, :mine, :tare_weight, :gross_weight, :ship_to, :po, :site_id)
     end
 end
