@@ -6,6 +6,6 @@ class SiteSerializer < ActiveModel::Serializer
   end
 
   has_many :trucks do 
-    object.trucks.order(:date)
+    object.trucks.order(:date, :updated_at)
   end
 end

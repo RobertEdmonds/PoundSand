@@ -38,7 +38,7 @@ export default function EditTruckLoad({editTruck,
           }).then(resp => {
             if(resp.ok){
                 resp.json().then(truck => {
-                    handleEditSand(truck)
+                    handleEditSand(truck, editTruck)
                     setSuccess(true)
                 })
                 setTruck('')

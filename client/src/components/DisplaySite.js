@@ -14,7 +14,8 @@ function DisplaySite({sites,
     handleAddSand,
     handleUseSand,
     completedBool,
-    handleSiteCompletion
+    handleSiteCompletion,
+    handleEditSand
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -95,6 +96,7 @@ function DisplaySite({sites,
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} location={location} handleAddSand={handleAddSand}/>
             <EditTruckLoad editTruck={editTruck}
+                handleEditSand={handleEditSand}
                 setTruck={setTruck}
                 truck={truck}
                 setMine={setMine}

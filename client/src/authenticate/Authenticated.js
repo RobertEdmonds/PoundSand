@@ -92,6 +92,45 @@ function Authenticated({user, setUser}){
         setSites(updatedSite)
     }
 
+    const handleEditSand = (truck, beforeEdit) => {
+        const updatedSite = sites.filter(site => {
+            if(site.id === truck.site_id && site.id === beforeEdit.site_id){
+                site.total_on_site -= beforeEdit.total
+                site.total_delivered -= beforeEdit.total 
+                site.total_on_site += truck.total
+                site.total_delivered += truck.total 
+                const deletePrevious = site.trucks.filter(foundTruck => foundTruck.id !== truck.id)
+                site.trucks = deletePrevious
+                site.trucks.push(truck)
+                setOnSite(site.total_on_site)
+                setSiteDelivery(site.total_delivered)
+                window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                    location: site.location, 
+                    total_sand_used:site.total_sand_used, 
+                    total_on_site: site.total_on_site,
+                    total_delivered: site.total_delivered,
+                    completed: site.completed,  
+                    showSite: true}))
+                return site
+            }else if(site.id === truck.site_id && !(site.id === beforeEdit.site_id)){
+                const updateOldSite = sites.find(site => site.id === beforeEdit.site_id)
+                updateOldSite.total_on_site -= beforeEdit.total
+                updateOldSite.total_delivered -= beforeEdit.total
+                setOnSite(updateOldSite.total_on_site)
+                setSiteDelivery(updateOldSite.total_delivered)
+                updateOldSite.trucks.filter(truck => truck.id !== beforeEdit.id)
+                console.log(updateOldSite)
+                site.total_on_site += truck.total
+                site.total_delivered += truck.total 
+                site.trucks.push(truck)
+                return site
+            }else{
+                return site
+            }
+        })
+        setSites(updatedSite)
+    }
+
     const handleUseSand = (useSand) => {
         const updatedSite = sites.filter(site => {
             if(site.id === useSand.site_id){
@@ -170,6 +209,7 @@ function Authenticated({user, setUser}){
                 handleUseSand={handleUseSand}
                 completedBool={completedBool}
                 handleSiteCompletion={handleSiteCompletion}
+                handleEditSand={handleEditSand}
                 />}/>
                 {user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>

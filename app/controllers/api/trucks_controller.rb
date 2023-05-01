@@ -27,7 +27,7 @@ class Api::TrucksController < ApplicationController
         truck.update!(total: (truck.gross_weight - truck.tare_weight))
         if firstSite.location.upcase == truck.ship_to.upcase
             firstSite.update!(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
-            if Truck.where(date: truck.date).length() > 2 && Truck.where(site_id: firstSite.id).length() > 2 
+            if Truck.where(date: truck.date).length() >= 2 && Truck.where(site_id: firstSite.id).length() >= 2 
                 truck_list = Truck.where(date: truck.date, site_id: firstSite.id)
                 total = 0
                 truck_list.map { |trk| total += trk.total}
@@ -38,7 +38,7 @@ class Api::TrucksController < ApplicationController
         else
             secondSite = Site.find_by_upcased_location(truck.ship_to)
             truck.update!(site_id: secondSite.id)
-            secondSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+            secondSite.update(total_on_site: (secondSite.total_on_site + truck.total), total_delivered: (secondSite.total_delivered + truck.total))
             if Truck.where(date: truck.date).length() > 1 && Truck.where(site_id: secondSite.id).length() > 1 
                 truck_list = Truck.where(date: truck.date, site_id: secondSite.id)
                 total = 0
