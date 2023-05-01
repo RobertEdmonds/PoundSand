@@ -20,7 +20,18 @@ class Api::TrucksController < ApplicationController
     end
 
     def update
-
+        truck = Truck.find(params[:id])
+        firstSite = Site.find(truck.site_id)
+        firstSite.update(total_on_site: (firstSite.total_on_site - truck.total), total_delivered: (firstSite.total_delivered - truck.total))
+        truck.update!(truck_params)
+        if firstSite.location.upcase == truck.ship_to.upcase
+            firstSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+        else
+            secondSite = Site.find_by_upcased_location(truck.ship_to)
+            truck.update!(site_id: secondSite.id)
+            secondSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+        end
+        render json: truck, status: :created
     end
 
     def destroy

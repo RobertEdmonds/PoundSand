@@ -19,6 +19,34 @@ class Api::SandUsedsController < ApplicationController
         render json: sand_used, status: :created
     end
 
+    # def update
+    #     sand_used = SandUsed.find(params[:id])
+    #     firstSite = Site.find(sand_used.site_id)
+    #     firstSite.update(total_on_site: (firstSite.total_on_site - truck.total), total_delivered: (firstSite.total_delivered - truck.total))
+    #     sand_used.update!(sand_used_params)
+    #     if firstSite.location.upcase == truck.ship_to.upcase
+    #         firstSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+    #     else
+    #         secondSite = Site.find_by_upcased_location(truck.ship_to)
+    #         truck.update!(site_id: secondSite.id)
+    #         secondSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
+    #     end
+    #     render json: truck, status: :created
+    # end
+
+    def destroy
+        sand_used = SandUsed.find(params[:id])
+        site = Site.find(sand_used.site_id)
+        site.update(total_on_site: (firstSite.total_on_site + sand_used.pounds), total_sand_used: (firstSite.total_sand_used - sand_used.pounds))
+        if SandUsed.where(date: sand_used.date).length() > 1 && SandUsed.where(site_id: site.id).length() > 1
+            sand_used_list = SandUsed.where(date: sand_used.date, site_id: site.id)
+            sand_used_list.last.update!(total_amount_per_day: (sand_used_list.last.total_amount_per_day - sand_used.pounds))
+        end
+        sand_used.destroy 
+        head :no_content
+    end
+
+
     private
 
     def sand_used_params
