@@ -123,7 +123,7 @@ function Authenticated({user, setUser}){
                 site.total_on_site += truck.total
                 site.total_delivered += truck.total 
                 site.trucks.push(truck)
-                return site
+                return(site, updateOldSite)
             }else{
                 return site
             }

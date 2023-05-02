@@ -83,7 +83,6 @@ export default function EditTruckLoad({editTruck,
                         type="text" 
                         className="form-control" 
                         id="inputTruck"
-                        placeholder={editTruck.truck}
                         value={truck}
                         onChange={(e) => setTruck(e.target.value)}
                         />
@@ -96,7 +95,6 @@ export default function EditTruckLoad({editTruck,
                         type="text" 
                         className="form-control" 
                         id="inputMine"
-                        placeholder={editTruck.mine}
                         value={mine}
                         onChange={(e) => setMine(e.target.value)}
                         />
