@@ -106,7 +106,7 @@ export default function AddEmployee({handleAddUser}){
                 </form>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary" onClick={() => createUser()}>Save changes</button>
+                    <button type="button" className="btn btn-primary" onClick={() => createUser()}>Add Employee</button>
                 </div>
                 </div>
             </div>
