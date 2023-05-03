@@ -15,6 +15,7 @@ function Authenticated({user, setUser}){
     const [ onSite, setOnSite ] = useState(0)
     const [ siteDelivery, setSiteDelivery ] = useState(0)
     const [ completedBool, setCompletedBool ] = useState(false)
+    const [ companyList, setCompanyList ] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -43,11 +44,20 @@ function Authenticated({user, setUser}){
     },[navigate, setSites])
 
     useEffect(() => {
+        fetch('/api/companies')
+        .then(resp => resp.json())
+        .then(companies => setCompanyList(companies))
+    },[])
+
+    useEffect(() => {
         fetch('/api/completed_sites')
         .then(resp => resp.json())
         .then(comp => setCompletedSites(comp))
     },[])
 
+    const handleAddCompany = (company) => {
+        setCompanyList([...companyList, company])
+    }
 
     const handleSiteDisplayButton = (site) => {
         setButtonInfo(site.location)
@@ -226,6 +236,8 @@ function Authenticated({user, setUser}){
             setSites={setSites}
             handleSiteSearch={handleSiteSearch}
             user={user}
+            companyList={companyList}
+            handleAddCompany={handleAddCompany}
             />
             <Routes>
                 <Route path='/' element={<Homepage sites={(completedBool ? completedSites : sites)} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>

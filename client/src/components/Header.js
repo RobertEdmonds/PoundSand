@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import AddCompany from "../forms/AddCompany";
 import SandSite from "../forms/SandSite";
 
 function Header({sites, 
@@ -9,7 +10,9 @@ function Header({sites,
     handleAddSite,
     setCompletedBool,
     user,
-    handleSiteSearch
+    handleSiteSearch,
+    handleAddCompany,
+    companyList
 }){
     const navigate = useNavigate()
 
@@ -46,7 +49,10 @@ function Header({sites,
             <div className="container-fluid">
                 <span className="navbar-brand mb-0 h1">Pound Sand</span>
                 {user.boss && (
-                    <SandSite handleAddSite={handleAddSite}/>
+                    <>
+                    <SandSite handleAddSite={handleAddSite} companyList={companyList}/>
+                    <AddCompany handleAddCompany={handleAddCompany}/>
+                    </>
                 )}
                 <div className="btn-group">
                     <button type="button" className="btn btn-outline-secondary" onClick={handleLogout}>Logout</button>

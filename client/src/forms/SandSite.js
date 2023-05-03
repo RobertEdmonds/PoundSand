@@ -1,15 +1,17 @@
 import { useState } from "react";
 
-function SandSite({handleAddSite}){
+function SandSite({handleAddSite, companyList}){
     const [ location, setLocation ] = useState('')
     const [ crew, setCrew ] = useState('')
+    const [ companyId, setCompanyId ] = useState(0)
     const [ success, setSuccess ] = useState(false)
     const [ error, setError ] = useState([])
 
     function createSite(){
         const formData = {
             location,
-            crew
+            crew, 
+            company_id: companyId
         }
         setError([])
         setSuccess(false)
@@ -76,6 +78,21 @@ function SandSite({handleAddSite}){
                                     onChange={e => setCrew(e.target.value)}
                                     />
                                 </div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="inputShipTo" className="form-label">Ship To</label>
+                                <select 
+                                className="form-select form-select-lg mb-3" 
+                                aria-label=".form-select-lg example"
+                                placeholder="Choose A Company"
+                                value={companyId}
+                                onChange={(e) => setCompanyId(e.target.value)}>
+                                    {companyList.map(company => {
+                                        return(
+                                            <option key={company.id} value={company.id}>{company.name}</option>
+                                        )
+                                    })}
+                                </select>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
