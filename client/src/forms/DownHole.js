@@ -9,7 +9,7 @@ function DownHole({id, handleUseSand}){
 
     const handleDownHole = () => {
         const formData = {
-            pounds,
+            pounds: Math.round(pounds * 2000),
             stage,
             moisture,
             site_id: parseInt(id)
@@ -54,7 +54,7 @@ function DownHole({id, handleUseSand}){
                 }))}
                 <form className="row">
                     <div className="mb-3 row">
-                        <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Pounds </label>
+                        <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Tons </label>
                         <div className="input-group">
                         <input type="number"
                             pattern="[0-9]*" 

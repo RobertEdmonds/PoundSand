@@ -15,7 +15,8 @@ function DisplaySite({sites,
     handleUseSand,
     completedBool,
     handleSiteCompletion,
-    handleEditSand
+    handleEditSand,
+    showUseSandDelete
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -111,7 +112,7 @@ function DisplaySite({sites,
                 po={po}
                  />
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm}/>
-            <DisplaySand sandUsed={sandUsed} sandTime={sandTime}/>
+            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete}/>
             <div className="container text-center">
                 <div className="row align-items-start">
                     <div className="col badge text-bg-info fs-3">

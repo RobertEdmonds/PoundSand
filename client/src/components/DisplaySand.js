@@ -1,16 +1,13 @@
 
 
-function DisplaySand({sandUsed, sandTime}){
+function DisplaySand({sandUsed, sandTime, showUseSandDelete}){
     let sandDateArray = sandUsed.filter(truck => truck.date === sandTime)
-    const handleUseSandDelete = (id) => {
-        fetch(`/api/sand_useds/${id}`, {
+    const handleUseSandDelete = (sand) => {
+        fetch(`/api/sand_useds/${sand.id}`, {
             method: "DELETE",
-          }).then(() => showUseSandDelete(id));
+          }).then(() => showUseSandDelete(sand));
     }
 
-    const showUseSandDelete = (id) => {
-        sandDateArray = sandDateArray.filter(sand => sand.id !== id)
-    }
     return(
         <div className="modal fade modal-dialog-scrollable modal-xl" id="staticSand"  tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -40,7 +37,7 @@ function DisplaySand({sandUsed, sandTime}){
                                         <td>{sand.stage}</td>
                                         <td>{sand.moisture}</td>
                                         <td>{sand.total_amount_per_day}</td>
-                                        <td><button type="button" className="btn btn-info" onClick={() => handleUseSandDelete(sand.id)}>Delete</button></td>
+                                        <td><button type="button" className="btn btn-info" onClick={() => handleUseSandDelete(sand)}>Delete</button></td>
                                     </tr>
                                 )
                             })

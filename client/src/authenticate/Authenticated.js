@@ -78,7 +78,8 @@ function Authenticated({user, setUser}){
                 setOnSite(site.total_on_site)
                 setSiteDelivery(site.total_delivered)
                 window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                    location: site.location, 
+                    location: site.location,
+                    crew: site.crew, 
                     total_sand_used:site.total_sand_used, 
                     total_on_site: site.total_on_site,
                     total_delivered: site.total_delivered,
@@ -93,42 +94,53 @@ function Authenticated({user, setUser}){
     }
 
     const handleEditSand = (truck, beforeEdit) => {
-        const updatedSite = sites.filter(site => {
-            if(site.id === truck.site_id && site.id === beforeEdit.site_id){
-                site.total_on_site -= beforeEdit.total
-                site.total_delivered -= beforeEdit.total 
-                site.total_on_site += truck.total
-                site.total_delivered += truck.total 
-                const deletePrevious = site.trucks.filter(foundTruck => foundTruck.id !== truck.id)
-                site.trucks = deletePrevious
-                site.trucks.push(truck)
-                setOnSite(site.total_on_site)
-                setSiteDelivery(site.total_delivered)
-                window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                    location: site.location, 
-                    total_sand_used:site.total_sand_used, 
-                    total_on_site: site.total_on_site,
-                    total_delivered: site.total_delivered,
-                    completed: site.completed,  
-                    showSite: true}))
-                return site
-            }else if(site.id === truck.site_id && !(site.id === beforeEdit.site_id)){
-                const updateOldSite = sites.find(site => site.id === beforeEdit.site_id)
-                updateOldSite.total_on_site -= beforeEdit.total
-                updateOldSite.total_delivered -= beforeEdit.total
-                setOnSite(updateOldSite.total_on_site)
-                setSiteDelivery(updateOldSite.total_delivered)
-                updateOldSite.trucks.filter(truck => truck.id !== beforeEdit.id)
-                console.log(updateOldSite)
-                site.total_on_site += truck.total
-                site.total_delivered += truck.total 
-                site.trucks.push(truck)
-                return(site, updateOldSite)
-            }else{
-                return site
-            }
-        })
-        setSites(updatedSite)
+        if(truck.site_id === beforeEdit.site_id){
+            const updatedSite = sites.filter(site => {
+                if(site.id === truck.site_id){
+                    site.total_on_site -= beforeEdit.total
+                    site.total_delivered -= beforeEdit.total 
+                    site.total_on_site += truck.total
+                    site.total_delivered += truck.total 
+                    const deletePrevious = site.trucks.filter(foundTruck => foundTruck.id !== truck.id)
+                    site.trucks = deletePrevious
+                    site.trucks.push(truck)
+                    setOnSite(site.total_on_site)
+                    setSiteDelivery(site.total_delivered)
+                    window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                        location: site.location,
+                        crew: site.crew, 
+                        total_sand_used:site.total_sand_used, 
+                        total_on_site: site.total_on_site,
+                        total_delivered: site.total_delivered,
+                        completed: site.completed,  
+                        showSite: true}))
+                    return site
+                }else{
+                    return site
+                }
+            })
+            setSites(updatedSite)
+        }else{
+            const updatedMultipleSites = sites.filter(site => {
+                if(site.id === truck.site_id){
+                    site.total_on_site += truck.total
+                    site.total_delivered += truck.total 
+                    site.trucks.push(truck)
+                    return site
+                }else if(site.id === beforeEdit.site_id){
+                    site.total_on_site -= beforeEdit.total
+                    site.total_delivered -= beforeEdit.total
+                    setOnSite(site.total_on_site)
+                    setSiteDelivery(site.total_delivered)
+                    const deleteSite = site.trucks.filter(truck => truck.id !== beforeEdit.id)
+                    site.trucks = deleteSite
+                    return site
+                }else{
+                    return site
+                }
+            })
+            setSites(updatedMultipleSites)
+        }
     }
 
     const handleUseSand = (useSand) => {
@@ -140,7 +152,8 @@ function Authenticated({user, setUser}){
                 setOnSite(onSite - useSand.pounds) 
                 setTSandUsed(site.total_sand_used)
                 window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                    location: site.location, 
+                    location: site.location,
+                    crew: site.crew,
                     total_sand_used:site.total_sand_used, 
                     total_on_site: site.total_on_site,
                     total_delivered: site.total_delivered,
@@ -151,6 +164,23 @@ function Authenticated({user, setUser}){
                 return site
             }
         })
+        setSites(updatedSite)
+    }
+
+    const showUseSandDelete = (sandDelete) => {
+        console.log(sandDelete)
+        const updatedSite = sites.filter(site => {
+            if(site.id === sandDelete.site_id){
+                const showDelete = site.sand_useds.filter(sand => sand.id !== sandDelete.id)
+                site.sand_useds = showDelete
+                setOnSite(onSite + sandDelete.pounds) 
+                setTSandUsed(site.total_sand_used - sandDelete.pounds)
+                return site
+            }else{
+                return site
+            }
+        })
+        console.log(updatedSite)
         setSites(updatedSite)
     }
 
@@ -210,6 +240,7 @@ function Authenticated({user, setUser}){
                 completedBool={completedBool}
                 handleSiteCompletion={handleSiteCompletion}
                 handleEditSand={handleEditSand}
+                showUseSandDelete={showUseSandDelete}
                 />}/>
                 {user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
