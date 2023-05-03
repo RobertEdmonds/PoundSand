@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :company_users
+  resources :companies
   namespace :api do
     resources :sand_useds, only: [:index, :create, :destroy]
     resources :trucks, only: [:index, :create, :update]

@@ -10,11 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_03_161004) do
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "company_users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.integer "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_company_users_on_company_id"
+  end
+
   create_table "sand_useds", force: :cascade do |t|
     t.integer "pounds"
     t.string "stage"
-    t.date "date", default: "2023-04-26"
+    t.date "date", default: "2023-05-03"
     t.float "moisture"
     t.integer "site_id", null: false
     t.datetime "created_at", null: false
@@ -31,15 +47,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
     t.integer "total_sand_used", default: 0
     t.integer "total_delivered", default: 0
     t.float "trash_sand", default: 0.0
+    t.integer "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "start_date", default: "2023-04-26"
+    t.date "start_date", default: "2023-05-03"
+    t.index ["company_id"], name: "index_sites_on_company_id"
   end
 
   create_table "trucks", force: :cascade do |t|
     t.string "truck"
     t.string "mine"
-    t.string "date", default: "2023-04-26"
+    t.string "date", default: "2023-05-03"
     t.integer "tare_weight"
     t.integer "gross_weight"
     t.string "ship_to"
@@ -49,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
     t.integer "site_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "edited", default: false
     t.index ["site_id"], name: "index_trucks_on_site_id"
   end
 
@@ -62,6 +81,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_225405) do
     t.integer "log_number", default: 0
   end
 
+  add_foreign_key "company_users", "companies"
   add_foreign_key "sand_useds", "sites"
+  add_foreign_key "sites", "companies"
   add_foreign_key "trucks", "sites"
 end

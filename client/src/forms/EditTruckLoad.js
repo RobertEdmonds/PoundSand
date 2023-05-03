@@ -129,15 +129,6 @@ export default function EditTruckLoad({editTruck,
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputShipTo" className="form-label">Ship To</label>
-                    {/* <div className="col-sm-10">
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        id="inputShipTo"
-                        value={ship}
-                        onChange={(e) => setShip(e.target.value)}
-                        />
-                    </div> */}
                     <select 
                     className="form-select form-select-lg mb-3" 
                     aria-label=".form-select-lg example"

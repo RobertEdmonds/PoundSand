@@ -8,6 +8,7 @@ class CreateSites < ActiveRecord::Migration[7.0]
       t.integer :total_sand_used, default: 0
       t.integer :total_delivered, default: 0
       t.float :trash_sand, default: 0
+      t.belongs_to :company, null: false, foreign_key: true
 
       t.timestamps
     end
