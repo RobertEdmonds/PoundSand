@@ -3,7 +3,7 @@ import { useState } from "react";
 function SandSite({handleAddSite, companyList}){
     const [ location, setLocation ] = useState('')
     const [ crew, setCrew ] = useState('')
-    const [ companyId, setCompanyId ] = useState(0)
+    const [ companyId, setCompanyId ] = useState('')
     const [ success, setSuccess ] = useState(false)
     const [ error, setError ] = useState([])
 
@@ -11,11 +11,10 @@ function SandSite({handleAddSite, companyList}){
         const formData = {
             location,
             crew, 
-            company_id: companyId
+            company_id: parseInt(companyId)
         }
         setError([])
         setSuccess(false)
-        console.log(formData)
         fetch('/api/sites', {
             method: "POST",
             headers: {
@@ -87,6 +86,7 @@ function SandSite({handleAddSite, companyList}){
                                 placeholder="Choose A Company"
                                 value={companyId}
                                 onChange={(e) => setCompanyId(e.target.value)}>
+                                    <option value="No Go">Choose A Company</option>
                                     {companyList.map(company => {
                                         return(
                                             <option key={company.id} value={company.id}>{company.name}</option>

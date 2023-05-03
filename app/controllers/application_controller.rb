@@ -9,8 +9,16 @@ class ApplicationController < ActionController::API
         @current_user ||= User.find_by(id: session[:user_id])
     end
 
+    def current_company_user 
+        @company_user ||= CompanyUser.find_by(id: session[:company_user_id])
+    end
+
     def authorize
-        return render json: { errors: ["Not authorize user"] }, status: :unauthorized unless current_user
+        if(@current_user)
+            return render json: { errors: ["Not authorized user"] }, status: :unauthorized unless current_user
+        elsif(@company_user)
+            return render json: { errors: ["Not authorized user"]}, status: :unauthorized unless current_company_user
+        end
     end
 
     def render_unprocessable_entity(invalid)

@@ -5,6 +5,7 @@ import Unauthenticated from './authenticate/Unauthenticated'
 
 function App() {
   const [ user, setUser ] = useState(null)
+  const [ companyUser, setCompanyUser ] = useState(null)
   // const [ sites, setSites ] = useState([]) 
 
   useEffect(() => {
@@ -16,6 +17,17 @@ function App() {
       }
     });
   }, [setUser]);
+
+  useEffect(() => {
+      fetch('/api/company_personnel')
+      .then(resp => {
+        if(resp.ok) {
+          resp.json().then(user => setCompanyUser(user))
+        }
+      })
+  },[setCompanyUser])
+
+  console.log(companyUser)
 
   return (
     <>

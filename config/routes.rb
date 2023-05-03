@@ -4,11 +4,12 @@ Rails.application.routes.draw do
     resources :trucks, only: [:index, :create, :update]
     resources :sites, except: [:show]
     resources :users, only: [:index]
-    resources :company_users
+    # resources :company_users
     resources :companies, only: [:create, :index]
 
     post '/signup', to: 'users#create'
     get '/me', to: 'users#show'
+    get '/company_personnel', to: 'company_users#show'
     post '/login', to: 'sessions#create'
     delete '/logout', to: "sessions#destroy"
     post '/reset/:id', to: "users#reset_password"

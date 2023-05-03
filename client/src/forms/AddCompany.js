@@ -13,7 +13,6 @@ export default function AddCompany({handleAddCompany}){
         }
         setError([])
         setSuccess(false)
-        console.log(formData)
         fetch('/api/companies', {
             method: "POST",
             headers: {
