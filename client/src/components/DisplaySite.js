@@ -110,6 +110,7 @@ function DisplaySite({sites,
                 ship={ship}
                 setPo={setPo}
                 po={po}
+                sites={sites}
                  />
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete}/>

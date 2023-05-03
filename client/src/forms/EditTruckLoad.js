@@ -13,7 +13,8 @@ export default function EditTruckLoad({editTruck,
     setShip,
     ship,
     setPo,
-    po
+    po,
+    sites
 }){
     const [ error, setError ] = useState([])
     const [ success, setSuccess ] = useState(false)
@@ -128,7 +129,7 @@ export default function EditTruckLoad({editTruck,
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputShipTo" className="form-label">Ship To</label>
-                    <div className="col-sm-10">
+                    {/* <div className="col-sm-10">
                     <input 
                         type="text" 
                         className="form-control" 
@@ -136,7 +137,18 @@ export default function EditTruckLoad({editTruck,
                         value={ship}
                         onChange={(e) => setShip(e.target.value)}
                         />
-                    </div>
+                    </div> */}
+                    <select 
+                    className="form-select form-select-lg mb-3" 
+                    aria-label=".form-select-lg example"
+                    value={ship}
+                    onChange={(e) => setShip(e.target.value)}>
+                        {sites.map(site => {
+                            return(
+                                <option key={site.id} value={site.location}>{site.location}</option>
+                            )
+                        })}
+                    </select>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputPO" className="form-label">PO #</label>
