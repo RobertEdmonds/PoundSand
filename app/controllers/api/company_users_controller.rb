@@ -3,4 +3,21 @@ class CompanyUsersController < ApplicationController
         company_user = CompanyUser.find(session[:company_user_id])
         render json: company_user, status: :ok 
     end
+
+    def create
+        if(!!Company.find_by(code: company_user_params[:code]))
+            company = Company.find_by(code: company_user_params[:code])
+            customer = company.company_users.create!(company_user_params)
+            session[:company_user_id] = customer.id 
+            render json: customer, status: :created 
+        else 
+            render json: { errors: "Code does not match a company"}, status: :unprocessable_entity 
+        end
+    end
+
+    private 
+
+    def company_user_params
+        params.permit(:email, :password, :password_confirmation, :code)
+    end
 end
