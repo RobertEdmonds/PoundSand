@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function CompanySignUp({setUser}){
+export default function CompanySignUp({setCompanyUser}){
     const [ name, setName] = useState("")
     const [ username, setUsername] = useState("")
     const [ email, setEmail] = useState('')
@@ -34,7 +34,7 @@ export default function CompanySignUp({setUser}){
 
           if (r.ok) {
             r.json().then((user) => {
-                    console.log(user)
+                    setCompanyUser(user)
                     navigate("/");
                 })
             setName("");
@@ -45,7 +45,6 @@ export default function CompanySignUp({setUser}){
             setPasswordConfirmation("")
           } else {
             r.json().then((err) => {
-                console.log(err)
                 setError(err.errors)
             });
           }
@@ -72,7 +71,7 @@ export default function CompanySignUp({setUser}){
                     <input 
                         type="text" 
                         className="form-control" 
-                        id="formGroupExampleInput" 
+                        // id="formGroupExampleInput" 
                         placeholder="johnsmith@gmail.com" 
                         value={email}
                         onChange={e => setEmail(e.target.value)} />
@@ -82,7 +81,7 @@ export default function CompanySignUp({setUser}){
                     <input 
                         type="text" 
                         className="form-control" 
-                        id="formGroupExampleInput" 
+                        // id="formGroupExampleInput" 
                         placeholder="John Smith" 
                         value={name}
                         onChange={e => setName(e.target.value)} />
@@ -92,7 +91,7 @@ export default function CompanySignUp({setUser}){
                     <input 
                         type="text" 
                         className="form-control" 
-                        id="formGroupExampleInput" 
+                        // id="formGroupExampleInput" 
                         placeholder="JohnSmith" 
                         value={username}
                         onChange={e => setUsername(e.target.value)} />
@@ -102,7 +101,7 @@ export default function CompanySignUp({setUser}){
                     <input 
                         type="password" 
                         className="form-control" 
-                        id="formGroupExampleInput2" 
+                        // id="formGroupExampleInput2" 
                         placeholder="Password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}/>
@@ -112,7 +111,7 @@ export default function CompanySignUp({setUser}){
                     <input 
                         type="password" 
                         className="form-control" 
-                        id="formGroupExampleInput2" 
+                        // id="formGroupExampleInput2" 
                         placeholder="Password"
                         value={passwordConfirmation}
                         onChange={e => setPasswordConfirmation(e.target.value)}/>
@@ -122,7 +121,7 @@ export default function CompanySignUp({setUser}){
                     <input 
                         type="text" 
                         className="form-control" 
-                        id="formGroupExampleInput" 
+                        // id="formGroupExampleInput" 
                         value={code}
                         onChange={e => setCode(e.target.value)} />
                 </div>

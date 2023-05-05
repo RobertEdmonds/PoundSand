@@ -178,7 +178,6 @@ function Authenticated({user, setUser}){
     }
 
     const showUseSandDelete = (sandDelete) => {
-        console.log(sandDelete)
         const updatedSite = sites.filter(site => {
             if(site.id === sandDelete.site_id){
                 const showDelete = site.sand_useds.filter(sand => sand.id !== sandDelete.id)
@@ -190,7 +189,6 @@ function Authenticated({user, setUser}){
                 return site
             }
         })
-        console.log(updatedSite)
         setSites(updatedSite)
     }
 

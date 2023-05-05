@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     patch "/user_employee_update/:id", to: 'users#employee_change'
     get '/completed_sites', to: 'sites#completed_index'
     patch '/reset_password/:id', to: 'users#admin_reset_password'
+    get '/company_sites/:id', to: 'companies#company_index'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 
 
-function Login({setUser}){
+function Login({setUser, setCompanyUser}){
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
@@ -27,6 +27,9 @@ function Login({setUser}){
 
           if (r.ok) {
             r.json().then((user) => {
+              if(user.hasOwnProperty('email')){
+                setCompanyUser(user)
+              }else{
                 if(user.log_number === 0){
                     setUser(user)
                     navigate(`/reset_password/${user.id}`)
@@ -34,6 +37,7 @@ function Login({setUser}){
                     setUser(user)
                     navigate("/");
                 }
+              }
             })
             setUsername("");
             setPassword("");

@@ -1,4 +1,6 @@
-class CompanyUsersController < ApplicationController
+class Api::CompanyUsersController < ApplicationController
+    skip_before_action :authorize, only: :create
+
     def show 
         company_user = CompanyUser.find(session[:company_user_id])
         render json: company_user, status: :ok 
@@ -11,7 +13,7 @@ class CompanyUsersController < ApplicationController
             session[:company_user_id] = customer.id 
             render json: customer, status: :created 
         else 
-            render json: { errors: "Code does not match a company"}, status: :unprocessable_entity 
+            render json: { errors: ["Code does not match a company"]}, status: :unprocessable_entity 
         end
     end
 

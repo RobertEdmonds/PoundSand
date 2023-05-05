@@ -27,6 +27,7 @@ function SandSite({handleAddSite, companyList}){
                     setSuccess(true)
                     setLocation('')
                     setCrew('')
+                    setCompanyId('')
                     handleAddSite(site)
                 })
             }else{

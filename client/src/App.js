@@ -28,8 +28,6 @@ function App() {
       })
   },[setCompanyUser])
 
-  console.log(companyUser)
-
   return (
     <>
     <Router>
@@ -48,6 +46,7 @@ function App() {
       {user === null && companyUser === null &&(
           <Unauthenticated
             setUser={setUser}
+            setCompanyUser={setCompanyUser}
           />
         )
       }
