@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     post '/signup', to: 'users#create'
     get '/me', to: 'users#show'
     get '/company_personnel', to: 'company_users#show'
+    post '/company_personnel_sign_up', to: 'company_users#create'
     post '/login', to: 'sessions#create'
     delete '/logout', to: "sessions#destroy"
     post '/reset/:id', to: "users#reset_password"

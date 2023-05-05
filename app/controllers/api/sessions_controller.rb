@@ -3,9 +3,13 @@ class Api::SessionsController < ApplicationController
 
     def create 
         user = User.find_by(username: params[:username])
+        company_user = CompanyUser.find_by(username: params[:username])
         if user&.authenticate(params[:password]) 
             session[:user_id] = user.id
             render json: user, status: :created 
+        elsif company_user&.authenticate(params[:password])
+            session[:company_user_id] = company_user.id
+            render json: company_user, status: :created
         else
             render json: {errors: ["Password or Email doesn't match our file"]}, status: :unauthorized
         end
@@ -13,6 +17,7 @@ class Api::SessionsController < ApplicationController
 
     def destroy 
         session.delete :user_id
+        session.delete :company_user_id
         head :no_content
     end
 end

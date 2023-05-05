@@ -1,4 +1,4 @@
 class CompanyUserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :password_digest
+  attributes :id, :email, :name, :code
   has_one :company
 end
