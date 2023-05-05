@@ -8,7 +8,9 @@ class CompanyUser < ApplicationRecord
         (?=.*[A-Z]) # Contain at least one uppercase letter
         (?=.*[[:^alnum:]]) # Contain at least one symbol
         /x
-  
+
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true 
   validates :password, format: PASSWORD_REQUIREMENTS, confirmation: true, on: :create
 
   belongs_to :company

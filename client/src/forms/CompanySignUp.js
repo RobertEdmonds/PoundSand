@@ -1,9 +1,8 @@
-import {useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-
-function Login({setUser}){
-    const [username, setUsername] = useState("")
+export default function CompanySignUp({setUser}){
+    const [ name, setName] = useState("")
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState([])
@@ -13,7 +12,7 @@ function Login({setUser}){
         e.preventDefault();
         setLoading(true);
         const dataForm = {
-          username,
+          name,
           password,
         };
         fetch("/api/login", {
@@ -45,8 +44,8 @@ function Login({setUser}){
         });
       }
 
-    const handleCompanySite = () => {
-      navigate('/company_sign_up')
+    const handleLogin = () => {
+      navigate('/')
     }
 
     return(
@@ -67,8 +66,8 @@ function Login({setUser}){
                         className="form-control" 
                         id="formGroupExampleInput" 
                         placeholder="Username" 
-                        value={username}
-                        onChange={e => setUsername(e.target.value.trim())} />
+                        value={name}
+                        onChange={e => setName(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput2" className="form-label">Password</label>
@@ -88,8 +87,8 @@ function Login({setUser}){
                   </button>
                 ):(
                   <>
-                    <button type="submit" className="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-link" onClick={() => handleCompanySite()}>Sign Up</button>
+                    <button type="submit" className="btn btn-primary">Sign Up</button>
+                    <button type="button" class="btn btn-link" onClick={() => handleLogin()}>Login</button>
                   </>
                 )}
             </form>
@@ -97,5 +96,3 @@ function Login({setUser}){
         </>
     )
 }
-
-export default Login;

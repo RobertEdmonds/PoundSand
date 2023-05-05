@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
 import Authenticated from './authenticate/Authenticated'
+import CompanyAuthorized from './authenticate/CompanyAuthorized';
 import Unauthenticated from './authenticate/Unauthenticated'
 
 function App() {
@@ -32,12 +33,19 @@ function App() {
   return (
     <>
     <Router>
-      {user ? (
-          <Authenticated
-            setUser={setUser}
-            user={user}
-          />
-        ) : (
+      {user && (
+        <Authenticated
+          setUser={setUser}
+          user={user}
+        />
+      )}
+      {companyUser && (
+        <CompanyAuthorized
+          setCompanyUser={setCompanyUser}
+          companyUser={companyUser}
+        />
+      )}
+      {user === null && companyUser === null &&(
           <Unauthenticated
             setUser={setUser}
           />
