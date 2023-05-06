@@ -63,11 +63,11 @@ function Header({sites,
                         <span className="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul className="dropdown-menu">
-                        {/* {sites.map(site => {
+                        {sites.map(site => {
                             return(
                                 <li className="dropdown-item" onClick={() => handleSiteDisplayButton(site)} key={site.id}>{site.location}</li>
                             )
-                        })} */}
+                        })}
                         <li className="dropdown-item" onClick={() => handleGoHome()}>Active Sites</li>
                         <li className="dropdown-item" onClick={() => handleCompletedBool()}>Completed Sites</li>
                         {user.boss && (

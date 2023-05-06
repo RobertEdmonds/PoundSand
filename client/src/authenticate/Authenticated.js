@@ -224,7 +224,7 @@ function Authenticated({user, setUser}){
     return(
         <div>
             <Header 
-            sites={sites} 
+            sites={(completedBool ? completedSites : sites)} 
             handleSiteDisplayButton={handleSiteDisplayButton} 
             buttonInfo={buttonInfo} 
             setButtonInfo={setButtonInfo}
