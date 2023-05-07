@@ -9,8 +9,8 @@ class CompanyUser < ApplicationRecord
         (?=.*[[:^alnum:]]) # Contain at least one symbol
         /x
 
-  validates :email, presence: true, uniqueness: true
-  validates :name, :username, {presence: true} 
+  validates :email, :username, {presence: true, uniqueness: true}
+  validates :name, {presence: true} 
   validates :password, format: PASSWORD_REQUIREMENTS, confirmation: true, on: :create
 
   belongs_to :company

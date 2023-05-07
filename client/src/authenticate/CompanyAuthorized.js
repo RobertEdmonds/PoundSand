@@ -6,6 +6,7 @@ import CompanySite from "../components/CompanySite";
 
 export default function CompanyAuthorized({companyUser, setCompanyUser}){
     const [ companySites, setCompanySites ] = useState([])
+    const [ fullList, setFullList ] = useState([])
     const [ completedBool, setCompletedBool ] = useState(false)
     const [ showSite, setShowSite ] = useState(null)
     const [ tSandUsed, setTSandUsed ] = useState(0)
@@ -17,7 +18,10 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
     useEffect(()=> {
         fetch(`/api/company_sites/${companyUser.code}`)
         .then(resp => resp.json())
-        .then(company => setCompanySites(company[0].sites))
+        .then(company => {
+            setCompanySites(company[0].sites)
+            setFullList(company[0].sites)
+        })
     },[companyUser])
 
     const handleSiteDisplayButton = (site) => {
@@ -31,22 +35,16 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
                     setOnSite(site.total_on_site)
                     setSiteDelivery(site.total_delivered)
                     navigate(`/site/${site.location}/${site.crew}/${site.id}`)
-                    // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                    //     location: site.location,
-                    //     crew: site.crew,
-                    //     total_sand_used:site.total_sand_used, 
-                    //     total_on_site: site.total_on_site,
-                    //     total_delivered: site.total_delivered,
-                    //     completed: site.completed,  
-                    //     showSite: true}))
                 })
             }
         })
-        // setButtonInfo(site.location)
-        // setTSandUsed(site.total_sand_used)
-        // setOnSite(site.total_on_site)
-        // setSiteDelivery(site.total_delivered)
-        // navigate(`/site/${site.location}/${site.crew}/${site.id}`)
+    }
+
+    const handleSiteSearch = (value) => {
+        const searchSite = fullList.filter(site => {
+            return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
+        })
+        setCompanySites(searchSite)
     }
 
     return(
@@ -60,6 +58,7 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
                 setButtonInfo={setButtonInfo}
                 setCompletedBool={setCompletedBool}
                 handleSiteDisplayButton={handleSiteDisplayButton}
+                handleSiteSearch={handleSiteSearch}
             />
             <Routes>
                 <Route path='/' element={<Homepage 
