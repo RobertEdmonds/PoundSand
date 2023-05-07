@@ -1,5 +1,5 @@
 class Api::SitesController < ApplicationController
-    before_action :set_site, only: [:update, :destroy]
+    before_action :set_site, only: [:update, :show, :destroy]
 
     def index
         sites = Site.where(completed: false)
@@ -9,6 +9,11 @@ class Api::SitesController < ApplicationController
     def completed_index
         sites = Site.where(completed: true)
         render json: sites, status: :ok
+    end
+
+    def show 
+        debugger 
+        render json: @site, status: :ok 
     end
 
     def create 

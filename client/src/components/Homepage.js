@@ -2,7 +2,7 @@ function Homepage({sites, handleSiteDisplayButton}){
     return(
         <div className="container text-center">
             <div className="row">
-            {sites.map(site => {
+            {sites.reverse().map(site => {
                 const siteDate = site.start_date.split("-")
                 return(
                     <div className="col" key={site.id}>

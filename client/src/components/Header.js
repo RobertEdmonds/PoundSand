@@ -68,7 +68,7 @@ function Header({sites,
                                 <li className="dropdown-item" onClick={() => handleSiteDisplayButton(site)} key={site.id}>{site.location}</li>
                             )
                         })}
-                        <li className="dropdown-item" onClick={() => handleGoHome()}>Active Sites</li>
+                        <li className="dropdown-item" onClick={() => handleGoHome()}>{!!user.email ? "All Sites" : "Active Sites"}</li>
                         {!user.email && (
                         <li className="dropdown-item" onClick={() => handleCompletedBool()}>Completed Sites</li>
                         )}

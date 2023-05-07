@@ -1,7 +1,11 @@
-import { useState, useParams } from "react"
+import { useState } from "react"
+import {  useParams } from "react-router-dom";
+import DisplayNav from "./DisplayNav"
+import DisplayTruck from "./DisplayTruck"
+import DisplaySand from "./DisplaySand"
 
-export default function CompanySite(){
-    const { location, crew, id} = useParams()
+export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, user}){
+    const { location, crew} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
@@ -16,7 +20,7 @@ export default function CompanySite(){
         setDateDirection(bool)
     }
 
-    const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)[0]
+    const sandUsed = showSite.sand_useds
     const dictionaryUsed = {}
         for(let i = 0; i < sandUsed.length; i++){
             if(dictionaryUsed.hasOwnProperty(sandUsed[i].date)){
@@ -32,7 +36,7 @@ export default function CompanySite(){
         count += (Object.values(dictionaryUsed)[i])
     }
 
-    const truckArray = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)[0]
+    const truckArray = showSite.trucks
     const dictionaryTruck = {}
         for(let i = 0; i < truckArray.length; i++){
             if(dictionaryTruck.hasOwnProperty(truckArray[i].date)){
@@ -55,11 +59,11 @@ export default function CompanySite(){
             handleWeightChange={handleWeightChange} 
             setDisplayInfo={setDisplayInfo} 
             handleDateChange={handleDateChange}
-            completedBool={completedBool}
+            user={user}
             crew={crew}
             />
-            <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm}/>
-            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete}/>
+            <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
+            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} />
             <div className="container text-center">
                 <div className="row align-items-start">
                     <div className="col badge text-bg-info fs-3">

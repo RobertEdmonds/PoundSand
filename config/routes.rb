@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :sand_useds, only: [:index, :create, :destroy]
     resources :trucks, only: [:index, :create, :update]
-    resources :sites, except: [:show]
+    resources :sites
     resources :users, only: [:index]
     # resources :company_users
     resources :companies, only: [:create, :index]

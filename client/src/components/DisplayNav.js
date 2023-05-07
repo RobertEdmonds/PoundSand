@@ -1,9 +1,9 @@
-function DisplayNav({location, crew, handleWeightChange, setDisplayInfo, handleDateChange, completedBool}){
+function DisplayNav({location, crew, handleWeightChange, setDisplayInfo, handleDateChange, completedBool, user}){
     return(
         <nav className="navbar bg-body-tertiary">
                 <div className="container-fluid">
                     <span className="navbar-brand" >Location: {location} <br/> Crew: {crew}</span>
-                    {completedBool ? (<></>) : (
+                    {completedBool || !!user.email ? (<></>) : (
                     <div className="d-grid gap-2 col-3 mx-auto">
                         <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#truckLoad">Add Sand</button>
                         <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#downHole">Sand Used</button>
