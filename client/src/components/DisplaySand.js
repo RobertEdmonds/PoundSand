@@ -1,6 +1,6 @@
 
 
-function DisplaySand({sandUsed, sandTime, showUseSandDelete}){
+function DisplaySand({sandUsed, sandTime, showUseSandDelete, user}){
     let sandDateArray = sandUsed.filter(truck => truck.date === sandTime)
     const handleUseSandDelete = (sand) => {
         fetch(`/api/sand_useds/${sand.id}`, {
@@ -37,7 +37,9 @@ function DisplaySand({sandUsed, sandTime, showUseSandDelete}){
                                         <td>{sand.stage}</td>
                                         <td>{sand.moisture}</td>
                                         <td>{sand.total_amount_per_day}</td>
-                                        <td><button type="button" className="btn btn-info" onClick={() => handleUseSandDelete(sand)}>Delete</button></td>
+                                        {!user.email && (
+                                            <td><button type="button" className="btn btn-info" onClick={() => handleUseSandDelete(sand)}>Delete</button></td>
+                                        )}
                                     </tr>
                                 )
                             })

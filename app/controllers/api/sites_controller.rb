@@ -12,7 +12,6 @@ class Api::SitesController < ApplicationController
     end
 
     def show 
-        debugger 
         render json: @site, status: :ok 
     end
 

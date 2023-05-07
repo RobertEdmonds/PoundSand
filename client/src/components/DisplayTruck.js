@@ -1,4 +1,4 @@
-function DisplayTruck({truckArray, truckTime, goToEditForm}){
+function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
     const truckDateArray = truckArray.filter(truck => truck.date === truckTime)
 
     return(
@@ -30,7 +30,9 @@ function DisplayTruck({truckArray, truckTime, goToEditForm}){
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
                                 <td>{truck.total_amount_per_day}</td>
-                                <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToEditForm(truck)}>Edit</button></td>
+                                {!user.email && (
+                                    <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToEditForm(truck)}>Edit</button></td>
+                                )}
                             </tr>
                         )
                     })

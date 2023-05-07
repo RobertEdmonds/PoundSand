@@ -16,7 +16,8 @@ function DisplaySite({sites,
     completedBool,
     handleSiteCompletion,
     handleEditSand,
-    showUseSandDelete
+    showUseSandDelete,
+    user
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -93,6 +94,7 @@ function DisplaySite({sites,
             handleDateChange={handleDateChange}
             completedBool={completedBool}
             crew={crew}
+            user={user}
             />
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} location={location} handleAddSand={handleAddSand}/>
@@ -112,8 +114,8 @@ function DisplaySite({sites,
                 po={po}
                 sites={sites}
                  />
-            <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm}/>
-            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete}/>
+            <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user}/>
+            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
             <div className="container text-center">
                 <div className="row align-items-start">
                     <div className="col badge text-bg-info fs-3">

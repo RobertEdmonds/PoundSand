@@ -62,8 +62,8 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
             user={user}
             crew={crew}
             />
-            <DisplayTruck truckArray={truckArray} truckTime={truckTime}/>
-            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} />
+            <DisplayTruck truckArray={truckArray} truckTime={truckTime} user={user}/>
+            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} user={user}/>
             <div className="container text-center">
                 <div className="row align-items-start">
                     <div className="col badge text-bg-info fs-3">

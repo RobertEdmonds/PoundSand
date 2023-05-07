@@ -1,8 +1,9 @@
 function Homepage({sites, handleSiteDisplayButton}){
+    
     return(
         <div className="container text-center">
             <div className="row">
-            {sites.reverse().map(site => {
+            {sites.sort((a,b) => a.id < b.id ? 1 : -1).map(site => {
                 const siteDate = site.start_date.split("-")
                 return(
                     <div className="col" key={site.id}>

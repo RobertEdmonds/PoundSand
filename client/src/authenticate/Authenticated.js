@@ -241,6 +241,7 @@ function Authenticated({user, setUser}){
                 <Route path='/' element={<Homepage sites={(completedBool ? completedSites : sites)} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
                 <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
                 sites={(completedBool ? completedSites : sites)} 
+                user={user}
                 setButtonInfo={setButtonInfo}
                 tSandUsed={tSandUsed}
                 onSite={onSite}

@@ -31,6 +31,14 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
                     setOnSite(site.total_on_site)
                     setSiteDelivery(site.total_delivered)
                     navigate(`/site/${site.location}/${site.crew}/${site.id}`)
+                    // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                    //     location: site.location,
+                    //     crew: site.crew,
+                    //     total_sand_used:site.total_sand_used, 
+                    //     total_on_site: site.total_on_site,
+                    //     total_delivered: site.total_delivered,
+                    //     completed: site.completed,  
+                    //     showSite: true}))
                 })
             }
         })
