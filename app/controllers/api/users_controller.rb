@@ -42,6 +42,11 @@ class Api::UsersController < ApplicationController
         render json: user, status: :created 
     end
 
+    def employee_delete 
+        user = User.find(params[:id])
+        user.destroy 
+        head :no_content
+
     private
 
     def user_params

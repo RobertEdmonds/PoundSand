@@ -19,21 +19,6 @@ class Api::SandUsedsController < ApplicationController
         render json: sand_used, status: :created
     end
 
-    # def update
-    #     sand_used = SandUsed.find(params[:id])
-    #     firstSite = Site.find(sand_used.site_id)
-    #     firstSite.update(total_on_site: (firstSite.total_on_site - truck.total), total_delivered: (firstSite.total_delivered - truck.total))
-    #     sand_used.update!(sand_used_params)
-    #     if firstSite.location.upcase == truck.ship_to.upcase
-    #         firstSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
-    #     else
-    #         secondSite = Site.find_by_upcased_location(truck.ship_to)
-    #         truck.update!(site_id: secondSite.id)
-    #         secondSite.update(total_on_site: (firstSite.total_on_site + truck.total), total_delivered: (firstSite.total_delivered + truck.total))
-    #     end
-    #     render json: truck, status: :created
-    # end
-
     def destroy
         sand_used = SandUsed.find(params[:id])
         site = Site.find(sand_used.site_id)
