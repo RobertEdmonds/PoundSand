@@ -69,7 +69,9 @@ function Header({sites,
                             )
                         })}
                         <li className="dropdown-item" onClick={() => handleGoHome()}>Active Sites</li>
+                        {!user.email && (
                         <li className="dropdown-item" onClick={() => handleCompletedBool()}>Completed Sites</li>
+                        )}
                         {user.boss && (
                             <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
                         )}

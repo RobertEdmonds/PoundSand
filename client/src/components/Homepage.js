@@ -6,7 +6,7 @@ function Homepage({sites, handleSiteDisplayButton}){
                 const siteDate = site.start_date.split("-")
                 return(
                     <div className="col" key={site.id}>
-                        <div className="card" style={{width: "18rem"}}>
+                        <div className={site.completed ? "card text-bg-info mb-3" : "card"} style={{width: "18rem"}}>
                             <div className="card-body">
                                 <h5 className="card-title">{site.location}</h5>
                                 <h5 className="card-title">{site.crew}</h5>
