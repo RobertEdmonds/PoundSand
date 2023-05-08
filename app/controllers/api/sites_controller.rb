@@ -38,7 +38,7 @@ class Api::SitesController < ApplicationController
     end
 
     def site_status_params 
-        params.permit(:completed)
+        params.permit(:completed, :trash_sand)
     end
 
     def set_site 

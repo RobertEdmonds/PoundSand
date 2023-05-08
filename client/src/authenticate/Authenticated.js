@@ -10,6 +10,7 @@ function Authenticated({user, setUser}){
     const [ sites, setSites ] = useState([])
     const [ allSites, setAllSites ] = useState([])
     const [ completedSites, setCompletedSites ] = useState([])
+    const [ allCompletedSites, setAllCompletedSites ] = useState([])
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
@@ -52,7 +53,10 @@ function Authenticated({user, setUser}){
     useEffect(() => {
         fetch('/api/completed_sites')
         .then(resp => resp.json())
-        .then(comp => setCompletedSites(comp))
+        .then(comp => {
+            setCompletedSites(comp)
+            setAllCompletedSites(comp)
+        })
     },[])
 
     const handleAddCompany = (company) => {
@@ -215,10 +219,17 @@ function Authenticated({user, setUser}){
     
 
     const handleSiteSearch = (value) => {
-        const searchSite = allSites.filter(site => {
-            return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
-        })
-        setSites(searchSite)
+        if(completedBool){
+            const searchSite = allCompletedSites.filter(site => {
+                return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
+            })
+            setCompletedSites(searchSite)
+        }else{
+            const searchSite = allSites.filter(site => {
+                return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
+            })
+            setSites(searchSite)
+        }
     }
 
     return(

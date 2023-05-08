@@ -6,6 +6,7 @@ import DisplayNav from "./DisplayNav";
 import DisplayTruck from "./DisplayTruck";
 import DisplaySand from "./DisplaySand";
 import EditTruckLoad from "../forms/EditTruckLoad";
+import TrashSand from "../forms/TrashSand";
 
 function DisplaySite({sites, 
     onSite, 
@@ -114,6 +115,7 @@ function DisplaySite({sites,
                 po={po}
                 sites={sites}
                  />
+            <TrashSand id={id} />
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
             <div className="container text-center">

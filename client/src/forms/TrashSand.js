@@ -1,20 +1,38 @@
 import { useState } from "react"
 
-export default function TrashSand(){
-    const [ pounds, setPounds ] = useState(null)
+export default function TrashSand({id}){
+    const [ pounds, setPounds ] = useState('')
     const [ success, setSuccess ] = useState(false)
     const [ error, setError ] = useState([])
 
     const handleTrashSand = () => {
-        
+        const formData = {
+            trash_sand: parseInt(pounds)
+        }
+        setError([])
+        setSuccess(false)
+        fetch(`/api/sites/${id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }).then(resp => {
+            if(resp.ok){
+                setSuccess(true)
+                setPounds('')
+            }else{
+                resp.json().then(err => setError(err.errors))
+            }
+          })
     }
 
     return(
-        <div className="modal fade" id="downHole" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="trashSand" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                 <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">Sand Used</h1>
+                    <h1 className="modal-title fs-5" id="exampleModalLabel">Trash Sand</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 {success ? ( 
@@ -27,7 +45,7 @@ export default function TrashSand(){
                 }))}
                 <form className="row">
                     <div className="mb-3 row">
-                        <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Tons </label>
+                        <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Pounds </label>
                         <div className="input-group">
                         <input type="number"
                             pattern="[0-9]*" 
@@ -40,7 +58,7 @@ export default function TrashSand(){
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={() => handleTrashSand()}>Save Sand Used</button>
+                        <button type="button" className="btn btn-primary" onClick={() => handleTrashSand()}>Save Trash</button>
                     </div>
                 </form>
                 </div>
