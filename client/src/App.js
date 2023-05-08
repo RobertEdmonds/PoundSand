@@ -28,6 +28,20 @@ function App() {
       })
   },[setCompanyUser])
 
+  useEffect(() => {
+    fetch('/api/sites')
+    .then(resp => resp.json())
+    .then(sites => console.log(sites))
+  },[])
+
+  function handleLogout() {
+    fetch("/api/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null);
+      }
+    });
+}
+
   return (
     <>
     <Router>
@@ -51,6 +65,7 @@ function App() {
         )
       }
     </Router>
+    <button type="button" className="btn btn-outline-secondary" onClick={handleLogout}>Logout</button>
     </>
   );
 }

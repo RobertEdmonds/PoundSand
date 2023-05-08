@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get '/company_personnel', to: 'company_users#show'
     post '/company_personnel_sign_up', to: 'company_users#create'
     post '/login', to: 'sessions#create'
-    delete '/logout', to: "sessions#destroy"
+    delete '/logout', to: "sessions#destroy_sessions"
     post '/reset/:id', to: "users#reset_password"
     patch "/user_employee_update/:id", to: 'users#employee_change'
     get '/completed_sites', to: 'sites#completed_index'

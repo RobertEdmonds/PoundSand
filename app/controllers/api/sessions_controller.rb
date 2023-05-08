@@ -15,9 +15,12 @@ class Api::SessionsController < ApplicationController
         end
     end
 
-    def destroy 
+    def destroy_sessions 
+        debugger
         session.delete :user_id
+        debugger
         session.delete :company_user_id
+        debugger
         head :no_content
     end
 end

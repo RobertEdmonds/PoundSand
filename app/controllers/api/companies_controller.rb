@@ -1,4 +1,6 @@
 class Api::CompaniesController < ApplicationController
+    before_action :authorize 
+    
     def index 
         render json: Company.all, status: :ok
     end
