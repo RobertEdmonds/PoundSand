@@ -93,7 +93,7 @@ function Login({setUser, setCompanyUser}){
                 ):(
                   <>
                     <button type="submit" className="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-link" onClick={() => handleCompanySite()}>Sign Up</button>
+                    <button type="button" className="btn btn-link" onClick={() => handleCompanySite()}>Sign Up</button>
                   </>
                 )}
             </form>

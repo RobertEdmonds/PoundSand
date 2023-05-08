@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
 
     def show 
         current_user = User.find(session[:user_id])
-        render json: current_user
+        render json: current_user, status: :created
     end
 
     def update
@@ -46,6 +46,7 @@ class Api::UsersController < ApplicationController
         user = User.find(params[:id])
         user.destroy 
         head :no_content
+    end
 
     private
 

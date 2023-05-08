@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 function DownHole({id, handleUseSand}){
-    const [ pounds, setPounds ] = useState(0)
+    const [ pounds, setPounds ] = useState('')
     const [ stage, setStage ] = useState('')
     const [ moisture, setMoisture ] = useState(0.0)
     const [ error, setError ] = useState([])
@@ -9,7 +9,7 @@ function DownHole({id, handleUseSand}){
 
     const handleDownHole = () => {
         const formData = {
-            pounds: Math.round(pounds * 2000),
+            pounds: Math.round(parseInt(pounds) * 2000),
             stage,
             moisture,
             site_id: parseInt(id)

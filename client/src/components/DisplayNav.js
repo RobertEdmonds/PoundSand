@@ -7,6 +7,7 @@ function DisplayNav({location, crew, handleWeightChange, setDisplayInfo, handleD
                     <div className="d-grid gap-2 col-3 mx-auto">
                         <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#truckLoad">Add Sand</button>
                         <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#downHole">Sand Used</button>
+                        <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#downHole">Trash Sand</button>
                     </div>
                     )}
                     <div className="btn-group d-grid d-md-flex justify-content-md-end" role="group" aria-label="Basic radio toggle button group">

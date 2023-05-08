@@ -3,8 +3,8 @@ import { useState } from "react"
 function TruckLoad({id, handleAddSand, location}){
     const [ truck, setTruck ] = useState('')
     const [ mine, setMine ] = useState('')
-    const [ tare, setTare ] = useState(0)
-    const [ gross, setGross ] = useState(0)
+    const [ tare, setTare ] = useState('')
+    const [ gross, setGross ] = useState('')
     // const [ ship, setShip ] = useState('')
     const [ po, setPo ] = useState('')
     const [ error, setError ] = useState([])
@@ -14,8 +14,8 @@ function TruckLoad({id, handleAddSand, location}){
         const formData = {
             truck, 
             mine,  
-            tare_weight: tare, 
-            gross_weight: gross, 
+            tare_weight: parseInt(tare), 
+            gross_weight: parseInt(gross), 
             ship_to: location, 
             po: po, 
             site_id: parseInt(id)

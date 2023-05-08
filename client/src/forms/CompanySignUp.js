@@ -134,7 +134,7 @@ export default function CompanySignUp({setCompanyUser}){
                 ):(
                   <>
                     <button type="submit" className="btn btn-primary">Sign Up</button>
-                    <button type="button" class="btn btn-link" onClick={() => handleLogin()}>Login</button>
+                    <button type="button" className="btn btn-link" onClick={() => handleLogin()}>Login</button>
                   </>
                 )}
             </form>
