@@ -76,9 +76,11 @@ function Header({sites,
                             <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
                         )}
                     </ul>
+                    {!JSON.parse(window.localStorage.getItem('MY_SAND_SITE')).employee && (
                     <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => handleSiteSearch(e.target.value)}/>
                     </form>
+                    )}
                 </div>
             </div>
         </nav>

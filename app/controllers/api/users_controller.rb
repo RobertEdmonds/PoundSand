@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-    before_action :authorize_user, only: [:employee_change] 
+    before_action :authorize_user, only: [:employee_change, :employee_delete] 
 
     def index 
         render json: User.all, status: :ok

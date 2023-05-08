@@ -16,6 +16,14 @@ export default function User(){
     const handleAddUser = (newUser) => {
         setUsersArray([...usersArray, newUser])
     }
+
+    const handleEmployeeDelete = (id) => {
+        fetch(`/api/employee_delete/${id}`, {
+            method: "DELETE",
+        }).then(() => {
+            setUsersArray(usersArray.filter(user => user.id !== id))
+        })
+    }
     
 
     return(
@@ -31,6 +39,7 @@ export default function User(){
                             <div className="card-body">
                                 <button className="btn btn-primary" onClick={() => setUserInfo(user)}data-bs-toggle="modal" data-bs-target="#ResetPWModal">Reset Password</button>
                                 <UserAdmin id={user.id} status={user.boss}/>
+                                <button type="button" class="btn btn-danger" onClick={() => handleEmployeeDelete(user.id)}>Delete Employee</button>
                             </div>
                         </div>
                     </div>
