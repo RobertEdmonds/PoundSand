@@ -1,5 +1,6 @@
 class Api::UsersController < ApplicationController
-    before_action :authorize_user, only: [:employee_change, :employee_delete] 
+    before_action :authorize_user, only: [:employee_change, :employee_delete, :index, :create] 
+    before_action :authorize_normal_user, only: [:update]
 
     def index 
         render json: User.all, status: :ok
@@ -61,5 +62,12 @@ class Api::UsersController < ApplicationController
     def authorize_user
         user_can_see = current_user.boss?
         render json: { error: "Ah ah ah, you didn't say the magic word" }, status: :forbidden unless user_can_see
+    end
+
+    def authorize_normal_user
+        user_found = current_user
+        if !user_found
+            render json: { error: "You don't have permission to perform that action" }, status: :forbidden
+        end
     end
 end

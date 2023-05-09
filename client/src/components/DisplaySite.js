@@ -173,9 +173,9 @@ function DisplaySite({sites,
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">Pounds</th>
+                        <th scope="col">{(changeWeight ? "Tons" : "Pounds")}</th>
                         <th scope="col">Stage</th>
-                        <th scope="col">Moisture</th>
+                        <th scope="col">Moisture%</th>
                         <th scope="col">Total Per Day</th>
                     </tr>
                 </thead>

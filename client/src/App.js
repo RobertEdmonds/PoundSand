@@ -7,7 +7,6 @@ import Unauthenticated from './authenticate/Unauthenticated'
 function App() {
   const [ user, setUser ] = useState(null)
   const [ companyUser, setCompanyUser ] = useState(null)
-  // const [ sites, setSites ] = useState([]) 
 
   useEffect(() => {
     fetch("/api/me").then((resp) => {
@@ -27,20 +26,6 @@ function App() {
         }
       })
   },[setCompanyUser])
-
-  useEffect(() => {
-    fetch('/api/sites')
-    .then(resp => resp.json())
-    .then(sites => console.log(sites))
-  },[])
-
-  function handleLogout() {
-    fetch("/api/logout", { method: "DELETE" }).then((r) => {
-      if (r.ok) {
-        setUser(null);
-      }
-    });
-}
 
   return (
     <>
@@ -65,7 +50,6 @@ function App() {
         )
       }
     </Router>
-    <button type="button" className="btn btn-outline-secondary" onClick={handleLogout}>Logout</button>
     </>
   );
 }

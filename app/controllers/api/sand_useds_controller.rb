@@ -1,4 +1,7 @@
 class Api::SandUsedsController < ApplicationController
+    before_action :authorize_view_user, only: [:index]
+    before_action :authorize_user, only: [:create, :destroy]
+
     def index
         render json: SandUsed.all, status: :ok
     end
@@ -36,6 +39,20 @@ class Api::SandUsedsController < ApplicationController
 
     def sand_used_params
         params.permit(:pounds, :stage, :moisture, :site_id)
+    end
+
+    def authorize_user
+        user_found = current_user
+        if !user_found
+            render json: { error: "You don't have permission to perform that action" }, status: :forbidden
+        end
+    end
+
+    def authorize_view_user 
+        user_found = current_company_user || current_user
+        if !user_found
+            render json: { error: "You don't have permission to perform that action" }, status: :forbidden
+        end
     end
 
 end

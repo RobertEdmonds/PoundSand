@@ -1,5 +1,4 @@
 class Api::CompanyUsersController < ApplicationController
-    before_action :authorize 
     skip_before_action :authorize, only: :create
 
     def show 
@@ -23,4 +22,5 @@ class Api::CompanyUsersController < ApplicationController
     def company_user_params
         params.permit(:email, :name, :username, :password, :password_confirmation, :code)
     end
+
 end

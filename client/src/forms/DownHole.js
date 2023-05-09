@@ -3,7 +3,7 @@ import { useState } from "react"
 function DownHole({id, handleUseSand}){
     const [ pounds, setPounds ] = useState('')
     const [ stage, setStage ] = useState('')
-    const [ moisture, setMoisture ] = useState(0.0)
+    const [ moisture, setMoisture ] = useState(0)
     const [ error, setError ] = useState([])
     const [ success, setSuccess ] = useState(false)
 
@@ -26,7 +26,7 @@ function DownHole({id, handleUseSand}){
             if(resp.ok){
                 resp.json().then(sand => {
                     setSuccess(true)
-                    setPounds(0)
+                    setPounds('')
                     setStage('')
                     setMoisture(0.0)
                     handleUseSand(sand)

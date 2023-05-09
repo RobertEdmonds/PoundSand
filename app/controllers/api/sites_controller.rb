@@ -1,5 +1,6 @@
 class Api::SitesController < ApplicationController
-    before_action :authorize_user
+    before_action :authorize_user, except: [:show]
+    before_action :authorize_company_user, only: [:show]
     before_action :set_site, only: [:update, :show, :destroy]
 
     def index
@@ -47,8 +48,15 @@ class Api::SitesController < ApplicationController
     end
 
     def authorize_user
-        user_can_modify = current_user
-        if !user_can_modify
+        user_found = current_user
+        if !user_found
+            render json: { error: "You don't have permission to perform that action" }, status: :forbidden
+        end
+    end
+
+    def authorize_company_user 
+        user_found = current_company_user
+        if !user_found
             render json: { error: "You don't have permission to perform that action" }, status: :forbidden
         end
     end
