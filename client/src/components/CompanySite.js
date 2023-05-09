@@ -69,17 +69,17 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                     <div className="col badge text-bg-info fs-3">
                         Total Delivered:
                         <br/>
-                        {changeWeight ? (siteDelivery / 2000) : (siteDelivery)}
+                        {changeWeight ? (siteDelivery / 2000).toLocaleString("en-US") : (siteDelivery).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand On Site:
                         <br/>
-                        {changeWeight ? (onSite / 2000) : (onSite)}
+                        {changeWeight ? (onSite / 2000).toLocaleString("en-US") : (onSite).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand Used:
                         <br/>
-                        {changeWeight ? (tSandUsed / 2000) : tSandUsed}
+                        {changeWeight ? (tSandUsed / 2000).toLocaleString("en-US") : tSandUsed.toLocaleString("en-US")}
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">Pounds</th>
+                        <th scope="col">{(changeWeight ? "Tons" : "Pounds")}</th>
                         <th scope="col">Stage</th>
                         <th scope="col">Moisture</th>
                         <th scope="col">Total Per Day</th>

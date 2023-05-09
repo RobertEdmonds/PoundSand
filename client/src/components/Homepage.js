@@ -15,11 +15,11 @@ function Homepage({sites, handleSiteDisplayButton}){
                             </div>
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">Total Sand On-Site</li>
-                                <li className="list-group-item">{site.total_on_site}</li>
+                                <li className="list-group-item">{(site.total_on_site).toLocaleString("en-US")}</li>
                                 <li className="list-group-item">Total Sand Used</li>
-                                <li className="list-group-item">{site.total_sand_used}</li>
+                                <li className="list-group-item">{(site.total_sand_used).toLocaleString("en-US")}</li>
                                 <li className="list-group-item">Total Sand Delivered</li>
-                                <li className="list-group-item">{site.total_delivered}</li>
+                                <li className="list-group-item">{(site.total_delivered).toLocaleString("en-US")}</li>
                                 <li className="list-group-item">Trash Sand</li>
                                 <li className="list-group-item">{site.trash_sand}</li>
                             </ul>

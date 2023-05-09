@@ -123,17 +123,17 @@ function DisplaySite({sites,
                     <div className="col badge text-bg-info fs-3">
                         Total Delivered:
                         <br/>
-                        {changeWeight ? (siteDelivery / 2000) : (siteDelivery)}
+                        {changeWeight ? (siteDelivery / 2000).toLocaleString("en-US") : (siteDelivery).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand On Site:
                         <br/>
-                        {changeWeight ? (onSite / 2000) : (onSite)}
+                        {changeWeight ? (onSite / 2000).toLocaleString("en-US") : (onSite).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand Used:
                         <br/>
-                        {changeWeight ? (tSandUsed / 2000) : tSandUsed}
+                        {changeWeight ? (tSandUsed / 2000).toLocaleString("en-US") : tSandUsed.toLocaleString("en-US")}
                     </div>
                 </div>
             </div>
@@ -201,9 +201,11 @@ function DisplaySite({sites,
                 </tbody>
             </table>
             )}
+            {user.boss && (
             <div className="d-grid gap-2">
                 <button className="btn btn-primary" type="button" onClick={() => handleSiteCompletion(parseInt(id))}>{completedBool ? "Reopen Site" : "Complete This Site"}</button>
             </div>
+            )}
         </div>
     )
 }

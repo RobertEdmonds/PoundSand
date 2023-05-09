@@ -45,6 +45,7 @@ export default function CompanySignUp({setCompanyUser}){
             setPasswordConfirmation("")
           } else {
             r.json().then((err) => {
+              console.log(err)
                 setError(err.errors)
             });
           }
@@ -54,6 +55,7 @@ export default function CompanySignUp({setCompanyUser}){
     const handleLogin = () => {
       navigate('/')
     }
+    console.log(error)
 
     return(
         <>
@@ -69,7 +71,7 @@ export default function CompanySignUp({setCompanyUser}){
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput" className="form-label">Email Address</label>
                     <input 
-                        type="text" 
+                        type="email" 
                         className="form-control" 
                         // id="formGroupExampleInput" 
                         placeholder="johnsmith@gmail.com" 

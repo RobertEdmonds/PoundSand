@@ -57,7 +57,9 @@ function DownHole({id, handleUseSand}){
                         <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Tons </label>
                         <div className="input-group">
                         <input type="number"
-                            pattern="[0-9]*" 
+                            pattern="[0-9]*"
+                            min='0'
+                            max='9999'  
                             className="form-control" 
                             id="inputPounds"
                             value={pounds}
