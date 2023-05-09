@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_05_05_195803) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -21,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_195803) do
   create_table "company_users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
-    t.integer "company_id", null: false
+    t.bigint "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code"
@@ -33,9 +36,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_195803) do
   create_table "sand_useds", force: :cascade do |t|
     t.integer "pounds"
     t.string "stage"
-    t.date "date", default: "2023-05-03"
+    t.date "date", default: "2023-05-09"
     t.float "moisture"
-    t.integer "site_id", null: false
+    t.bigint "site_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "total_amount_per_day", default: 0
@@ -50,24 +53,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_195803) do
     t.integer "total_sand_used", default: 0
     t.integer "total_delivered", default: 0
     t.float "trash_sand", default: 0.0
-    t.integer "company_id", null: false
+    t.bigint "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "start_date", default: "2023-05-03"
+    t.date "start_date", default: "2023-05-09"
     t.index ["company_id"], name: "index_sites_on_company_id"
   end
 
   create_table "trucks", force: :cascade do |t|
     t.string "truck"
     t.string "mine"
-    t.string "date", default: "2023-05-03"
+    t.string "date", default: "2023-05-09"
     t.integer "tare_weight"
     t.integer "gross_weight"
     t.string "ship_to"
     t.string "po"
     t.integer "total", default: 0
     t.integer "total_amount_per_day", default: 0
-    t.integer "site_id", null: false
+    t.bigint "site_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "edited", default: false

@@ -1,5 +1,6 @@
 print("Seeding")
 print(Date.current())
-User.create!(name: "Robert Edmonds", username: "RobertEdmonds", password: "Hello645$", password_confirmation: "Hello645$", boss: true)
+User.create!(name: "Robert Edmonds", username: "RobertEdmonds", password: "Hello123$", password_confirmation: "Hello123$", boss: true)
 User.create!(name: "Anna Omsberg", username: "AnnaOmsberg", password: "Hello123$", password_confirmation: "Hello123$", boss: true)
+User.create!(name: "Brian Blackburn", username: "BrianBlackburn", password: "Hello123$", password_confirmation: "Hello123$", boss: true)
 print("Seeding done")
