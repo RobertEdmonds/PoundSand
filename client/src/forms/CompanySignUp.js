@@ -55,7 +55,6 @@ export default function CompanySignUp({setCompanyUser}){
     const handleLogin = () => {
       navigate('/')
     }
-    console.log(error)
 
     return(
         <>
@@ -95,7 +94,6 @@ export default function CompanySignUp({setCompanyUser}){
                         className="form-control" 
                         // id="formGroupExampleInput" 
                         placeholder="JohnSmith" 
-                        value={username}
                         onChange={e => setUsername(e.target.value)} />
                 </div>
                 <div className="mb-3">
@@ -105,7 +103,6 @@ export default function CompanySignUp({setCompanyUser}){
                         className="form-control" 
                         // id="formGroupExampleInput2" 
                         placeholder="Password"
-                        value={password}
                         onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div className="mb-3">
@@ -114,8 +111,7 @@ export default function CompanySignUp({setCompanyUser}){
                         type="password" 
                         className="form-control" 
                         // id="formGroupExampleInput2" 
-                        placeholder="Password"
-                        value={passwordConfirmation}
+                        placeholder="Password Confirmation"
                         onChange={e => setPasswordConfirmation(e.target.value)}/>
                 </div>
                 <div className="mb-3">

@@ -52,7 +52,7 @@ function Login({setUser, setCompanyUser}){
     const handleCompanySite = () => {
       navigate('/company_sign_up')
     }
-
+    
     return(
         <>
             {error.map((err) => {
@@ -71,7 +71,6 @@ function Login({setUser, setCompanyUser}){
                         className="form-control" 
                         id="formGroupExampleInput" 
                         placeholder="Username" 
-                        value={username}
                         onChange={e => setUsername(e.target.value.trim())} />
                 </div>
                 <div className="mb-3">
@@ -81,7 +80,6 @@ function Login({setUser, setCompanyUser}){
                         className="form-control" 
                         id="formGroupExampleInput2" 
                         placeholder="Password"
-                        value={password}
                         onChange={e => setPassword(e.target.value)}/>
                 </div>
                 {loading ? (

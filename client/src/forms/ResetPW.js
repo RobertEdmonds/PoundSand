@@ -61,7 +61,6 @@ function ResetPW({setUser, user}){
                         className="form-control" 
                         id="formGroupExampleInput" 
                         placeholder="Password" 
-                        value={password}
                         onChange={e => setPassword(e.target.value.trim())} />
                 </div>
                 <div className="mb-3">
@@ -71,7 +70,6 @@ function ResetPW({setUser, user}){
                         className="form-control" 
                         id="formGroupExampleInput2" 
                         placeholder="Password Confirmation"
-                        value={passwordConfirmation}
                         onChange={e => setPasswordConfirmation(e.target.value)}/>
                 </div>
                 {loading ? (
