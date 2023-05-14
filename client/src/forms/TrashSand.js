@@ -44,7 +44,7 @@ export default function TrashSand({id}){
                         )
                 }))}
                 <form className="row">
-                    <div className="mb-3 row">
+                    <div className="mb-3 row" style={{width: "95%", paddingLeft: "10%"}}>
                         <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Pounds </label>
                         <div className="input-group">
                         <input type="number"

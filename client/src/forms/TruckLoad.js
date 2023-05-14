@@ -69,7 +69,7 @@ function TruckLoad({id, handleAddSand, location}){
                             )
                     }))}
                 <form>
-                    <div className="mb-3">
+                    <div className="mb-3" style={{width: "95%", paddingLeft: "15%"}}>
                         <label htmlFor="inputTruck" className="form-label">Truck #</label>
                         <div className="col-sm-10">
                         <input 
@@ -81,7 +81,7 @@ function TruckLoad({id, handleAddSand, location}){
                             />
                         </div>
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3" style={{width: "95%", paddingLeft: "15%"}}>
                         <label htmlFor="inputMine" className="form-label">Mine</label>
                         <div className="col-sm-10">
                         <input 
@@ -93,7 +93,7 @@ function TruckLoad({id, handleAddSand, location}){
                             />
                         </div>
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3" style={{width: "95%", paddingLeft: "15%"}}>
                         <label htmlFor="inputTareWeight" className="form-label">Tare Weight(pounds)</label>
                         <div className="col-sm-10">
                         <input 
@@ -107,7 +107,7 @@ function TruckLoad({id, handleAddSand, location}){
                             />
                         </div>
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3" style={{width: "95%", paddingLeft: "15%"}}>
                         <label htmlFor="inputGrossWeight" className="form-label">Gross Weight(pounds)</label>
                         <div className="col-sm-10">
                         <input 
@@ -133,7 +133,7 @@ function TruckLoad({id, handleAddSand, location}){
                             />
                         </div>
                     </div> */}
-                    <div className="mb-3">
+                    <div className="mb-3" style={{width: "95%", paddingLeft: "15%"}}>
                         <label htmlFor="inputPO" className="form-label">PO #</label>
                         <div className="col-sm-10">
                         <input 

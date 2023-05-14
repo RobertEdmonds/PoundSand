@@ -53,7 +53,7 @@ function DownHole({id, handleUseSand}){
                         )
                 }))}
                 <form className="row">
-                    <div className="mb-3 row">
+                    <div className="mb-3 row" style={{width: "95%", paddingLeft: "10%"}}>
                         <label htmlFor="inputPounds" className="col-sm-2 col-form-label"> Tons </label>
                         <div className="input-group">
                         <input type="number"
@@ -62,12 +62,13 @@ function DownHole({id, handleUseSand}){
                             max='9999'  
                             className="form-control" 
                             id="inputPounds"
+                            
                             value={pounds}
                             onChange={(e) => setPounds(e.target.value)}
                             />
                         </div>
                     </div>
-                    <div className="mb-3 row">
+                    <div className="mb-3 row" style={{width: "95%", paddingLeft: "10%"}}>
                         <label htmlFor="inputStage" className="col-sm-2 col-form-label">Stage</label>
                         <div className="input-group">
                         <input type="text" 
@@ -78,7 +79,7 @@ function DownHole({id, handleUseSand}){
                             />
                         </div>
                     </div>
-                    <div className="mb-3 row">
+                    <div className="mb-3 row" style={{width: "95%", paddingLeft: "10%"}}>
                         <label htmlFor="inputMoisture" className="col-sm-2 col-form-label">Moisture%</label>
                         <div className="input-group">
                         <input type="number"
