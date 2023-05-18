@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Picture from '../forms/AquaProp1.png'
 
 export default function CompanySignUp({setCompanyUser}){
     const [ name, setName] = useState("")
@@ -61,12 +62,9 @@ export default function CompanySignUp({setCompanyUser}){
             {error.map((err) => {
             return <div className="alert alert-danger" role="alert" key={err}>{err}</div>;
             })}
-            <div className="container text-center fs-2 p-3 mb-2 bg-info text-dark">
-                <div className="col-md-auto">
-                    Pound Sand
-                </div>
+            <div style={{width: "100%", height: "20rem", objectFit: "cover", backgroundImage: `url(${Picture})`}}>
             </div>
-            <form onSubmit={handleSubmit} className="container text-center">
+            <form onSubmit={handleSubmit} className="container text-center" style={{fontWeight: "bold", color: "white"}}>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput" className="form-label">Email Address</label>
                     <input 
@@ -131,8 +129,8 @@ export default function CompanySignUp({setCompanyUser}){
                   </button>
                 ):(
                   <>
-                    <button type="submit" className="btn btn-primary">Sign Up</button>
-                    <button type="button" className="btn btn-link" onClick={() => handleLogin()}>Login</button>
+                    <button type="submit" className="btn btn-primary" style={{fontWeight: "bold"}}>Sign Up</button>
+                    <button type="button" className="btn btn-link" onClick={() => handleLogin()} style={{fontWeight: "bold"}}>Login</button>
                   </>
                 )}
             </form>

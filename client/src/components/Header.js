@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import AddCompany from "../forms/AddCompany";
 import SandSite from "../forms/SandSite";
+import Title from '../components/AquaPorp2.png'
 
 function Header({sites, 
     handleSiteDisplayButton, 
@@ -45,9 +46,9 @@ function Header({sites,
     
 
     return(
-        <nav className="navbar bg-body-tertiary">
-            <div className="container-fluid">
-                <span className="navbar-brand mb-0 h1">Pound Sand</span>
+        <nav className="navbar bg-body-tertiary" style={{padding: "0"}}>
+            <div className="container-fluid" style={{backgroundColor: "rgb(45, 45, 45)", paddingBottom: "1rem"}}>
+                <span className="navbar-brand mb-0 h1" ><img src={Title} alt="AquaProp" style={{width: "15rem"}} /></span>
                 {user.boss && (
                     <>
                     <SandSite handleAddSite={handleAddSite} companyList={companyList}/>
@@ -55,11 +56,11 @@ function Header({sites,
                     </>
                 )}
                 <div className="btn-group">
-                    <button type="button" className="btn btn-outline-secondary" onClick={handleLogout}>Logout</button>
-                    <button className="btn btn-secondary btn-lg" type="button">
+                    <button type="button" className="btn btn-outline-primary" onClick={handleLogout} style={{fontWeight: "bold"}}>Logout</button>
+                    <button className="btn btn-primary btn-lg" type="button">
                         {buttonInfo}
                     </button>
-                    <button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" className="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                         <span className="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul className="dropdown-menu">
@@ -76,9 +77,11 @@ function Header({sites,
                             <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
                         )}
                     </ul>
+                    {buttonInfo === "Job Sites" || buttonInfo === "Completed Sites" ? (
                     <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => handleSiteSearch(e.target.value)}/>
                     </form>
+                    ) : (<></>)}
                 </div>
             </div>
         </nav>

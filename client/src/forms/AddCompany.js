@@ -34,7 +34,7 @@ export default function AddCompany({handleAddCompany}){
 
     return(
         <>
-        <button type="button" className="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createCompanyModal">
+        <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createCompanyModal" style={{fontWeight: "bold"}}>
             Create Company
         </button>
         <div className="modal fade" id="createCompanyModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

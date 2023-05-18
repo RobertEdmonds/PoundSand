@@ -22,7 +22,6 @@ function DisplaySite({sites,
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
-    const [ changeWeight, setChangeWeight ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
     const [ editTruck, setEditTruck ] = useState([])
     const [ truckTime, setTruckTime ] = useState("")
@@ -34,9 +33,6 @@ function DisplaySite({sites,
     const [ ship, setShip ] = useState('')
     const [ po, setPo ] = useState('')
 
-    const handleWeightChange = (bool) => {
-        setChangeWeight(bool)
-    }
 
     const handleDateChange = (bool) => {
         setDateDirection(bool)
@@ -90,7 +86,6 @@ function DisplaySite({sites,
         <div>
             <DisplayNav 
             location={location} 
-            handleWeightChange={handleWeightChange} 
             setDisplayInfo={setDisplayInfo} 
             handleDateChange={handleDateChange}
             completedBool={completedBool}
@@ -123,26 +118,32 @@ function DisplaySite({sites,
                     <div className="col badge text-bg-info fs-3">
                         Total Delivered:
                         <br/>
-                        {changeWeight ? (siteDelivery / 2000).toLocaleString("en-US") : (siteDelivery).toLocaleString("en-US")}
+                        Pounds: {(siteDelivery).toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(siteDelivery / 2000).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand On Site:
                         <br/>
-                        {changeWeight ? (onSite / 2000).toLocaleString("en-US") : (onSite).toLocaleString("en-US")}
+                        Pounds: {(onSite).toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(onSite / 2000).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand Used:
                         <br/>
-                        {changeWeight ? (tSandUsed / 2000).toLocaleString("en-US") : tSandUsed.toLocaleString("en-US")}
+                        Pounds: {tSandUsed.toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(tSandUsed / 2000).toLocaleString("en-US")}
                     </div>
                 </div>
             </div>
             {displayInfo ? (
-                <table className="table">
-                <thead>
+                <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
+                <thead >
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">Truck Load</th>
+                        <th scope="col">Truck Load <br/> Pounds(Tons)</th>
                         <th scope="col">Mine</th>
                         <th scope="col">PO #</th>
                         <th scope="col">Total Per Day</th>
@@ -157,11 +158,12 @@ function DisplaySite({sites,
                                 className="btn btn-primary" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#staticTruck" 
+                                style={{fontWeight: "bold"}}
                                 onClick={() => setTruckTime(truck.date)}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button></th>
-                                <td>{changeWeight ? (truck.total / 2000) : truck.total}</td>
+                                <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString("en-US")})`}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
-                                <td>{changeWeight ? (truck.total_amount_per_day / 2000) : truck.total_amount_per_day}</td>
+                                <td>{`${truck.total_amount_per_day.toLocaleString("en-US")}(${(truck.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                             </tr>
                         )
                     })
@@ -169,11 +171,11 @@ function DisplaySite({sites,
                 </tbody>
             </table>
             ):(
-            <table className="table">
+            <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">{(changeWeight ? "Tons" : "Pounds")}</th>
+                        <th scope="col">Pounds(Tons)</th>
                         <th scope="col">Stage</th>
                         <th scope="col">Moisture%</th>
                         <th scope="col">Total Per Day</th>
@@ -188,12 +190,13 @@ function DisplaySite({sites,
                                 type="button" 
                                 className="btn btn-primary"
                                 data-bs-toggle="modal" 
-                                data-bs-target="#staticSand" 
+                                data-bs-target="#staticSand"
+                                style={{fontWeight: "bold"}} 
                                 onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button></th>
-                                <td>{changeWeight ? (sand.pounds / 2000) : sand.pounds}</td>
+                                <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
                                 <td>{sand.stage}</td>
                                 <td>{sand.moisture}</td>
-                                <td>{changeWeight ? (sand.total_amount_per_day / 2000) : sand.total_amount_per_day}</td>
+                                <td>{`${sand.total_amount_per_day.toLocaleString("en-US")}(${(sand.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                             </tr>
                         )
                     })
@@ -203,7 +206,7 @@ function DisplaySite({sites,
             )}
             {user.boss && (
             <div className="d-grid gap-2">
-                <button className="btn btn-primary" type="button" onClick={() => handleSiteCompletion(parseInt(id))}>{completedBool ? "Reopen Site" : "Complete This Site"}</button>
+                <button className="btn btn-primary" type="button" onClick={() => handleSiteCompletion(parseInt(id))} style={{fontWeight: "bold"}}>{completedBool ? "Reopen Site" : "Complete This Site"}</button>
             </div>
             )}
         </div>

@@ -36,8 +36,8 @@ function TruckLoad({id, handleAddSand, location}){
                 })
                 setTruck('')
                 setMine('')
-                setTare(0)
-                setGross(0)
+                setTare("0")
+                setGross("0")
                 // setShip('')
                 setPo('')
             }else{

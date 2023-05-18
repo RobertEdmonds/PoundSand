@@ -37,7 +37,7 @@ function SandSite({handleAddSite, companyList}){
 
     return(
         <>
-            <button type="button" className="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createSiteModal">
+            <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createSiteModal" style={{fontWeight: "bold"}}>
                 Create New Site
             </button>
             <div className="modal fade" id="createSiteModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

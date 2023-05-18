@@ -21,7 +21,7 @@ function DisplaySand({sandUsed, sandTime, showUseSandDelete, user}){
                         <thead>
                             <tr>
                                 <th scope="col">Date</th>
-                                <th scope="col">Pounds</th>
+                                <th scope="col">Pounds(Tons)</th>
                                 <th scope="col">Stage</th>
                                 <th scope="col">Moisture%</th>
                                 <th scope="col">Total Per Day</th>
@@ -33,10 +33,10 @@ function DisplaySand({sandUsed, sandTime, showUseSandDelete, user}){
                                 return(
                                     <tr key={sand.id}>
                                         <th scope="row">{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</th>
-                                        <td>{sand.pounds}</td>
+                                        <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
                                         <td>{sand.stage}</td>
                                         <td>{sand.moisture}</td>
-                                        <td>{sand.total_amount_per_day}</td>
+                                        <td>{`${sand.total_amount_per_day.toLocaleString("en-US")}(${(sand.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                                         {!user.email && (
                                             <td><button type="button" className="btn btn-info" onClick={() => handleUseSandDelete(sand)}>Delete</button></td>
                                         )}
