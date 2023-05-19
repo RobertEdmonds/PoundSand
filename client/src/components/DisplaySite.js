@@ -18,7 +18,9 @@ function DisplaySite({sites,
     handleSiteCompletion,
     handleEditSand,
     showUseSandDelete,
-    user
+    user,
+    trashSand,
+    setTrashSand
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -32,7 +34,6 @@ function DisplaySite({sites,
     const [ gross, setGross ] = useState(0)
     const [ ship, setShip ] = useState('')
     const [ po, setPo ] = useState('')
-
 
     const handleDateChange = (bool) => {
         setDateDirection(bool)
@@ -110,10 +111,10 @@ function DisplaySite({sites,
                 po={po}
                 sites={sites}
                  />
-            <TrashSand id={id} />
+            <TrashSand id={id} trashSand={trashSand} setTrashSand={setTrashSand}/>
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
-            <div className="container text-center">
+            <div className="container text-center" style={{width: "100%"}}>
                 <div className="row align-items-start" >
                     <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
                         Total Delivered:
@@ -135,6 +136,13 @@ function DisplaySite({sites,
                         Pounds: {tSandUsed.toLocaleString("en-US")}
                         <br/>
                         Tons: {(tSandUsed / 2000).toLocaleString("en-US")}
+                    </div>
+                    <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                        Trash Sand:
+                        <br/>
+                        Pounds: {trashSand.toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(trashSand / 2000).toLocaleString("en-US")}
                     </div>
                 </div>
             </div>

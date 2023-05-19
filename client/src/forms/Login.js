@@ -59,8 +59,7 @@ function Login({setUser, setCompanyUser}){
             {error.map((err) => {
             return <div className="alert alert-danger" role="alert" key={err}>{err}</div>;
             })}
-            <div style={{width: "100%", height: "20rem", objectFit: "cover", backgroundImage: `url(${Picture})`}}>
-            </div>
+            <div style={{width: "100%", height: "20rem", backgroundPosition: "center", backgroundImage: `url(${Picture})`}}></div>
             <form onSubmit={handleSubmit} className="container text-center" style={{color: 'white', fontWeight: "bolder", fontSize: "2rem"}}>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput" className="form-label">Username</label>

@@ -14,6 +14,7 @@ function Authenticated({user, setUser}){
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
+    const [ trashSand, setTrashSand ] = useState(0)
     const [ siteDelivery, setSiteDelivery ] = useState(0)
     const [ completedBool, setCompletedBool ] = useState(false)
     const [ companyList, setCompanyList ] = useState([])
@@ -35,6 +36,7 @@ function Authenticated({user, setUser}){
                     setOnSite(site.total_on_site)
                     setSiteDelivery(site.total_delivered)
                     setCompletedBool(site.completed)
+                    setTrashSand(site.trash_sand)
                     navigate(`/site/${site.location}/${site.crew}/${site.id}`)
                 }else if(site.showSite && site.employee){
                     setButtonInfo("Employee")
@@ -68,12 +70,14 @@ function Authenticated({user, setUser}){
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
         setSiteDelivery(site.total_delivered)
+        setTrashSand(site.trash_sand)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
             location: site.location, 
             crew: site.crew,
             total_sand_used:site.total_sand_used, 
             total_on_site: site.total_on_site,
             total_delivered: site.total_delivered,
+            trash_sand: site.trash_sand,
             completed: site.completed,  
             showSite: true}))
         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
@@ -97,6 +101,7 @@ function Authenticated({user, setUser}){
                     total_sand_used:site.total_sand_used, 
                     total_on_site: site.total_on_site,
                     total_delivered: site.total_delivered,
+                    trash_sand: site.trash_sand,
                     completed: site.completed,  
                     showSite: true}))
                 return site
@@ -126,6 +131,7 @@ function Authenticated({user, setUser}){
                         total_sand_used:site.total_sand_used, 
                         total_on_site: site.total_on_site,
                         total_delivered: site.total_delivered,
+                        trash_sand: site.trash_sand,
                         completed: site.completed,  
                         showSite: true}))
                     return site
@@ -171,6 +177,7 @@ function Authenticated({user, setUser}){
                     total_sand_used:site.total_sand_used, 
                     total_on_site: site.total_on_site,
                     total_delivered: site.total_delivered,
+                    trash_sand: site.trash_sand,
                     completed: site.completed,  
                     showSite: true}))
                 return site
@@ -257,6 +264,8 @@ function Authenticated({user, setUser}){
                 tSandUsed={tSandUsed}
                 onSite={onSite}
                 siteDelivery={siteDelivery}
+                trashSand={trashSand}
+                setTrashSand={setTrashSand}
                 handleAddSand={handleAddSand}
                 handleUseSand={handleUseSand}
                 completedBool={completedBool}

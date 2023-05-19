@@ -69,17 +69,30 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                     <div className="col badge text-bg-info fs-3">
                         Total Delivered:
                         <br/>
-                        {changeWeight ? (siteDelivery / 2000).toLocaleString("en-US") : (siteDelivery).toLocaleString("en-US")}
+                        Pounds: {(siteDelivery).toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(siteDelivery / 2000).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand On Site:
                         <br/>
-                        {changeWeight ? (onSite / 2000).toLocaleString("en-US") : (onSite).toLocaleString("en-US")}
+                        Pounds: {(onSite).toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(onSite / 2000).toLocaleString("en-US")}
                     </div>
                     <div className="col badge text-bg-info fs-3">
                         Total Sand Used:
                         <br/>
-                        {changeWeight ? (tSandUsed / 2000).toLocaleString("en-US") : tSandUsed.toLocaleString("en-US")}
+                        Pounds: {tSandUsed.toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(tSandUsed / 2000).toLocaleString("en-US")}
+                    </div>
+                    <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                        Trash Sand:
+                        <br/>
+                        Pounds: {tSandUsed.toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(tSandUsed / 2000).toLocaleString("en-US")}
                     </div>
                 </div>
             </div>
@@ -88,7 +101,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">Truck Load</th>
+                        <th scope="col">Truck Load <br/> Pounds(Tons)</th>
                         <th scope="col">Mine</th>
                         <th scope="col">PO #</th>
                         <th scope="col">Total Per Day</th>

@@ -62,7 +62,7 @@ export default function CompanySignUp({setCompanyUser}){
             {error.map((err) => {
             return <div className="alert alert-danger" role="alert" key={err}>{err}</div>;
             })}
-            <div style={{width: "100%", height: "20rem", objectFit: "cover", backgroundImage: `url(${Picture})`}}>
+            <div style={{width: "100%", height: "20rem", backgroundPosition: "center", backgroundImage: `url(${Picture})`}}>
             </div>
             <form onSubmit={handleSubmit} className="container text-center" style={{fontWeight: "bold", color: "white"}}>
                 <div className="mb-3">

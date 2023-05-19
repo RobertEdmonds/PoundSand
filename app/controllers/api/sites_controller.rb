@@ -24,7 +24,11 @@ class Api::SitesController < ApplicationController
     end
 
     def update
-        @site.update!(site_status_params)
+        if(site_status_params[:trash_sand] > 0)
+            @site.update!(trash_sand: (@site.trash_sand + site_status_params[:trash_sand]))
+        else
+            @site.update!(site_status_params)
+        end
         render json: @site, status: :created
     end
 
