@@ -1,7 +1,7 @@
 class Api::SitesController < ApplicationController
     before_action :authorize_user, except: [:show]
     before_action :authorize_company_user, only: [:show]
-    before_action :set_site, only: [:update, :show, :destroy]
+    before_action :set_site, only: [:update, :show, :destroy, :update_correction]
 
     def index
         sites = Site.where(completed: false)
@@ -25,17 +25,21 @@ class Api::SitesController < ApplicationController
 
     def update
         if(site_status_params[:trash_sand] > 0)
-            @site.update!(trash_sand: (@site.trash_sand + site_status_params[:trash_sand]))
+            @site.update!(trash_sand: (@site.trash_sand + site_status_params[:trash_sand]), total_on_site: (@site.total_on_site - site_status_params[:trash_sand]))
         else
             @site.update!(site_status_params)
         end
         render json: @site, status: :created
     end
 
-    def destroy 
-        @site.destroy
-        head :no_content
+    def update_correction
+        @site.update!(site_correction_params)
     end
+
+    # def destroy 
+    #     @site.destroy
+    #     head :no_content
+    # end
 
     private 
 
@@ -45,6 +49,10 @@ class Api::SitesController < ApplicationController
 
     def site_status_params 
         params.permit(:completed, :trash_sand)
+    end
+
+    def site_correction_params 
+        params.permit(:correction)
     end
 
     def set_site 

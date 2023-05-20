@@ -16,6 +16,7 @@ function Authenticated({user, setUser}){
     const [ onSite, setOnSite ] = useState(0)
     const [ trashSand, setTrashSand ] = useState(0)
     const [ siteDelivery, setSiteDelivery ] = useState(0)
+    const [ correction, setCorrection ] = useState(0)
     const [ completedBool, setCompletedBool ] = useState(false)
     const [ companyList, setCompanyList ] = useState([])
     const navigate = useNavigate()
@@ -71,6 +72,7 @@ function Authenticated({user, setUser}){
         setOnSite(site.total_on_site)
         setSiteDelivery(site.total_delivered)
         setTrashSand(site.trash_sand)
+        setCorrection(site.correction)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
             location: site.location, 
             crew: site.crew,
@@ -79,6 +81,7 @@ function Authenticated({user, setUser}){
             total_delivered: site.total_delivered,
             trash_sand: site.trash_sand,
             completed: site.completed,  
+            correction: site.correction,
             showSite: true}))
         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
     }
@@ -206,6 +209,7 @@ function Authenticated({user, setUser}){
     const handleSiteCompletion = (id) => {
         const form = {
             completed: !completedBool,
+            trash_sand: 0
           };
           fetch(`/api/sites/${id}`, {
             method: "PATCH",
@@ -220,6 +224,7 @@ function Authenticated({user, setUser}){
                 setCompletedSites([...completedSites, site])
             }else{
                 setSites([...sites, site])
+                setCompletedSites(completedSites.filter(job => job.id !== site.id))
             }
           })
     }
@@ -263,9 +268,12 @@ function Authenticated({user, setUser}){
                 setButtonInfo={setButtonInfo}
                 tSandUsed={tSandUsed}
                 onSite={onSite}
+                setOnSite={setOnSite}
                 siteDelivery={siteDelivery}
                 trashSand={trashSand}
                 setTrashSand={setTrashSand}
+                correction={correction}
+                setCorrection={setCorrection}
                 handleAddSand={handleAddSand}
                 handleUseSand={handleUseSand}
                 completedBool={completedBool}

@@ -7,7 +7,7 @@ function DisplaySand({sandUsed, sandTime, showUseSandDelete, user}){
             method: "DELETE",
           }).then(() => showUseSandDelete(sand));
     }
-
+     
     return(
         <div className="modal fade modal-dialog-scrollable modal-xl" id="staticSand"  tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">

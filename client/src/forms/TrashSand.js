@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function TrashSand({id, trashSand, setTrashSand}){
+export default function TrashSand({id, trashSand, setTrashSand, onSite, setOnSite}){
     const [ pounds, setPounds ] = useState('')
     const [ success, setSuccess ] = useState(false)
     const [ error, setError ] = useState([])
@@ -25,6 +25,7 @@ export default function TrashSand({id, trashSand, setTrashSand}){
                     });
                 localStorage.setItem('MY_SAND_SITE', JSON.stringify(profile))
                 setTrashSand(trashSand + parseInt(pounds))
+                setOnSite(onSite - parseInt(pounds))
                 setSuccess(true)
                 setPounds('')
             }else{

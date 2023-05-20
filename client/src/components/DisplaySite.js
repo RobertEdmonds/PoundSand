@@ -10,6 +10,7 @@ import TrashSand from "../forms/TrashSand";
 
 function DisplaySite({sites, 
     onSite, 
+    setOnSite,
     tSandUsed,
     siteDelivery,
     handleAddSand,
@@ -20,7 +21,9 @@ function DisplaySite({sites,
     showUseSandDelete,
     user,
     trashSand,
-    setTrashSand
+    setTrashSand,
+    correction,
+    setCorrection
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -81,8 +84,8 @@ function DisplaySite({sites,
         setEditTruck(truck)
     }
 
-    
-  
+    let displayMoisture = sandUsed.map(sand => sand.moisture)
+
     return(
         <div>
             <DisplayNav 
@@ -90,6 +93,8 @@ function DisplaySite({sites,
             setDisplayInfo={setDisplayInfo} 
             handleDateChange={handleDateChange}
             completedBool={completedBool}
+            correction={correction}
+            setCorrection={setCorrection}
             crew={crew}
             user={user}
             />
@@ -111,7 +116,7 @@ function DisplaySite({sites,
                 po={po}
                 sites={sites}
                  />
-            <TrashSand id={id} trashSand={trashSand} setTrashSand={setTrashSand}/>
+            <TrashSand id={id} trashSand={trashSand} setTrashSand={setTrashSand} onSite={onSite} setOnSite={setOnSite}/>
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
             <div className="container text-center" style={{width: "100%"}}>
@@ -185,7 +190,7 @@ function DisplaySite({sites,
                         <th scope="col">Date</th>
                         <th scope="col">Pounds(Tons)</th>
                         <th scope="col">Stage</th>
-                        <th scope="col">Moisture%</th>
+                        <th scope="col">Moisture% <br/> Av:  {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}</th>
                         <th scope="col">Total Per Day</th>
                     </tr>
                 </thead>
