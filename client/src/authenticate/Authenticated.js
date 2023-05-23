@@ -244,6 +244,13 @@ function Authenticated({user, setUser}){
         }
     }
 
+    const handleCorrection = (value) => {
+        setCorrection(parseFloat(value))
+        setTSandUsed(tSandUsed + (tSandUsed * (parseFloat(value)/100)))
+        setOnSite(siteDelivery - (tSandUsed + (tSandUsed * (parseFloat(value)/100))))
+        console.log(correction)
+    }
+
     return(
         <div>
             <Header 
@@ -273,13 +280,13 @@ function Authenticated({user, setUser}){
                 trashSand={trashSand}
                 setTrashSand={setTrashSand}
                 correction={correction}
-                setCorrection={setCorrection}
                 handleAddSand={handleAddSand}
                 handleUseSand={handleUseSand}
                 completedBool={completedBool}
                 handleSiteCompletion={handleSiteCompletion}
                 handleEditSand={handleEditSand}
                 showUseSandDelete={showUseSandDelete}
+                handleCorrection={handleCorrection}
                 />}/>
                 {user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>

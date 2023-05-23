@@ -6,9 +6,8 @@ function DisplayNav({
     completedBool, 
     user,
     correction,
-    setCorrection}){
+    handleCorrection}){
 
-    console.log(parseFloat(correction))
     return(
         <nav className="navbar bg-body-tertiary" style={{padding: "0"}}>
                 <div className="container-fluid" style={{backgroundColor: "rgb(45, 45, 45)", paddingBottom: "2rem"}}>
@@ -42,13 +41,14 @@ function DisplayNav({
                         <div className="col-auto">
                             <input type="number"
                             pattern="[0-9]*" 
+                            step="0.1"
                             min='-15'
                             max='15' 
                             id="inputPassword6" 
                             className="form-control" 
                             style={{width: "5rem"}}
                             value={correction}
-                            onChange={e => setCorrection(e.target.value)}
+                            onChange={e => handleCorrection(e.target.value)}
                             />
                         </div>    
                     </div>

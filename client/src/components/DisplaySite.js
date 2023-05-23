@@ -23,7 +23,7 @@ function DisplaySite({sites,
     trashSand,
     setTrashSand,
     correction,
-    setCorrection
+    handleCorrection
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -94,7 +94,7 @@ function DisplaySite({sites,
             handleDateChange={handleDateChange}
             completedBool={completedBool}
             correction={correction}
-            setCorrection={setCorrection}
+            handleCorrection={handleCorrection}
             crew={crew}
             user={user}
             />
