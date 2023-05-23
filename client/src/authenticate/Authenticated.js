@@ -38,6 +38,7 @@ function Authenticated({user, setUser}){
                     setSiteDelivery(site.total_delivered)
                     setCompletedBool(site.completed)
                     setTrashSand(site.trash_sand)
+                    setCorrection(site.correction)
                     navigate(`/site/${site.location}/${site.crew}/${site.id}`)
                 }else if(site.showSite && site.employee){
                     setButtonInfo("Employee")
@@ -244,10 +245,9 @@ function Authenticated({user, setUser}){
         }
     }
 
-    const handleCorrection = (value) => {
-        setCorrection(parseFloat(value))
-        setTSandUsed(tSandUsed + (tSandUsed * (parseFloat(value)/100)))
-        setOnSite(siteDelivery - (tSandUsed + (tSandUsed * (parseFloat(value)/100))))
+    const handleCorrection = () => {
+        setTSandUsed(tSandUsed + (tSandUsed * (parseFloat(correction)/100)))
+        setOnSite(siteDelivery - (tSandUsed + (tSandUsed * (parseFloat(correction)/100))))
         console.log(correction)
     }
 
@@ -280,6 +280,7 @@ function Authenticated({user, setUser}){
                 trashSand={trashSand}
                 setTrashSand={setTrashSand}
                 correction={correction}
+                setCorrection={setCorrection}
                 handleAddSand={handleAddSand}
                 handleUseSand={handleUseSand}
                 completedBool={completedBool}

@@ -23,6 +23,7 @@ function DisplaySite({sites,
     trashSand,
     setTrashSand,
     correction,
+    setCorrection,
     handleCorrection
     }){
     const { location, crew, id} = useParams()
@@ -86,6 +87,15 @@ function DisplaySite({sites,
 
     let displayMoisture = sandUsed.map(sand => sand.moisture)
 
+    const dictionaryStage = {}
+    for(let i = 0; i < sandUsed.length; i++){
+        if(dictionaryStage.hasOwnProperty(sandUsed[i].stage)){
+            dictionaryStage[sandUsed[i].stage] += sandUsed[i].pounds
+        }else{
+            dictionaryStage[sandUsed[i].stage] = sandUsed[i].pounds
+        }
+    }
+
     return(
         <div>
             <DisplayNav 
@@ -94,6 +104,7 @@ function DisplaySite({sites,
             handleDateChange={handleDateChange}
             completedBool={completedBool}
             correction={correction}
+            setCorrection={setCorrection}
             handleCorrection={handleCorrection}
             crew={crew}
             user={user}
@@ -121,28 +132,28 @@ function DisplaySite({sites,
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
             <div className="container text-center" style={{width: "100%"}}>
                 <div className="row align-items-start" >
-                    <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Total Delivered:
                         <br/>
                         Pounds: {(siteDelivery).toLocaleString("en-US")}
                         <br/>
                         Tons: {(siteDelivery / 2000).toLocaleString("en-US")}
                     </div>
-                    <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Total Sand On Site:
                         <br/>
                         Pounds: {(onSite).toLocaleString("en-US")}
                         <br/>
                         Tons: {(onSite / 2000).toLocaleString("en-US")}
                     </div>
-                    <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Total Sand Used:
                         <br/>
                         Pounds: {tSandUsed.toLocaleString("en-US")}
                         <br/>
                         Tons: {(tSandUsed / 2000).toLocaleString("en-US")}
                     </div>
-                    <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Trash Sand:
                         <br/>
                         Pounds: {trashSand.toLocaleString("en-US")}
@@ -184,38 +195,60 @@ function DisplaySite({sites,
                 </tbody>
             </table>
             ):(
-            <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Pounds(Tons)</th>
-                        <th scope="col">Stage</th>
-                        <th scope="col">Moisture% <br/> Av:  {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}</th>
-                        <th scope="col">Total Per Day</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {(dateDirection ? displaySandUsed.reverse() : displaySandUsed).map(sand => {
-                    const sandDate = sand.date.split('-')
+            <>
+                <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Pounds(Tons)</th>
+                            <th scope="col">Stage</th>
+                            <th scope="col">Moisture% <br/> Av:  {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}</th>
+                            <th scope="col">Total Per Day</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {(dateDirection ? displaySandUsed.reverse() : displaySandUsed).map(sand => {
+                        const sandDate = sand.date.split('-')
+                            return(
+                                <tr key={sand.id}>
+                                    <th scope="row"><button 
+                                    type="button" 
+                                    className="btn btn-primary"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#staticSand"
+                                    style={{fontWeight: "bold"}} 
+                                    onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button></th>
+                                    <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
+                                    <td>{sand.stage}</td>
+                                    <td>{sand.moisture}</td>
+                                    <td>{`${sand.total_amount_per_day.toLocaleString("en-US")}(${(sand.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
+                                </tr>
+                            )
+                        })
+                    }        
+                    </tbody>
+                </table>
+                <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
+                    <thead>
+                        <tr>
+                            <th scope="col">Stage</th>
+                            <th scope="col">Total Pounds(Tons)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {Object.entries(dictionaryStage).map((value) => {
+                       console.log(value[0])
                         return(
-                            <tr key={sand.id}>
-                                <th scope="row"><button 
-                                type="button" 
-                                className="btn btn-primary"
-                                data-bs-toggle="modal" 
-                                data-bs-target="#staticSand"
-                                style={{fontWeight: "bold"}} 
-                                onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button></th>
-                                <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
-                                <td>{sand.stage}</td>
-                                <td>{sand.moisture}</td>
-                                <td>{`${sand.total_amount_per_day.toLocaleString("en-US")}(${(sand.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
-                            </tr>
+                            <tr key={value[0]}>
+                                <td>{value[0]}</td>
+                                <td>{`${value[1].toLocaleString("en-US")}(${(value[1] / 2000).toLocaleString("en-US")})`}</td>
+                            </tr> 
                         )
-                    })
-                }        
-                </tbody>
-            </table>
+                        })
+                    }
+                    </tbody>
+                </table>
+            </>
             )}
             {user.boss && (
             <div className="d-grid gap-2">

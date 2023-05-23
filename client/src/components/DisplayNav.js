@@ -6,6 +6,7 @@ function DisplayNav({
     completedBool, 
     user,
     correction,
+    setCorrection,
     handleCorrection}){
 
     return(
@@ -35,10 +36,14 @@ function DisplayNav({
                     </div>
                     {user.boss && (
                     <div className="row g-3 align-items-center">
-                        <div className="col-auto">
-                            <label htmlFor="inputPassword6" className="col-form-label" style={{fontWeight: "bold", color: "white"}}>Correction</label>
+                        <div className="col-auto" style={{paddingRight: "0px"}}>
+                            <label htmlFor="inputPassword6" className="col-form-label">
+                                <button type="button" className="btn btn-primary" style={{fontWeight: "bold"}} onClick={() => handleCorrection()}>
+                                    Correction
+                                </button>
+                            </label>
                         </div>
-                        <div className="col-auto">
+                        <div className="col-auto" style={{paddingLeft: "0px"}}>
                             <input type="number"
                             pattern="[0-9]*" 
                             step="0.1"
@@ -48,7 +53,7 @@ function DisplayNav({
                             className="form-control" 
                             style={{width: "5rem"}}
                             value={correction}
-                            onChange={e => handleCorrection(e.target.value)}
+                            onChange={e => setCorrection(e.target.value)}
                             />
                         </div>    
                     </div>

@@ -3,7 +3,7 @@ import { useState } from "react"
 function DownHole({id, handleUseSand}){
     const [ pounds, setPounds ] = useState('')
     const [ stage, setStage ] = useState('')
-    const [ moisture, setMoisture ] = useState(0)
+    const [ moisture, setMoisture ] = useState('')
     const [ error, setError ] = useState([])
     const [ success, setSuccess ] = useState(false)
 
