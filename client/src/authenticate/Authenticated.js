@@ -9,8 +9,6 @@ import User from '../components/User';
 function Authenticated({user, setUser}){
     const [ sites, setSites ] = useState([])
     const [ allSites, setAllSites ] = useState([])
-    const [ completedSites, setCompletedSites ] = useState([])
-    const [ allCompletedSites, setAllCompletedSites ] = useState([])
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
@@ -52,15 +50,6 @@ function Authenticated({user, setUser}){
         fetch('/api/companies')
         .then(resp => resp.json())
         .then(companies => setCompanyList(companies))
-    },[])
-
-    useEffect(() => {
-        fetch('/api/completed_sites')
-        .then(resp => resp.json())
-        .then(comp => {
-            setCompletedSites(comp)
-            setAllCompletedSites(comp)
-        })
     },[])
 
     const handleAddCompany = (company) => {
@@ -106,7 +95,8 @@ function Authenticated({user, setUser}){
                     total_on_site: site.total_on_site,
                     total_delivered: site.total_delivered,
                     trash_sand: site.trash_sand,
-                    completed: site.completed,  
+                    completed: site.completed,
+                    correction: site.correction,  
                     showSite: true}))
                 return site
             }else{
@@ -136,7 +126,8 @@ function Authenticated({user, setUser}){
                         total_on_site: site.total_on_site,
                         total_delivered: site.total_delivered,
                         trash_sand: site.trash_sand,
-                        completed: site.completed,  
+                        completed: site.completed, 
+                        correction: site.correction, 
                         showSite: true}))
                     return site
                 }else{
@@ -183,6 +174,7 @@ function Authenticated({user, setUser}){
                     total_delivered: site.total_delivered,
                     trash_sand: site.trash_sand,
                     completed: site.completed,  
+                    correction: site.correction,
                     showSite: true}))
                 return site
             }else{
@@ -219,42 +211,50 @@ function Authenticated({user, setUser}){
             },
             body: JSON.stringify(form),
           }).then(resp => resp.json())
-          .then(site => {
+          .then((site) => {
             setCompletedBool(!completedBool)
-            if(site.completed){
-                setCompletedSites([...completedSites, site])
-            }else{
-                setSites([...sites, site])
-                setCompletedSites(completedSites.filter(job => job.id !== site.id))
-            }
+            setSites(sites)
+            window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                location: site.location,
+                crew: site.crew,
+                total_sand_used:site.total_sand_used, 
+                total_on_site: site.total_on_site,
+                total_delivered: site.total_delivered,
+                trash_sand: site.trash_sand,
+                completed: site.completed,  
+                correction: site.correction,
+                showSite: true}))
           })
     }
     
 
     const handleSiteSearch = (value) => {
-        if(completedBool){
-            const searchSite = allCompletedSites.filter(site => {
-                return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
-            })
-            setCompletedSites(searchSite)
-        }else{
             const searchSite = allSites.filter(site => {
                 return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
             })
             setSites(searchSite)
-        }
     }
 
-    const handleCorrection = () => {
-        setTSandUsed(tSandUsed + (tSandUsed * (parseFloat(correction)/100)))
+    const handleCorrection = (id) => {
         setOnSite(siteDelivery - (tSandUsed + (tSandUsed * (parseFloat(correction)/100))))
+        const form = {
+            correction: parseFloat(correction),
+          };
+          fetch(`/api/site_correction/${id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form),
+          }).then(resp => resp.json())
+          .then(site => console.log(site))
         console.log(correction)
     }
 
     return(
         <div>
             <Header 
-            sites={(completedBool ? completedSites : sites)} 
+            sites={(completedBool ? sites.filter(site => site.completed) : sites.filter(site => site.completed === false))} 
             handleSiteDisplayButton={handleSiteDisplayButton} 
             buttonInfo={buttonInfo} 
             setButtonInfo={setButtonInfo}
@@ -268,9 +268,9 @@ function Authenticated({user, setUser}){
             handleAddCompany={handleAddCompany}
             />
             <Routes>
-                <Route path='/' element={<Homepage sites={(completedBool ? completedSites : sites)} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
+                <Route path='/' element={<Homepage sites={(completedBool ? sites.filter(site => site.completed) : sites.filter(site => site.completed === false))} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
                 <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
-                sites={(completedBool ? completedSites : sites)} 
+                sites={sites} 
                 user={user}
                 setButtonInfo={setButtonInfo}
                 tSandUsed={tSandUsed}

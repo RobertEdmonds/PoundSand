@@ -48,11 +48,6 @@ function ResetPW({setUser, user}){
             {error.map((err) => {
             return <div className="alert alert-danger" role="alert" key={err}>{err}</div>;
             })}
-            <div className="container text-center fs-2 p-3 mb-2 bg-info text-dark">
-                <div className="col-md-auto">
-                    Pound Sand
-                </div>
-            </div>
             <form onSubmit={handleSubmit} className="container text-center">
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput" className="form-label">Password</label>

@@ -107,6 +107,7 @@ function DisplaySite({sites,
             setCorrection={setCorrection}
             handleCorrection={handleCorrection}
             crew={crew}
+            id={id}
             user={user}
             />
             <DownHole id={id} handleUseSand={handleUseSand}/>
@@ -202,7 +203,7 @@ function DisplaySite({sites,
                             <th scope="col">Date</th>
                             <th scope="col">Pounds(Tons)</th>
                             <th scope="col">Stage</th>
-                            <th scope="col">Moisture% <br/> Av:  {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}</th>
+                            <th scope="col">Moisture% <br/> Avg:  {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}</th>
                             <th scope="col">Total Per Day</th>
                         </tr>
                     </thead>
@@ -237,7 +238,6 @@ function DisplaySite({sites,
                     </thead>
                     <tbody>
                     {Object.entries(dictionaryStage).sort((a, b) => (a[0] > b[0] ? -1 : 1)).map((value) => {
-                       console.log(value[0])
                         return(
                             <tr key={value[0]}>
                                 <td>{value[0]}</td>

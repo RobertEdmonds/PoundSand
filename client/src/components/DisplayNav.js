@@ -1,6 +1,7 @@
 function DisplayNav({
     location, 
     crew, 
+    id,
     setDisplayInfo, 
     handleDateChange, 
     completedBool, 
@@ -38,11 +39,18 @@ function DisplayNav({
                     <div className="row g-3 align-items-center">
                         <div className="col-auto" style={{paddingRight: "0px"}}>
                             <label htmlFor="inputPassword6" className="col-form-label">
-                                <button type="button" className="btn btn-primary" style={{fontWeight: "bold"}} onClick={() => handleCorrection()}>
+                                {completedBool ? (
+                                <button type="button" className="btn btn-primary" style={{fontWeight: "bold"}} disabled>
+                                    Correction = {correction}%
+                                </button>
+                                ):(
+                                <button type="button" className="btn btn-primary" style={{fontWeight: "bold"}} onClick={() => handleCorrection(id)}>
                                     Correction
                                 </button>
+                                )}
                             </label>
                         </div>
+                        {!completedBool &&(
                         <div className="col-auto" style={{paddingLeft: "0px"}}>
                             <input type="number"
                             pattern="[0-9]*" 
@@ -55,16 +63,10 @@ function DisplayNav({
                             value={correction}
                             onChange={e => setCorrection(e.target.value)}
                             />
-                        </div>    
+                        </div>
+                        )}    
                     </div>
                     )}
-                    {/* <div className="btn-group d-grid d-md-flex justify-content-md-end" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" className="btn-check" name="btnWeight" id="btnPounds" autoComplete="off" defaultChecked/>
-                        <label className="btn btn-outline-primary" htmlFor="btnPounds" onClick={()=> handleWeightChange(false)}>Pounds</label>
-
-                        <input type="radio" className="btn-check" name="btnWeight" id="btnTons" autoComplete="off" />
-                        <label className="btn btn-outline-primary" htmlFor="btnTons" onClick={()=> handleWeightChange(true)}>Tons</label>
-                    </div> */}
                 </div>
             </nav>
     )

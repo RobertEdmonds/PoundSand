@@ -4,13 +4,7 @@ class Api::SitesController < ApplicationController
     before_action :set_site, only: [:update, :show, :destroy, :update_correction]
 
     def index
-        sites = Site.where(completed: false)
-        render json: sites, status: :ok
-    end
-
-    def completed_index
-        sites = Site.where(completed: true)
-        render json: sites, status: :ok
+        render json: Site.all, status: :ok
     end
 
     def show 
@@ -34,6 +28,8 @@ class Api::SitesController < ApplicationController
 
     def update_correction
         @site.update!(site_correction_params)
+        @site.update!(total_on_site: (@site.total_delivered - (@site.total_sand_used + (@site.total_sand_used * (site_correction_params[:correction] / 100)))))
+        render json: @site, status: :created
     end
 
     # def destroy 

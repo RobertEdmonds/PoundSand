@@ -16,9 +16,9 @@ Rails.application.routes.draw do
     delete '/logout', to: "sessions#destroy_sessions"
     post '/reset/:id', to: "users#reset_password"
     patch "/user_employee_update/:id", to: 'users#employee_change'
-    get '/completed_sites', to: 'sites#completed_index'
     patch '/reset_password/:id', to: 'users#admin_reset_password'
     get '/company_sites/:id', to: 'companies#company_index'
+    patch '/site_correction/:id', to: 'sites#update_correction'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
