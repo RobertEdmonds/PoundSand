@@ -236,7 +236,7 @@ function DisplaySite({sites,
                         </tr>
                     </thead>
                     <tbody>
-                    {Object.entries(dictionaryStage).map((value) => {
+                    {Object.entries(dictionaryStage).sort((a, b) => (a[0] > b[0] ? -1 : 1)).map((value) => {
                        console.log(value[0])
                         return(
                             <tr key={value[0]}>
