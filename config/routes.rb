@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     patch '/reset_password/:id', to: 'users#admin_reset_password'
     get '/company_sites/:id', to: 'companies#company_index'
     patch '/site_correction/:id', to: 'sites#update_correction'
+    get '/mobile_sites', to: 'sites#mobile_index'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

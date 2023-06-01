@@ -7,6 +7,10 @@ class Api::SitesController < ApplicationController
         render json: Site.all, status: :ok
     end
 
+    def mobile_index
+        render json: Site.all, each_serializer: MobileSiteSerializer
+    end
+
     def show 
         render json: @site, status: :ok 
     end
