@@ -79,8 +79,7 @@ function SandSite({handleAddSite, companyList}){
                                     />
                                 </div>
                             </div>
-                            <div className="mb-3">
-                                <label htmlFor="inputShipTo" className="form-label">Ship To</label>
+                            <div className="mb-3" style={{paddingTop: "2rem"}}>
                                 <select 
                                 className="form-select form-select-lg mb-3" 
                                 aria-label=".form-select-lg example"

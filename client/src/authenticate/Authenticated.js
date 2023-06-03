@@ -5,6 +5,7 @@ import Homepage from '../components/Homepage';
 import DisplaySite from '../components/DisplaySite';
 import ResetPW from '../forms/ResetPW';
 import User from '../components/User';
+import Companies from '../components/Companies';
 
 function Authenticated({user, setUser}){
     const [ sites, setSites ] = useState([])
@@ -226,13 +227,12 @@ function Authenticated({user, setUser}){
                 showSite: true}))
           })
     }
-    
 
     const handleSiteSearch = (value) => {
-            const searchSite = allSites.filter(site => {
-                return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()))
-            })
-            setSites(searchSite)
+        const searchSite = allSites.filter(site => {
+            return(site.location.toUpperCase().includes(value.toUpperCase()) || site.crew.toUpperCase().includes(value.toUpperCase()) || companyList.filter(company => company.id === site.company_id)[0].name.toUpperCase().includes(value.toUpperCase()))
+        })
+        setSites(searchSite)
     }
 
     const handleCorrection = (id) => {
@@ -268,7 +268,11 @@ function Authenticated({user, setUser}){
             handleAddCompany={handleAddCompany}
             />
             <Routes>
-                <Route path='/' element={<Homepage sites={(completedBool ? sites.filter(site => site.completed) : sites.filter(site => site.completed === false))} handleSiteDisplayButton={handleSiteDisplayButton}/>}/>
+                <Route path='/' element={<Homepage sites={(completedBool ? sites.filter(site => site.completed) : sites.filter(site => site.completed === false))} 
+                companyList={companyList} 
+                handleSiteDisplayButton={handleSiteDisplayButton}
+                user={user}
+                />}/>
                 <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
                 sites={sites} 
                 user={user}
@@ -293,7 +297,10 @@ function Authenticated({user, setUser}){
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>
                 )}
                 {user.boss && (
-                <Route path={'/employee'} element={<User />}/>
+                  <>
+                    <Route path={'/employee'} element={<User />}/>
+                    <Route path={'/companies'} element={<Companies companyList={companyList}/>}/>
+                  </>
                 )}
             </Routes>
             {user.log_number === 0 && (

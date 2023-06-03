@@ -1,4 +1,4 @@
-function Homepage({sites, handleSiteDisplayButton}){
+function Homepage({sites, handleSiteDisplayButton, companyList, user}){
     
     return(
         <div className="container text-center">
@@ -11,6 +11,9 @@ function Homepage({sites, handleSiteDisplayButton}){
                             <div className="card-body">
                                 <h5 className="card-title h2">{site.location}</h5>
                                 <h5 className="card-title h3">{site.crew}</h5>
+                                {!!user.email ? (<></>): (
+                                <p className="card-text">{companyList.filter(company => company.id === site.company_id)[0].name}</p>
+                                )}
                                 <p className="card-text">Start Date: {siteDate[1]}/{siteDate[2]}/{siteDate[0]}</p>
                             </div>
                             <ul className="list-group list-group-flush" >

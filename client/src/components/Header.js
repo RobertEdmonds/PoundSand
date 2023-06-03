@@ -36,6 +36,11 @@ function Header({sites,
         navigate('/employee')
     }
 
+    const handleCompanyView = () => {
+        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
+        navigate('/companies')
+    }
+
     function handleLogout() {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
@@ -74,7 +79,10 @@ function Header({sites,
                         <li className="dropdown-item" onClick={() => handleCompletedBool()}>Completed Sites</li>
                         )}
                         {user.boss && (
+                            <>
                             <li className="dropdown-item" onClick={() => handleEmployee()}>Employee</li>
+                            <li className="dropdown-item" onClick={() => handleCompanyView()}>Companies</li>
+                            </>
                         )}
                     </ul>
                     {buttonInfo === "Job Sites" || buttonInfo === "Completed Sites" ? (

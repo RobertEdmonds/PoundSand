@@ -64,6 +64,7 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
                 <Route path='/' element={<Homepage 
                     sites={companySites}
                     handleSiteDisplayButton={handleSiteDisplayButton}
+                    user={companyUser}
                 />}/>
                 <Route path={`/site/:location/:crew/:id`} element={<CompanySite
                     user={companyUser} 

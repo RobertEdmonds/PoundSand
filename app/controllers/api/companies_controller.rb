@@ -1,5 +1,6 @@
 class Api::CompaniesController < ApplicationController
     before_action :authorize_user, only: [:create]
+    before_action :authorize_user_view, only: [:index]
 
     def index 
         render json: Company.all, status: :ok
@@ -23,6 +24,13 @@ class Api::CompaniesController < ApplicationController
 
     def authorize_user
         user_found = current_user.boss?
+        if !user_found
+            render json: { error: "You don't have permission to perform that action" }, status: :forbidden
+        end
+    end
+
+    def authorize_user_view
+        user_found = current_user
         if !user_found
             render json: { error: "You don't have permission to perform that action" }, status: :forbidden
         end
