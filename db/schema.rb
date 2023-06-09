@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_20_175743) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_134109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_175743) do
     t.datetime "updated_at", null: false
     t.date "start_date", default: "2023-05-09"
     t.float "correction", default: 0.0
+    t.string "po"
     t.index ["company_id"], name: "index_sites_on_company_id"
   end
 
@@ -75,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_20_175743) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "edited", default: false
+    t.string "ticket_number"
     t.index ["site_id"], name: "index_trucks_on_site_id"
   end
 

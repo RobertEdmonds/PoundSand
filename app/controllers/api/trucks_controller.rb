@@ -13,11 +13,19 @@ class Api::TrucksController < ApplicationController
        site.update(total_on_site: (site.total_on_site + truck.total), total_delivered: (site.total_delivered + truck.total))
         if Truck.where(date: truck.date).length() > 1 && Truck.where(site_id: site.id).length() > 1 
             truck_list = Truck.where(date: truck.date, site_id: site.id)
+            truck_mine_list = Truck.where(date: truck.date, site_id: site.id, mine: site.mine)
+            if truck_mine_list.length() > 1
+                mine_total = 0
+                truck_mine_list.map { |trk| mine_total += trk.total}
+                truck.update!(mine_total_per_day: mine_total)
+            else
+                truck.update!(mine_total_per_day: truck.total)
+            end
             total = 0
             truck_list.map { |trk| total += trk.total}
             truck.update!(total_amount_per_day: total)
         else
-            truck.update!(total_amount_per_day: truck.total)
+            truck.update!(total_amount_per_day: truck.total, mine_total_per_day: truck.total)
         end
        render json: truck, status: :created
     end
