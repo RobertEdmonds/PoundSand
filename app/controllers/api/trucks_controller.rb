@@ -13,7 +13,7 @@ class Api::TrucksController < ApplicationController
        site.update(total_on_site: (site.total_on_site + truck.total), total_delivered: (site.total_delivered + truck.total))
         if Truck.where(date: truck.date).length() > 1 && Truck.where(site_id: site.id).length() > 1 
             truck_list = Truck.where(date: truck.date, site_id: site.id)
-            truck_mine_list = Truck.where(date: truck.date, site_id: site.id, mine: site.mine)
+            truck_mine_list = Truck.where(date: truck.date, site_id: site.id, mine: truck.mine)
             if truck_mine_list.length() > 1
                 mine_total = 0
                 truck_mine_list.map { |trk| mine_total += trk.total}
