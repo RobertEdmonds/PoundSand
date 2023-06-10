@@ -1,53 +1,56 @@
 import { useState } from "react";
 
-function SandSite({handleAddSite, companyList}){
-    const [ location, setLocation ] = useState('')
-    const [ crew, setCrew ] = useState('')
-    const [ po, setPo ] = useState('')
-    const [ companyId, setCompanyId ] = useState('')
+export default function EditSite({
+    location, 
+    crew,
+    po,
+    companyId,
+    setLocation,
+    setCrew,
+    setPo,
+    setCompanyId,
+    id,
+    companyList,
+    handleUpdatedSite
+}){
+
     const [ success, setSuccess ] = useState(false)
     const [ error, setError ] = useState([])
 
-    function createSite(){
+    const updateSite = () => {
         const formData = {
             location,
             crew, 
             po,
             company_id: parseInt(companyId)
         }
-        setError([])
         setSuccess(false)
-        fetch('/api/sites', {
-            method: "POST",
+        setError([])
+        fetch(`/api/update_site/${parseInt(id)}`, {
+            method: "PATCH",
             headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        }).then(resp => {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }).then(resp => {
             if(resp.ok){
                 resp.json().then(site => {
                     setSuccess(true)
-                    setLocation('')
-                    setCrew('')
-                    setPo('')
-                    setCompanyId('')
-                    handleAddSite(site)
+                    handleUpdatedSite(site)
                 })
             }else{
                 resp.json().then((err) => setError(err.errors))
-        }})
+            }
+          })
     }
 
     return(
         <>
-            <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createSiteModal" style={{fontWeight: "bold"}}>
-                Create New Site
-            </button>
-            <div className="modal fade" id="createSiteModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="editSiteModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">New Site</h1>
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Update Site</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
@@ -110,7 +113,7 @@ function SandSite({handleAddSite, companyList}){
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" onClick={() => createSite()}>Save New Site</button>
+                                <button type="button" className="btn btn-primary" onClick={() => updateSite()}>Save New Site</button>
                             </div>
                         </form>
                         </div>
@@ -120,5 +123,3 @@ function SandSite({handleAddSite, companyList}){
         </>
     )
 }
-
-export default SandSite;

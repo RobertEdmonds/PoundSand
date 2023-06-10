@@ -5,6 +5,7 @@ class Site < ApplicationRecord
     validates :location, presence: true
     validates :crew, presence: true
     validates :company_id, presence: true
+    validates :po, uniqueness: true, presence: true
     validates :correction, :numericality => { greater_than_or_equal_to: -15, less_than_or_equal_to: 15 }
 
     def self.find_by_upcased_location(location)

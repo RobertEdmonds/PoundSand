@@ -109,6 +109,7 @@ function DisplaySite({sites,
             crew={crew}
             id={id}
             user={user}
+            sites={sites}
             />
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} location={location} handleAddSand={handleAddSand}/>

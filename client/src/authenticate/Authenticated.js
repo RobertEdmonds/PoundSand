@@ -81,6 +81,17 @@ function Authenticated({user, setUser}){
         setSites([...sites, newSite])
     }
 
+    const handleUpdatedSite = (fixedSite) => {
+        const updatedSite = sites.map(site => {
+            if(site.id === fixedSite.id){
+                return fixedSite
+            }else{
+                return site
+            }
+        })
+        setSites(updatedSite)
+    }
+
     const handleAddSand = (truck) => {
         const updatedSite = sites.filter(site => {
             if(site.id === truck.site_id){
@@ -272,6 +283,7 @@ function Authenticated({user, setUser}){
                 companyList={companyList} 
                 handleSiteDisplayButton={handleSiteDisplayButton}
                 user={user}
+                handleUpdatedSite={handleUpdatedSite}
                 />}/>
                 <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
                 sites={sites} 

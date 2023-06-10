@@ -1,7 +1,7 @@
 class Api::SitesController < ApplicationController
     before_action :authorize_user, except: [:show]
     before_action :authorize_company_user, only: [:show]
-    before_action :set_site, only: [:update, :show, :destroy, :update_correction]
+    before_action :set_site, only: [:update, :show, :destroy, :update_correction, :site_update]
 
     def index
         render json: Site.all, status: :ok
@@ -19,6 +19,11 @@ class Api::SitesController < ApplicationController
         site = Site.create!(site_params)
         site.update(start_date: Date.current())
         render json: site, status: :created 
+    end
+
+    def site_update 
+        @site.update!(site_params)
+        render json: @site, status: :created 
     end
 
     def update
@@ -44,7 +49,7 @@ class Api::SitesController < ApplicationController
     private 
 
     def site_params
-        params.permit(:location, :crew, :company_id)
+        params.permit(:location, :crew, :company_id, :po)
     end
 
     def site_status_params 

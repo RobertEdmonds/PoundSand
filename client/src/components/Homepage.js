@@ -1,5 +1,22 @@
-function Homepage({sites, handleSiteDisplayButton, companyList, user}){
-    
+import { useState } from "react";
+import EditSite from "../forms/EditSite";
+
+function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpdatedSite}){
+    const [ location, setLocation ] = useState('')
+    const [ crew, setCrew ] = useState('')
+    const [ po, setPo ] = useState('')
+    const [ companyId, setCompanyId ] = useState('')
+    const [ id, setId ] = useState('')
+
+    const handleEditSite = (site) => {
+        console.log(site)
+        setLocation(site.location)
+        setCrew(site.crew)
+        setPo(site.po)
+        setCompanyId(site.company_id)
+        setId(site.id)
+    }
+
     return(
         <div className="container text-center">
             <div className="row">
@@ -28,11 +45,36 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user}){
                             </ul>
                             <div className="card-body">
                                 <button className="btn btn-primary" onClick={() => handleSiteDisplayButton(site)} style={{fontWeight: "bold"}}>Go {site.location}</button>
+                                <br/>
+                                {user.boss && (
+                                  <button 
+                                    type="button" 
+                                    className="btn btn-outline-primary" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editSiteModal"
+                                    onClick={() => handleEditSite(site)} 
+                                    style={{fontWeight: "bold"}}>
+                                  Edit Site
+                                  </button>
+                                )}
                             </div>
                         </div>
                     </div>
                 )
             })}
+            <EditSite 
+            location={location} 
+            crew={crew}
+            po={po}
+            companyId={companyId}
+            setLocation={setLocation}
+            setCrew={setCrew}
+            setPo={setPo}
+            setCompanyId={setCompanyId}
+            id={id}
+            companyList={companyList}
+            handleUpdatedSite={handleUpdatedSite}
+            />
             </div>
         </div>
     )
