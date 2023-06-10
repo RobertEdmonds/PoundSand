@@ -70,7 +70,7 @@ class Api::TrucksController < ApplicationController
     private
 
     def truck_params
-        params.permit(:id, :truck, :mine, :tare_weight, :gross_weight, :ship_to, :po, :site_id)
+        params.permit(:id, :truck, :mine, :ticket_number, :tare_weight, :gross_weight, :ship_to, :po, :site_id)
     end
 
     def authorize_user

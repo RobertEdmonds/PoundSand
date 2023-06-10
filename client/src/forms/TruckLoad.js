@@ -5,7 +5,7 @@ function TruckLoad({id, handleAddSand, location}){
     const [ mine, setMine ] = useState('')
     const [ tare, setTare ] = useState('')
     const [ gross, setGross ] = useState('')
-    // const [ ship, setShip ] = useState('')
+    const [ ticket, setTicket ] = useState('')
     const [ po, setPo ] = useState('')
     const [ error, setError ] = useState([])
     const [ success, setSuccess ] = useState(false)
@@ -13,7 +13,8 @@ function TruckLoad({id, handleAddSand, location}){
     const handleTruckLoad = () => {
         const formData = {
             truck, 
-            mine,  
+            mine,
+            ticket_number: ticket,  
             tare_weight: parseInt(tare), 
             gross_weight: parseInt(gross), 
             ship_to: location, 
@@ -38,7 +39,7 @@ function TruckLoad({id, handleAddSand, location}){
                 setMine('')
                 setTare("")
                 setGross("")
-                // setShip('')
+                setTicket('')
                 setPo('')
             }else{
                 resp.json().then(err => setError(err.errors))
@@ -90,6 +91,18 @@ function TruckLoad({id, handleAddSand, location}){
                             id="inputMine"
                             value={mine}
                             onChange={(e) => setMine(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="mb-3" style={{width: "95%", paddingLeft: "15%"}}>
+                        <label htmlFor="inputMine" className="form-label">Ticket #</label>
+                        <div className="col-sm-10">
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="inputMine"
+                            value={ticket}
+                            onChange={(e) => setTicket(e.target.value)}
                             />
                         </div>
                     </div>

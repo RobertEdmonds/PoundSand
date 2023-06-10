@@ -1,6 +1,19 @@
 function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
     const truckDateArray = truckArray.filter(truck => truck.date === truckTime)
+    // {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}
 
+    const mineArray = []
+    for(let i = 0; i < truckDateArray.length; i++){
+        console.log(mineArray.filter(truck => truck.mine === truckDateArray[i].mine))
+        if(mineArray.filter(truck => truck.mine === truckDateArray[i].mine).length > 0){
+            const fixMine = mineArray.findIndex(truck => truck.mine === truckDateArray[i].mine)
+            mineArray[fixMine] = truckDateArray[i]   
+        }else{
+            console.log('first')
+            mineArray.push(truckDateArray[i])
+        }
+    }
+    console.log("mine array", mineArray)
     return(
         <div className="modal fade modal-dialog-scrollable modal-xl" id="staticTruck" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
