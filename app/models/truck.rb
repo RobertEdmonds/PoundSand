@@ -21,9 +21,7 @@ class Truck < ApplicationRecord
     def po_check 
        site = Site.find(self.site_id)
        if site.po != self.po
-        if site.location != self.ship_to
-            errors.add(:po, 'does not match site')
-        end
+        errors.add(:po, 'does not match site')
        end
     end
 
