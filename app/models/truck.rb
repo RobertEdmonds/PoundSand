@@ -9,9 +9,9 @@ class Truck < ApplicationRecord
     private
 
     def right_weight
-        if self.gross_weight == 0
+        if self.gross_weight == 0 || self.gross_weight == nil 
             errors.add(:gross_weight, "cannot equal zero")
-        elsif self.tare_weight == 0
+        elsif self.tare_weight == 0 || self.tare_weight == nil
             errors.add(:tare_weight, "cannot equal zero")
         elsif self.gross_weight <= self.tare_weight
             errors.add(:gross_weight, "must weigh more than tare weight")
@@ -21,7 +21,9 @@ class Truck < ApplicationRecord
     def po_check 
        site = Site.find(self.site_id)
        if site.po != self.po
-        errors.add(:po, 'does not match site')
+        if site.location != self.ship_to
+            errors.add(:po, 'does not match site')
+        end
        end
     end
 

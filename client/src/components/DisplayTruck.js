@@ -1,15 +1,13 @@
 function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
     const truckDateArray = truckArray.filter(truck => truck.date === truckTime)
     // {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}
-
+    console.log(truckDateArray)
     const mineArray = []
     for(let i = 0; i < truckDateArray.length; i++){
-        console.log(mineArray.filter(truck => truck.mine === truckDateArray[i].mine))
         if(mineArray.filter(truck => truck.mine === truckDateArray[i].mine).length > 0){
             const fixMine = mineArray.findIndex(truck => truck.mine === truckDateArray[i].mine)
             mineArray[fixMine] = truckDateArray[i]   
         }else{
-            console.log('first')
             mineArray.push(truckDateArray[i])
         }
     }
@@ -51,7 +49,27 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                     })
                 }        
                 </tbody>
-            </table>
+                </table>
+                </div>
+                <div className="modal-body">
+                <table className="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Mine</th>
+                        <th scope="col">Mine Total Per Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {mineArray.map(site => {
+                        return(
+                            <tr key={site.id}>
+                                <th className="row">{site.mine}</th>
+                                <td>{site.mine_total_per_day}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+                </table>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

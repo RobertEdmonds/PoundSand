@@ -42,7 +42,10 @@ function TruckLoad({id, handleAddSand, location}){
                 setTicket('')
                 setPo('')
             }else{
-                resp.json().then(err => setError(err.errors))
+                resp.json().then(err => {
+                    setError(err.errors)
+                    console.log(err)
+                })
             }
         })
     }
