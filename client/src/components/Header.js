@@ -39,6 +39,7 @@ function Header({sites,
     const handleCompanyView = () => {
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         navigate('/companies')
+        setButtonInfo('Companies')
     }
 
     function handleLogout() {
