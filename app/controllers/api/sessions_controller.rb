@@ -11,7 +11,7 @@ class Api::SessionsController < ApplicationController
             session[:company_user_id] = company_user.id
             render json: company_user, status: :created
         else
-            render json: {errors: ["Password or Email doesn't match our file"]}, status: :unauthorized
+            render json: {errors: ["User or Password doesn't match our system"]}, status: :unauthorized
         end
     end
 
