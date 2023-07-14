@@ -28,6 +28,7 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                         <th scope="col">Truck Load <br/> Pounds(Tons)</th>
                         <th scope="col">Mine</th>
                         <th scope="col">PO #</th>
+                        <th scope="col">Ticket #</th>
                         <th scope="col">Total Per Day</th>
                     </tr>
                 </thead>
@@ -40,6 +41,7 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                                 <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString('en-US')})`}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
+                                <td>{truck.ticket_number}</td>
                                 <td>{`${truck.total_amount_per_day.toLocaleString("en-US")}(${(truck.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                                 {!user.email && (
                                     <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToEditForm(truck)}>Edit</button></td>
