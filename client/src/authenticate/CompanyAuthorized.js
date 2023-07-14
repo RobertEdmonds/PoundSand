@@ -16,7 +16,7 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
     const navigate = useNavigate()
 
     useEffect(()=> {
-        fetch(`/api/company_sites/${companyUser.code}`)
+        fetch(`/api/company_sites/${companyUser.company.id}`)
         .then(resp => resp.json())
         .then(company => {
             setCompanySites(company[0].sites)
