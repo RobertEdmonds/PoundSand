@@ -17,7 +17,7 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
 
     useEffect(()=> {
         fetch(`/api/company_sites/${companyUser.company.id}`)
-        .then(resp => resp.json())
+        .then(resp => console.log(resp.json()))
         .then(company => {
             setCompanySites(company[0].sites)
             setFullList(company[0].sites)
@@ -46,7 +46,7 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
         })
         setCompanySites(searchSite)
     }
-    console.log("company", companyUser.company.id)
+    
     console.log("full", fullList)
     return(
         <div>
