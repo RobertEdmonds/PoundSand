@@ -7,7 +7,7 @@ class Api::CompaniesController < ApplicationController
     end
 
     def company_index
-        sites = Company.find(params[:id])
+        sites = Company.where(code: params[:id])
         render json: sites, each_serializer: CompanyOnlySerializer
     end
 

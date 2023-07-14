@@ -17,7 +17,7 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
 
     useEffect(()=> {
         console.log("here")
-        fetch(`/api/company_sites/${companyUser.company.id}`)
+        fetch(`/api/company_sites/${companyUser.code}`)
         console.log('after fetch')
         .then(resp => resp.json())
         .then(company => {
