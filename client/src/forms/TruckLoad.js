@@ -13,7 +13,7 @@ function TruckLoad({id, handleAddSand, location}){
     const handleTruckLoad = () => {
         const formData = {
             truck, 
-            mine,
+            mine: mine.trim(),
             ticket_number: ticket,  
             tare_weight: parseInt(tare), 
             gross_weight: parseInt(gross), 

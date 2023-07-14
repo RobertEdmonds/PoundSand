@@ -22,7 +22,7 @@ export default function EditTruckLoad({editTruck,
     const handleTruckLoad = () => {
         const formData = {
             truck, 
-            mine,  
+            mine: mine.trim(),  
             tare_weight: tare, 
             gross_weight: gross, 
             ship_to: ship, 

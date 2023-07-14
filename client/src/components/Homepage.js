@@ -35,13 +35,13 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                             </div>
                             <ul className="list-group list-group-flush" >
                                 <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>Total Sand On-Site</li>
-                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{(site.total_on_site).toLocaleString("en-US")}</li>
+                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{`${(site.total_on_site).toLocaleString("en-US")}(${(site.total_on_site / 2000).toLocaleString("en-US")})`}</li>
                                 <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>Total Sand Used</li>
-                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{(site.total_sand_used).toLocaleString("en-US")}</li>
+                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{`${(site.total_sand_used).toLocaleString("en-US")}(${(site.total_sand_used / 2000).toLocaleString("en-US")})`}</li>
                                 <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>Total Sand Delivered</li>
-                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{(site.total_delivered).toLocaleString("en-US")}</li>
+                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{`${(site.total_delivered).toLocaleString("en-US")}(${(site.total_delivered / 2000).toLocaleString("en-US")})`}</li>
                                 <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>Trash Sand</li>
-                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{(site.trash_sand).toLocaleString("en-US")}</li>
+                                <li className="list-group-item" style={site.completed ? {backgroundColor: "tan"}: {color: "white", backgroundColor: "rgb(21, 75, 126)"}}>{`${(site.trash_sand).toLocaleString("en-US")}(${(site.trash_sand / 2000).toLocaleString("en-US")})`}</li>
                             </ul>
                             <div className="card-body">
                                 <button className="btn btn-primary" onClick={() => handleSiteDisplayButton(site)} style={{fontWeight: "bold"}}>Go {site.location}</button>
