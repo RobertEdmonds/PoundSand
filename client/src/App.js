@@ -27,7 +27,6 @@ function App() {
       })
   },[setCompanyUser])
 
-  console.log("app", companyUser)
   return (
     <>
     <Router>
