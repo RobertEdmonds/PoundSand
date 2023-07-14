@@ -62,7 +62,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                     </div>
                 )
             })}
-            {user.boss ? (<></>) : (
+            {user.boss ? (
             <EditSite 
             location={location} 
             crew={crew}
@@ -76,7 +76,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
             companyList={companyList}
             handleUpdatedSite={handleUpdatedSite}
             />
-            )}
+            ): (<></>)}
             </div>
         </div>
     )
