@@ -7,8 +7,6 @@ import Unauthenticated from './authenticate/Unauthenticated'
 function App() {
   const [ user, setUser ] = useState(null)
   const [ companyUser, setCompanyUser ] = useState(null)
-  const [ companySites, setCompanySites ] = useState([])
-    const [ fullList, setFullList ] = useState([])
 
   useEffect(() => {
     fetch("/api/me").then((resp) => {
@@ -27,15 +25,6 @@ function App() {
           resp.json().then(user => setCompanyUser(user))
         }
       })
-      if(companyUser){
-        fetch(`/api/company_sites/${companyUser.company.id}`)
-        console.log('after fetch')
-        .then(resp => console.log(resp.json()))
-        .then(company => {
-            setCompanySites(company[0].sites)
-            setFullList(company[0].sites)
-        })
-      }
   },[setCompanyUser])
 
   return (
@@ -51,8 +40,6 @@ function App() {
         <CompanyAuthorized
           setCompanyUser={setCompanyUser}
           companyUser={companyUser}
-          companySites={companySites}
-          fullList={fullList}
         />
       )}
       {user === null && companyUser === null &&(

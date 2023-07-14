@@ -4,7 +4,9 @@ import Header from "../components/Header"
 import Homepage from "../components/Homepage";
 import CompanySite from "../components/CompanySite";
 
-export default function CompanyAuthorized({companyUser, setCompanyUser, companySites, setCompanySites, fullList }){
+export default function CompanyAuthorized({companyUser, setCompanyUser}){
+    const [ companySites, setCompanySites ] = useState([])
+    const [ fullList, setFullList ] = useState([])
     const [ completedBool, setCompletedBool ] = useState(false)
     const [ showSite, setShowSite ] = useState(null)
     const [ tSandUsed, setTSandUsed ] = useState(0)
@@ -13,16 +15,16 @@ export default function CompanyAuthorized({companyUser, setCompanyUser, companyS
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const navigate = useNavigate()
 
-    // useEffect(()=> {
-    //     console.log("here")
-    //     fetch(`/api/company_sites/${companyUser.company.id}`)
-    //     console.log('after fetch')
-    //     .then(resp => console.log(resp.json()))
-    //     .then(company => {
-    //         setCompanySites(company[0].sites)
-    //         setFullList(company[0].sites)
-    //     })
-    // },[companyUser])
+    useEffect(()=> {
+        console.log("here")
+        fetch(`/api/company_sites/${companyUser.company.id}`)
+        console.log('after fetch')
+        .then(resp => console.log(resp.json()))
+        .then(company => {
+            setCompanySites(company[0].sites)
+            setFullList(company[0].sites)
+        })
+    },[companyUser])
 
     const handleSiteDisplayButton = (site) => {
         fetch(`/api/sites/${site.id}`)
