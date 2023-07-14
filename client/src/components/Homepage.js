@@ -28,9 +28,9 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                             <div className="card-body">
                                 <h5 className="card-title h2">{site.location}</h5>
                                 <h5 className="card-title h3">{site.crew}</h5>
-                                {!!user.email ? (
-                                <p className="card-text">{companyList.filter(company => company.id === site.company_id)[0].name}</p>
-                                ): (<></>)}
+                                {!!user.email ? (<></>) : (
+                                    <p className="card-text">{companyList.filter(company => company.id === site.company_id)[0].name}</p>
+                                )}
                                 <p className="card-text">Start Date: {siteDate[1]}/{siteDate[2]}/{siteDate[0]}</p>
                             </div>
                             <ul className="list-group list-group-flush" >
@@ -62,6 +62,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                     </div>
                 )
             })}
+            {user.boss ? (<></>) : (
             <EditSite 
             location={location} 
             crew={crew}
@@ -75,6 +76,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
             companyList={companyList}
             handleUpdatedSite={handleUpdatedSite}
             />
+            )}
             </div>
         </div>
     )
