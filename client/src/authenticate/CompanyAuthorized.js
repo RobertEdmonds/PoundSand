@@ -19,7 +19,7 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
         console.log("here")
         fetch(`/api/company_sites/${companyUser.company.id}`)
         console.log('after fetch')
-        .then(resp => console.log(resp.json()))
+        .then(resp => resp.json())
         .then(company => {
             setCompanySites(company[0].sites)
             setFullList(company[0].sites)
