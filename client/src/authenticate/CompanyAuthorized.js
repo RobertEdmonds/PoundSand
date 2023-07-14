@@ -46,7 +46,8 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
         })
         setCompanySites(searchSite)
     }
-
+    console.log("company", companyUser)
+    console.log("full", fullList)
     return(
         <div>
             <Header 
