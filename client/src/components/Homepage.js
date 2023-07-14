@@ -46,7 +46,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                             <div className="card-body">
                                 <button className="btn btn-primary" onClick={() => handleSiteDisplayButton(site)} style={{fontWeight: "bold"}}>Go {site.location}</button>
                                 <br/>
-                                {user.boss && (
+                                {user.boss ? (
                                   <button 
                                     type="button" 
                                     className="btn btn-outline-primary" 
@@ -56,7 +56,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                                     style={{fontWeight: "bold"}}>
                                   Edit Site
                                   </button>
-                                )}
+                                ) : (<></>)}
                             </div>
                         </div>
                     </div>
