@@ -4,7 +4,7 @@ import DisplayNav from "./DisplayNav"
 import DisplayTruck from "./DisplayTruck"
 import DisplaySand from "./DisplaySand"
 
-export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, user}){
+export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, user, correction}){
     const { location, crew} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ changeWeight, setChangeWeight ] = useState(false)
@@ -35,7 +35,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
         displaySandUsed.push(sandUsed[(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
     }
-    console.log(showSite)
+  
     const truckArray = showSite.trucks
     const dictionaryTruck = {}
         for(let i = 0; i < truckArray.length; i++){
@@ -61,6 +61,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
             handleDateChange={handleDateChange}
             user={user}
             crew={crew}
+            correction={showSite.correction}
             />
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} user={user}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} user={user}/>
