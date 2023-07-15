@@ -259,7 +259,7 @@ function Authenticated({user, setUser}){
             body: JSON.stringify(form),
           }).then(resp => resp.json())
           .then(site => console.log(site))
-        console.log(correction)
+        // (correction)
     }
 
     return(

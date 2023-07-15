@@ -45,14 +45,14 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 dictionaryTruck[truckArray[i].date] = 1
             }
         }
-    console.log("ta", truckArray)
+
     const displayTruckLoad = [] 
     let amount = 0
     for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
         displayTruckLoad.push(truckArray[(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
     }
-    console.log("dtl", displayTruckLoad)
+
     return(
         <div>
             <DisplayNav 
@@ -100,7 +100,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 </div>
             </div>
             {displayInfo ? (
-                <table className="table">
+                <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
@@ -119,11 +119,12 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                                 className="btn btn-primary" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#staticTruck" 
+                                style={{fontWeight: "bold"}}
                                 onClick={() => setTruckTime(truck.date)}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button></th>
-                                <td>{changeWeight ? (truck.total / 2000) : truck.total}</td>
+                                <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString("en-US")})`}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
-                                <td>{changeWeight ? (truck.total_amount_per_day / 2000) : truck.total_amount_per_day}</td>
+                                <td>{`${truck.total_amount_per_day.toLocaleString("en-US")}(${(truck.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                             </tr>
                         )
                     })
@@ -131,11 +132,11 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 </tbody>
             </table>
             ):(
-            <table className="table">
+            <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">{(changeWeight ? "Tons" : "Pounds")}</th>
+                        <th scope="col">Pounds(Tons)</th>
                         <th scope="col">Stage</th>
                         <th scope="col">Moisture</th>
                         <th scope="col">Total Per Day</th>
@@ -150,12 +151,13 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                                 type="button" 
                                 className="btn btn-primary"
                                 data-bs-toggle="modal" 
-                                data-bs-target="#staticSand" 
+                                data-bs-target="#staticSand"
+                                style={{fontWeight: "bold"}} 
                                 onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button></th>
-                                <td>{changeWeight ? (sand.pounds / 2000) : sand.pounds}</td>
+                                <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
                                 <td>{sand.stage}</td>
                                 <td>{sand.moisture}</td>
-                                <td>{changeWeight ? (sand.total_amount_per_day / 2000) : sand.total_amount_per_day}</td>
+                                <td>{`${sand.total_amount_per_day.toLocaleString("en-US")}(${(sand.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                             </tr>
                         )
                     })

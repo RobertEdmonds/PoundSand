@@ -46,7 +46,6 @@ export default function CompanySignUp({setCompanyUser}){
             setPasswordConfirmation("")
           } else {
             r.json().then((err) => {
-              console.log(err)
                 setError(err.errors)
             });
           }

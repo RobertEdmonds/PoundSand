@@ -44,7 +44,6 @@ function TruckLoad({id, handleAddSand, location}){
             }else{
                 resp.json().then(err => {
                     setError(err.errors)
-                    console.log(err)
                 })
             }
         })

@@ -9,7 +9,6 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
     const [ id, setId ] = useState('')
 
     const handleEditSite = (site) => {
-        console.log(site)
         setLocation(site.location)
         setCrew(site.crew)
         setPo(site.po)
