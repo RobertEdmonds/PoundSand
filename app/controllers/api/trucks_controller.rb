@@ -10,7 +10,7 @@ class Api::TrucksController < ApplicationController
        truck = Truck.create!(truck_params)
        truck.update!(total: (truck.gross_weight - truck.tare_weight), date: Date.current()) 
        site = Site.find_by(id: truck.site_id)
-       site.update(total_on_site: (site.total_on_site + truck.total - 1), total_delivered: (site.total_delivered + truck.total + 32598))
+       site.update(total_on_site: (site.total_on_site + truck.total), total_delivered: (site.total_delivered + truck.total))
         if Truck.where(date: truck.date).length() > 1 && Truck.where(site_id: site.id).length() > 1 
             truck_list = Truck.where(date: truck.date, site_id: site.id)
             truck_mine_list = Truck.where(date: truck.date, site_id: site.id, mine: truck.mine)
