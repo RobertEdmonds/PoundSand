@@ -51,7 +51,7 @@ function DisplayNav({
                                 )}
                             </label>
                         </div>
-                        {!completedBool &&(
+                        {!completedBool && !user.email  &&(
                         <div className="col-auto" style={{paddingLeft: "0px"}}>
                             <input type="number"
                             pattern="[0-9]*" 
