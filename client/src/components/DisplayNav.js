@@ -14,7 +14,10 @@ function DisplayNav({
     return(
         <nav className="navbar bg-body-tertiary" style={{padding: "0"}}>
                 <div className="container-fluid" style={{backgroundColor: "rgb(45, 45, 45)", paddingBottom: "2rem"}}>
-                    <span className="navbar-brand" style={{color: "white", fontWeight: "bold"}}>Location: {location} <br/> Crew: {crew} <br/> PO#: {sites.find(site => site.id === parseInt(id)).po}</span>
+                    {!user.email ? (
+                        <span className="navbar-brand" style={{color: "white", fontWeight: "bold"}}>Location: {location} <br/> Crew: {crew} <br/> PO#: {sites.po}</span>
+                    ):(
+                    <span className="navbar-brand" style={{color: "white", fontWeight: "bold"}}>Location: {location} <br/> Crew: {crew} <br/> PO#: {sites.find(site => site.id === parseInt(id)).po}</span>)}
                     {completedBool || !!user.email ? (<></>) : (
                     <div className="d-grid gap-2 col-3 mx-auto">
                         <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#truckLoad" style={{fontWeight: "bold"}}>Add Sand</button>

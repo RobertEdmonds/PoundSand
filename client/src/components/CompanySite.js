@@ -62,6 +62,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
             user={user}
             crew={crew}
             correction={showSite.correction}
+            sites={showSite}
             />
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} user={user}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} user={user}/>
