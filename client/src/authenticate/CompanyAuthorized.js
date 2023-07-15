@@ -16,7 +16,6 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
     const navigate = useNavigate()
 
     useEffect(()=> {
-        console.log("here")
         fetch(`/api/company_sites/${companyUser.code}`)
         .then(resp => resp.json())
         .then(company => {
@@ -48,7 +47,6 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
         setCompanySites(searchSite)
     }
     
-    console.log("full", fullList)
     return(
         <div>
             <Header 

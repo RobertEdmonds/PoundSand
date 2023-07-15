@@ -35,7 +35,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
         displaySandUsed.push(sandUsed[(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
     }
-
+    console.log(showSite)
     const truckArray = showSite.trucks
     const dictionaryTruck = {}
         for(let i = 0; i < truckArray.length; i++){

@@ -16,7 +16,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
         setCompanyId(site.company_id)
         setId(site.id)
     }
-    console.log('homepage')
+
     return(
         <div className="container text-center">
             <div className="row">
