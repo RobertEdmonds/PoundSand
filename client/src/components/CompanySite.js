@@ -45,13 +45,14 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 dictionaryTruck[truckArray[i].date] = 1
             }
         }
+    console.log("ta", truckArray)
     const displayTruckLoad = [] 
     let amount = 0
     for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
         displayTruckLoad.push(truckArray[(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
     }
-
+    console.log("dtl", displayTruckLoad)
     return(
         <div>
             <DisplayNav 
