@@ -52,7 +52,7 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                                 {!user.email && (
                                     <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToEditForm(truck)}>Edit</button></td>
                                 )}
-                                {!user.email (
+                                {!user.email && (
                                     <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToDeleteForm(truck)}>Delete</button></td>
                                 )}
                             </tr>
