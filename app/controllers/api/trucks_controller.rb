@@ -63,7 +63,8 @@ class Api::TrucksController < ApplicationController
     end
 
     def destroy
-        truck.find(params[:id])
+        truck = Truck.find(params[:id])
+        truck.destroy
         head :no_content
     end
 

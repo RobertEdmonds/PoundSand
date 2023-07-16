@@ -12,6 +12,12 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
         }
     }
 
+    const goToDeleteForm = (truck) => {
+        fetch(`/api/trucks/${truck.id}`, {
+            method: "DELETE",
+          }).then(() => console.log(truck));
+    }
+
     return(
         <div className="modal fade modal-dialog-scrollable modal-xl" id="staticTruck" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -45,6 +51,9 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                                 <td>{`${truck.total_amount_per_day.toLocaleString("en-US")}(${(truck.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                                 {!user.email && (
                                     <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToEditForm(truck)}>Edit</button></td>
+                                )}
+                                {!user.email && user.id === 1 (
+                                    <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToDeleteForm(truck)}>Delete</button></td>
                                 )}
                             </tr>
                         )

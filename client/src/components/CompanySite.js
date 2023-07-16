@@ -4,17 +4,12 @@ import DisplayNav from "./DisplayNav"
 import DisplayTruck from "./DisplayTruck"
 import DisplaySand from "./DisplaySand"
 
-export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, user, correction}){
+export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, user}){
     const { location, crew} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
-    const [ changeWeight, setChangeWeight ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
     const [ truckTime, setTruckTime ] = useState("")
     const [ sandTime, setSandTime ] = useState('')
-
-    const handleWeightChange = (bool) => {
-        setChangeWeight(bool)
-    }
 
     const handleDateChange = (bool) => {
         setDateDirection(bool)
@@ -57,7 +52,6 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
         <div>
             <DisplayNav 
             location={location} 
-            handleWeightChange={handleWeightChange} 
             setDisplayInfo={setDisplayInfo} 
             handleDateChange={handleDateChange}
             user={user}
