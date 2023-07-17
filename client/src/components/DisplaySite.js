@@ -74,6 +74,7 @@ function DisplaySite({sites,
         displayTruckLoad.push(truckArray[(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
     }
+    console.log(sites.filter(site => site.id === parseInt(id)))
 
     const goToEditForm = (truck) => {
         setTruck(truck.truck)

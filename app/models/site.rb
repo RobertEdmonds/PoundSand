@@ -7,6 +7,7 @@ class Site < ApplicationRecord
     validates :company_id, presence: true
     validates :po, uniqueness: true, presence: true
     validates :correction, :numericality => { greater_than_or_equal_to: -15, less_than_or_equal_to: 15 }
+    validates :est_total, :numericality => { greater_than_or_equal_to: 0 }
 
     def self.find_by_upcased_location(location)
         find_by('UPPER(location) = ?', location.upcase)

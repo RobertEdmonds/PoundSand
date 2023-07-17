@@ -6,6 +6,7 @@ function SandSite({handleAddSite, companyList}){
     const [ po, setPo ] = useState('')
     const [ companyId, setCompanyId ] = useState('')
     const [ success, setSuccess ] = useState(false)
+    const [ estTotal, setEstTotal ] = useState('')
     const [ error, setError ] = useState([])
 
     function createSite(){
@@ -37,6 +38,8 @@ function SandSite({handleAddSite, companyList}){
                 resp.json().then((err) => setError(err.errors))
         }})
     }
+
+    console.log(estTotal)
 
     return(
         <>
@@ -90,6 +93,18 @@ function SandSite({handleAddSite, companyList}){
                                     id="inputStage"
                                     value={po}
                                     onChange={e => setPo(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-3 row">
+                                <label htmlFor="inputEstTotal" className="col-sm-2 col-form-label"> Pounds </label>
+                                <div className="input-group">
+                                <input type="number"
+                                    pattern="[0-9]*" 
+                                    className="form-control" 
+                                    id="inputEstTotal"
+                                    value={estTotal}
+                                    onChange={(e) => setEstTotal(e.target.value)}
                                     />
                                 </div>
                             </div>

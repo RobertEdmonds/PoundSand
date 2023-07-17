@@ -6,6 +6,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
     const [ crew, setCrew ] = useState('')
     const [ po, setPo ] = useState('')
     const [ companyId, setCompanyId ] = useState('')
+    const [ estTotal, setEstTotal ] = useState('')
     const [ id, setId ] = useState('')
 
     const handleEditSite = (site) => {
@@ -14,6 +15,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
         setPo(site.po)
         setCompanyId(site.company_id)
         setId(site.id)
+        setEstTotal(site.est_total)
     }
 
     return(
@@ -72,6 +74,8 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
             setPo={setPo}
             setCompanyId={setCompanyId}
             id={id}
+            estTotal={estTotal}
+            setEstTotal={setEstTotal}
             companyList={companyList}
             handleUpdatedSite={handleUpdatedSite}
             />

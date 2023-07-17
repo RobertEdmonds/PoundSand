@@ -5,6 +5,8 @@ export default function EditSite({
     crew,
     po,
     companyId,
+    estTotal,
+    setEstTotal,
     setLocation,
     setCrew,
     setPo,
@@ -22,6 +24,7 @@ export default function EditSite({
             location,
             crew, 
             po,
+            est_total: parseInt(estTotal),
             company_id: parseInt(companyId)
         }
         setSuccess(false)
@@ -43,7 +46,7 @@ export default function EditSite({
             }
           })
     }
-
+    console.log(estTotal)
     return(
         <>
             <div className="modal fade" id="editSiteModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -93,6 +96,18 @@ export default function EditSite({
                                     id="inputStage"
                                     value={po}
                                     onChange={e => setPo(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-3 row">
+                                <label htmlFor="inputEstTotal" className="col-sm-2 col-form-label"> Pounds </label>
+                                <div className="input-group">
+                                <input type="number"
+                                    pattern="[0-9]*" 
+                                    className="form-control" 
+                                    id="inputEstTotal"
+                                    value={estTotal}
+                                    onChange={(e) => setEstTotal(e.target.value)}
                                     />
                                 </div>
                             </div>

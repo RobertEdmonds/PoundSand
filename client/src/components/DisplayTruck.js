@@ -12,11 +12,11 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
         }
     }
 
-    const goToDeleteForm = (truck) => {
-        fetch(`/api/trucks/${truck.id}`, {
-            method: "DELETE",
-          }).then(() => console.log(truck));
-    }
+    // const goToDeleteForm = (truck) => {
+    //     fetch(`/api/trucks/${truck.id}`, {
+    //         method: "DELETE",
+    //       }).then(() => console.log(truck));
+    // }
 
     return(
         <div className="modal fade modal-dialog-scrollable modal-xl" id="staticTruck" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
