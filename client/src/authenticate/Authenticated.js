@@ -171,6 +171,7 @@ function Authenticated({user, setUser}){
     }
 
     const handleUseSand = (useSand) => {
+        console.log(useSand)
         const updatedSite = sites.filter(site => {
             if(site.id === useSand.site_id){
                 site.total_sand_used += useSand.pounds
