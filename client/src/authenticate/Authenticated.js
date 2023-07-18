@@ -177,7 +177,7 @@ function Authenticated({user, setUser}){
                 site.total_on_site -= useSand.pounds
                 site.sand_useds.push(useSand)
                 setOnSite(onSite - useSand.pounds) 
-                setTSandUsed(site.total_sand_used)
+                setTSandUsed(tSandUsed + useSand.pounds)
                 window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
                     location: site.location,
                     crew: site.crew,
