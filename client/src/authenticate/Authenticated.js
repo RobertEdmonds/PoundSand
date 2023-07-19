@@ -16,6 +16,7 @@ function Authenticated({user, setUser}){
     const [ trashSand, setTrashSand ] = useState(0)
     const [ siteDelivery, setSiteDelivery ] = useState(0)
     const [ correction, setCorrection ] = useState(0)
+    const [ siteEstTotal, setSiteEstTotal ] = useState(0)
     const [ completedBool, setCompletedBool ] = useState(false)
     const [ companyList, setCompanyList ] = useState([])
     const navigate = useNavigate()
@@ -38,6 +39,7 @@ function Authenticated({user, setUser}){
                     setCompletedBool(site.completed)
                     setTrashSand(site.trash_sand)
                     setCorrection(site.correction)
+                    setSiteEstTotal(site.estTotal)
                     navigate(`/site/${site.location}/${site.crew}/${site.id}`)
                 }else if(site.showSite && site.employee){
                     setButtonInfo("Employee")
@@ -58,12 +60,14 @@ function Authenticated({user, setUser}){
     }
 
     const handleSiteDisplayButton = (site) => {
+        console.log(site)
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
         setSiteDelivery(site.total_delivered)
         setTrashSand(site.trash_sand)
         setCorrection(site.correction)
+        setSiteEstTotal(site.est_total)
         window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
             location: site.location, 
             crew: site.crew,
@@ -73,9 +77,11 @@ function Authenticated({user, setUser}){
             trash_sand: site.trash_sand,
             completed: site.completed,  
             correction: site.correction,
+            estTotal: site.est_total,
             showSite: true}))
         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
     }
+    console.log(siteEstTotal)
 
     const handleAddSite = (newSite) => {
         setSites([...sites, newSite])
@@ -108,7 +114,8 @@ function Authenticated({user, setUser}){
                     total_delivered: site.total_delivered,
                     trash_sand: site.trash_sand,
                     completed: site.completed,
-                    correction: site.correction,  
+                    correction: site.correction,
+                    estTotal: site.est_total,  
                     showSite: true}))
                 return site
             }else{
@@ -139,7 +146,8 @@ function Authenticated({user, setUser}){
                         total_delivered: site.total_delivered,
                         trash_sand: site.trash_sand,
                         completed: site.completed, 
-                        correction: site.correction, 
+                        correction: site.correction,
+                        estTotal: site.est_total, 
                         showSite: true}))
                     return site
                 }else{
@@ -171,7 +179,6 @@ function Authenticated({user, setUser}){
     }
 
     const handleUseSand = (useSand) => {
-        console.log(useSand)
         const updatedSite = sites.filter(site => {
             if(site.id === useSand.site_id){
                 site.total_sand_used += useSand.pounds
@@ -188,6 +195,7 @@ function Authenticated({user, setUser}){
                     trash_sand: site.trash_sand,
                     completed: site.completed,  
                     correction: site.correction,
+                    estTotal: site.est_total,
                     showSite: true}))
                 return site
             }else{
@@ -236,6 +244,7 @@ function Authenticated({user, setUser}){
                 trash_sand: site.trash_sand,
                 completed: site.completed,  
                 correction: site.correction,
+                estTotal: site.est_total,
                 showSite: true}))
           })
     }
@@ -289,6 +298,7 @@ function Authenticated({user, setUser}){
                 <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
                 sites={sites} 
                 user={user}
+                siteEstTotal={siteEstTotal}
                 setButtonInfo={setButtonInfo}
                 tSandUsed={tSandUsed}
                 onSite={onSite}

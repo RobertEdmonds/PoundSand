@@ -13,6 +13,7 @@ function DisplaySite({sites,
     setOnSite,
     tSandUsed,
     siteDelivery,
+    siteEstTotal,
     handleAddSand,
     handleUseSand,
     completedBool,
@@ -74,7 +75,6 @@ function DisplaySite({sites,
         displayTruckLoad.push(truckArray[(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
     }
-    console.log(sites.filter(site => site.id === parseInt(id)))
 
     const goToEditForm = (truck) => {
         setTruck(truck.truck)
@@ -89,7 +89,10 @@ function DisplaySite({sites,
     let displayMoisture = sandUsed.map(sand => sand.moisture)
 
     const dictionaryStage = {}
-    for(let i = 0; i < sandUsed.length; i++){
+    const stageArray = sandUsed.sort((a,b) => (a.created_at > b.created_at ? -1 : 1)).reverse()
+    console.log("sandUsed", sandUsed.reverse())
+    console.log(stageArray)
+    for(let i = 0; i < stageArray.length; i++){
         if(dictionaryStage.hasOwnProperty(sandUsed[i].stage)){
             dictionaryStage[sandUsed[i].stage] += sandUsed[i].pounds
         }else{
@@ -133,6 +136,17 @@ function DisplaySite({sites,
             <TrashSand id={id} trashSand={trashSand} setTrashSand={setTrashSand} onSite={onSite} setOnSite={setOnSite}/>
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user}/>
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
+            <div className="container text-center" style={{width: "100%"}}>
+                <div className="row align-items-start" >
+                    <div className="col badge fs-1" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
+                        Estimated Job Total:
+                        <br/>
+                        Pounds: {(siteEstTotal).toLocaleString("en-US")}
+                        <br/>
+                        Tons: {(siteEstTotal / 2000).toLocaleString("en-US")}
+                    </div>
+                </div>
+            </div>
             <div className="container text-center" style={{width: "100%"}}>
                 <div className="row align-items-start" >
                     <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
@@ -239,7 +253,9 @@ function DisplaySite({sites,
                         </tr>
                     </thead>
                     <tbody>
-                    {Object.entries(dictionaryStage).sort((a, b) => (a[0] > b[0] ? -1 : 1)).map((value) => {
+                    {/* .sort((a, b) => (a[0] > b[0] ? -1 : 1)) */}
+                    {Object.entries(dictionaryStage).map((value) => {
+                        console.log(value[1])
                         return(
                             <tr key={value[0]}>
                                 <td>{value[0]}</td>

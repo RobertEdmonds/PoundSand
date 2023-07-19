@@ -100,7 +100,7 @@ export default function EditSite({
                                 </div>
                             </div>
                             <div className="mb-3 row">
-                                <label htmlFor="inputEstTotal" className="col-sm-2 col-form-label"> Pounds </label>
+                                <label htmlFor="inputEstTotal" className="col-sm-2 col-form-label"> Estimated Total </label>
                                 <div className="input-group">
                                 <input type="number"
                                     pattern="[0-9]*" 

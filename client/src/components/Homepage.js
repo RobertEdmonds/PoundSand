@@ -32,6 +32,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                                 {!!user.email ? (<></>) : (
                                     <p className="card-text">{companyList.filter(company => company.id === site.company_id)[0].name}</p>
                                 )}
+                                <p className="card-text">Est. Total: <br/>{`${(site.est_total).toLocaleString("en-US")}(${(site.est_total / 2000).toLocaleString("en-US")})`}</p>
                                 <p className="card-text">Start Date: {siteDate[1]}/{siteDate[2]}/{siteDate[0]}</p>
                             </div>
                             <ul className="list-group list-group-flush" >
