@@ -60,7 +60,6 @@ function Authenticated({user, setUser}){
     }
 
     const handleSiteDisplayButton = (site) => {
-        console.log(site)
         setButtonInfo(site.location)
         setTSandUsed(site.total_sand_used)
         setOnSite(site.total_on_site)
@@ -81,7 +80,6 @@ function Authenticated({user, setUser}){
             showSite: true}))
         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
     }
-    console.log(siteEstTotal)
 
     const handleAddSite = (newSite) => {
         setSites([...sites, newSite])
@@ -238,7 +236,7 @@ function Authenticated({user, setUser}){
             window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
                 location: site.location,
                 crew: site.crew,
-                total_sand_used:site.total_sand_used, 
+                total_sand_used: site.total_sand_used, 
                 total_on_site: site.total_on_site,
                 total_delivered: site.total_delivered,
                 trash_sand: site.trash_sand,
@@ -268,7 +266,17 @@ function Authenticated({user, setUser}){
             },
             body: JSON.stringify(form),
           }).then(resp => resp.json())
-          .then(site => console.log(site))
+          .then(site => window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+            location: site.location,
+            crew: site.crew,
+            total_sand_used: site.total_sand_used, 
+            total_on_site: site.total_on_site,
+            total_delivered: site.total_delivered,
+            trash_sand: site.trash_sand,
+            completed: site.completed,  
+            correction: site.correction,
+            estTotal: site.est_total,
+            showSite: true})))
         // (correction)
     }
 

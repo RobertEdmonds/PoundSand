@@ -39,8 +39,6 @@ function SandSite({handleAddSite, companyList}){
         }})
     }
 
-    console.log(estTotal)
-
     return(
         <>
             <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createSiteModal" style={{fontWeight: "bold"}}>

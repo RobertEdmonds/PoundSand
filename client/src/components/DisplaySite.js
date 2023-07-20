@@ -89,14 +89,13 @@ function DisplaySite({sites,
     let displayMoisture = sandUsed.map(sand => sand.moisture)
 
     const dictionaryStage = {}
-    const stageArray = sandUsed.sort((a,b) => (a.created_at > b.created_at ? -1 : 1)).reverse()
-    console.log("sandUsed", sandUsed.reverse())
-    console.log(stageArray)
+    const stageArray = sandUsed.sort((a,b) => (a.created_at > b.created_at ? -1 : 1))
+
     for(let i = 0; i < stageArray.length; i++){
         if(dictionaryStage.hasOwnProperty(sandUsed[i].stage)){
-            dictionaryStage[sandUsed[i].stage] += sandUsed[i].pounds
+            dictionaryStage[sandUsed[i].stage] = [(dictionaryStage[sandUsed[i].stage][0] + sandUsed[i].pounds), sandUsed[i].created_at]
         }else{
-            dictionaryStage[sandUsed[i].stage] = sandUsed[i].pounds
+            dictionaryStage[sandUsed[i].stage] = [sandUsed[i].pounds, sandUsed[i].created_at]
         }
     }
 
@@ -138,12 +137,19 @@ function DisplaySite({sites,
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
             <div className="container text-center" style={{width: "100%"}}>
                 <div className="row align-items-start" >
-                    <div className="col badge fs-1" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
+                    <div className="col badge fs-2" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
                         Estimated Job Total:
                         <br/>
                         Pounds: {(siteEstTotal).toLocaleString("en-US")}
                         <br/>
                         Tons: {(siteEstTotal / 2000).toLocaleString("en-US")}
+                    </div>
+                    <div className="col badge fs-2" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
+                        Remaining Total:
+                        <br/>
+                        Pounds: {(siteEstTotal - (tSandUsed + onSite)).toLocaleString("en-US")}
+                        <br/>
+                        Tons: {((siteEstTotal - (tSandUsed + onSite)) / 2000).toLocaleString("en-US")}
                     </div>
                 </div>
             </div>
@@ -253,13 +259,11 @@ function DisplaySite({sites,
                         </tr>
                     </thead>
                     <tbody>
-                    {/* .sort((a, b) => (a[0] > b[0] ? -1 : 1)) */}
-                    {Object.entries(dictionaryStage).map((value) => {
-                        console.log(value[1])
+                    {Object.entries(dictionaryStage).sort((a, b) => a[1][1] > b[1][1] ? -1 : 1).map((value) => {
                         return(
                             <tr key={value[0]}>
                                 <td>{value[0]}</td>
-                                <td>{`${value[1].toLocaleString("en-US")}(${(value[1] / 2000).toLocaleString("en-US")})`}</td>
+                                <td>{`${value[1][0].toLocaleString("en-US")}(${(value[1][0] / 2000).toLocaleString("en-US")})`}</td>
                             </tr> 
                         )
                         })

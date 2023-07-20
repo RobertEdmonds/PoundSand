@@ -46,7 +46,7 @@ export default function EditSite({
             }
           })
     }
-    console.log(estTotal)
+    
     return(
         <>
             <div className="modal fade" id="editSiteModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
