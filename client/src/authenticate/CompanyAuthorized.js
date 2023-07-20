@@ -11,7 +11,9 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
     const [ showSite, setShowSite ] = useState(null)
     const [ tSandUsed, setTSandUsed ] = useState(0)
     const [ onSite, setOnSite ] = useState(0)
+    const [ trashSand, setTrashSand ] = useState(0)
     const [ siteDelivery, setSiteDelivery ] = useState(0)
+    const [ siteEstTotal, setSiteEstTotal ] = useState(0)
     const [ buttonInfo, setButtonInfo ] = useState('Job Sites')
     const navigate = useNavigate()
 
@@ -32,8 +34,10 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
                     setShowSite(singleSite)
                     setButtonInfo(site.location)
                     setTSandUsed(site.total_sand_used)
+                    setTrashSand(site.trash_sand)
                     setOnSite(site.total_on_site)
                     setSiteDelivery(site.total_delivered)
+                    setSiteEstTotal(site.est_total)
                     navigate(`/site/${site.location}/${site.crew}/${site.id}`)
                 })
             }
@@ -72,6 +76,8 @@ export default function CompanyAuthorized({companyUser, setCompanyUser}){
                     onSite={onSite}
                     siteDelivery={siteDelivery}
                     showSite={showSite}
+                    trashSand={trashSand}
+                    siteEstTotal={siteEstTotal}
                 />}/>
             </Routes>
         </div>
