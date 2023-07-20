@@ -24,6 +24,7 @@ function Authenticated({user, setUser}){
     useEffect(() => {
         fetch('/api/sites')
         .then(resp => resp.json().then(site => {
+            window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
             setAllSites(site)
             setSites(site)
             const data = window.localStorage.getItem('MY_SAND_SITE')
