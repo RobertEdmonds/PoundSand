@@ -83,28 +83,28 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
             </div>
             <div className="container text-center">
                 <div className="row align-items-start">
-                    <div className="col badge text-bg-info fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Total Delivered:
                         <br/>
                         Pounds: {(siteDelivery).toLocaleString("en-US")}
                         <br/>
                         Tons: {(siteDelivery / 2000).toLocaleString("en-US")}
                     </div>
-                    <div className="col badge text-bg-info fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Total Sand On Site:
                         <br/>
                         Pounds: {(onSite).toLocaleString("en-US")}
                         <br/>
                         Tons: {(onSite / 2000).toLocaleString("en-US")}
                     </div>
-                    <div className="col badge text-bg-info fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Total Sand Used:
                         <br/>
                         Pounds: {tSandUsed.toLocaleString("en-US")}
                         <br/>
                         Tons: {(tSandUsed / 2000).toLocaleString("en-US")}
                     </div>
-                    <div className="col badge fs-3" style={{backgroundColor: "tan", color: "black"}}>
+                    <div className="col badge fs-4" style={{backgroundColor: "tan", color: "black"}}>
                         Trash Sand:
                         <br/>
                         Pounds: {trashSand.toLocaleString("en-US")}

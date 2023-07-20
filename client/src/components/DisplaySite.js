@@ -89,9 +89,7 @@ function DisplaySite({sites,
     let displayMoisture = sandUsed.map(sand => sand.moisture)
 
     const dictionaryStage = {}
-    const stageArray = sandUsed.sort((a,b) => (a.created_at > b.created_at ? -1 : 1))
-
-    for(let i = 0; i < stageArray.length; i++){
+    for(let i = 0; i < sandUsed.length; i++){
         if(dictionaryStage.hasOwnProperty(sandUsed[i].stage)){
             dictionaryStage[sandUsed[i].stage] = [(dictionaryStage[sandUsed[i].stage][0] + sandUsed[i].pounds), sandUsed[i].created_at]
         }else{
