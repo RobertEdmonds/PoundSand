@@ -97,6 +97,19 @@ function DisplaySite({sites,
         }
     }
 
+    let orderStage = (Object.entries(dictionaryStage).length + 1)
+    console.log(orderStage)
+    const displayStage = Object.entries(dictionaryStage).sort((a, b) => a[1][1] > b[1][1] ? -1 : 1).map((value) => {
+        orderStage -= 1
+        return(
+            <tr key={value[0]}>
+                <td>{orderStage}.</td>
+                <td>{value[0]}</td>
+                <td>{`${value[1][0].toLocaleString("en-US")}(${(value[1][0] / 2000).toLocaleString("en-US")})`}</td>
+            </tr> 
+        )
+        })
+
     return(
         <div>
             <DisplayNav 
@@ -252,20 +265,13 @@ function DisplaySite({sites,
                 <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
                     <thead>
                         <tr>
+                            <th scope="col">Order</th>
                             <th scope="col">Stage</th>
                             <th scope="col">Total Pounds(Tons)</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {Object.entries(dictionaryStage).sort((a, b) => a[1][1] > b[1][1] ? -1 : 1).map((value) => {
-                        return(
-                            <tr key={value[0]}>
-                                <td>{value[0]}</td>
-                                <td>{`${value[1][0].toLocaleString("en-US")}(${(value[1][0] / 2000).toLocaleString("en-US")})`}</td>
-                            </tr> 
-                        )
-                        })
-                    }
+                        {displayStage}
                     </tbody>
                 </table>
             </>
