@@ -4,8 +4,8 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
     
     const mineArray = []
     for(let i = 0; i < truckDateArray.length; i++){
-        if(mineArray.filter(truck => truck.mine === truckDateArray[i].mine).length > 0){
-            const fixMine = mineArray.findIndex(truck => truck.mine === truckDateArray[i].mine)
+        if(mineArray.filter(truck => truck.mine.trim().toUpperCase() === truckDateArray[i].mine.trim().toUpperCase()).length > 0){
+            const fixMine = mineArray.findIndex(truck => truck.mine.trim().toUpperCase() === truckDateArray[i].mine.trim().toUpperCase())
             mineArray[fixMine] = truckDateArray[i]   
         }else{
             mineArray.push(truckDateArray[i])
