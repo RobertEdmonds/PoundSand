@@ -19,11 +19,11 @@ export default function TrashSand({id, trashSand, setTrashSand, onSite, setOnSit
             body: JSON.stringify(formData),
           }).then(resp => {
             if(resp.ok){
-                const profile = JSON.parse(localStorage.getItem('MY_SAND_SITE'));
-                    Object.keys(formData).forEach((key) => {
-                        profile[key] = (formData[key] + profile[key]);
-                    });
-                localStorage.setItem('MY_SAND_SITE', JSON.stringify(profile))
+                // const profile = JSON.parse(localStorage.getItem('MY_SAND_SITE'));
+                //     Object.keys(formData).forEach((key) => {
+                //         profile[key] = (formData[key] + profile[key]);
+                //     });
+                // localStorage.setItem('MY_SAND_SITE', JSON.stringify(profile))
                 setTrashSand(trashSand + parseInt(pounds))
                 setOnSite(onSite - parseInt(pounds))
                 setSuccess(true)

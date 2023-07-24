@@ -8,7 +8,8 @@ import DisplaySand from "./DisplaySand";
 import EditTruckLoad from "../forms/EditTruckLoad";
 import TrashSand from "../forms/TrashSand";
 
-function DisplaySite({sites, 
+function DisplaySite({sites,
+    userWorkSite, 
     onSite, 
     setOnSite,
     tSandUsed,
@@ -43,8 +44,8 @@ function DisplaySite({sites,
     const handleDateChange = (bool) => {
         setDateDirection(bool)
     }
-
-    const sandUsed = sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)[0]
+    // sites.filter(site => site.id === parseInt(id)).map(site => site.sand_useds)[0]
+    const sandUsed = userWorkSite.sand_useds
     const dictionaryUsed = {}
         for(let i = 0; i < sandUsed.length; i++){
             if(dictionaryUsed.hasOwnProperty(sandUsed[i].date)){
@@ -59,8 +60,8 @@ function DisplaySite({sites,
         displaySandUsed.push(sandUsed[(Object.values(dictionaryUsed)[i])+ count - 1])
         count += (Object.values(dictionaryUsed)[i])
     }
-
-    const truckArray = sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)[0]
+    // sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)[0]
+    const truckArray = userWorkSite.trucks
     const dictionaryTruck = {}
         for(let i = 0; i < truckArray.length; i++){
             if(dictionaryTruck.hasOwnProperty(truckArray[i].date)){
@@ -277,7 +278,7 @@ function DisplaySite({sites,
             )}
             {user.boss && (
             <div className="d-grid gap-2">
-                <button className="btn btn-primary" type="button" onClick={() => handleSiteCompletion(parseInt(id))} style={{fontWeight: "bold"}}>{completedBool ? "Reopen Site" : "Complete This Site"}</button>
+                <button className="btn btn-primary" type="button" onClick={() => handleSiteCompletion(userWorkSite)} style={{fontWeight: "bold"}}>{completedBool ? "Reopen Site" : "Complete This Site"}</button>
             </div>
             )}
         </div>

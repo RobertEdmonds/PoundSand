@@ -20,24 +20,48 @@ function Header({sites,
     const handleGoHome = () => {
         navigate('/')
         setCompletedBool(false)
-        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
+        const dataForm = {
+            work_site: null,
+            employee: false
+        }
+        fetch(`/api/user_work_site/${user.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataForm),
+          });
+        user.work_site = null
+        user.employee = null
+        // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         setButtonInfo('Job Sites')
     }
 
     const handleCompletedBool = () =>{
         navigate('/')
         setCompletedBool(true)
-        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
+        // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         setButtonInfo('Completed Sites')
     }
     
     const handleEmployee = () => {
-        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: true, employee: true}))
+        const dataForm = {
+            work_site: null,
+            employee: true
+        }
+        fetch(`/api/user_work_site/${user.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataForm),
+          });
+        // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: true, employee: true}))
         navigate('/employee')
     }
 
     const handleCompanyView = () => {
-        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
+        // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         navigate('/companies')
         setButtonInfo('Companies')
     }

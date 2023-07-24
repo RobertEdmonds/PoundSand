@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post '/reset/:id', to: "users#reset_password"
     patch "/user_employee_update/:id", to: 'users#employee_change'
     patch '/reset_password/:id', to: 'users#admin_reset_password'
+    patch '/user_work_site/:id', to: 'users#update_user_site'
     get '/company_sites/:id', to: 'companies#company_index'
     patch '/site_correction/:id', to: 'sites#update_correction'
     patch '/update_site/:id', to: 'sites#site_update'

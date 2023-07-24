@@ -19,6 +19,7 @@ function Authenticated({user, setUser}){
     const [ siteEstTotal, setSiteEstTotal ] = useState(0)
     const [ completedBool, setCompletedBool ] = useState(false)
     const [ companyList, setCompanyList ] = useState([])
+    const [ userWorkSite, setUserWorkSite ] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -27,28 +28,45 @@ function Authenticated({user, setUser}){
             // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
             setAllSites(site)
             setSites(site)
-            const data = window.localStorage.getItem('MY_SAND_SITE')
-            if(data === null){
-                navigate('/')
-            }else{
-                const site = JSON.parse(data)
-                if(site.showSite && !site.employee){
-                    setButtonInfo(site.location)
-                    setTSandUsed(site.total_sand_used)
-                    setOnSite(site.total_on_site)
-                    setSiteDelivery(site.total_delivered)
-                    setCompletedBool(site.completed)
-                    setTrashSand(site.trash_sand)
-                    setCorrection(site.correction)
-                    setSiteEstTotal(site.estTotal)
-                    navigate(`/site/${site.location}/${site.crew}/${site.id}`)
-                }else if(site.showSite && site.employee){
-                    setButtonInfo("Employee")
-                    navigate('/employee')
-                }
+            if(user.work_site > 0 && !user.employee){
+                const workSite = site.filter(work => work.id === user.work_site)[0]
+                setUserWorkSite(workSite)
+                setButtonInfo(workSite.location)
+                setTSandUsed(workSite.total_sand_used)
+                setOnSite(workSite.total_on_site)
+                setSiteDelivery(workSite.total_delivered)
+                setCompletedBool(workSite.completed)
+                setTrashSand(workSite.trash_sand)
+                setCorrection(workSite.correction)
+                setSiteEstTotal(workSite.est_total)
+                navigate(`/site/${workSite.location}/${workSite.crew}/${workSite.id}`)
+            }else if(!user.work_site && user.employee){
+                console.log("employee")
+                setButtonInfo("Employee")
+                navigate('/employee')
             }
+            // const data = window.localStorage.getItem('MY_SAND_SITE')
+            // if(data === null){
+            //     navigate('/')
+            // }else{
+            //     const site = JSON.parse(data)
+            //     if(site.showSite && !site.employee){
+            //         setButtonInfo(site.location)
+            //         setTSandUsed(site.total_sand_used)
+            //         setOnSite(site.total_on_site)
+            //         setSiteDelivery(site.total_delivered)
+            //         setCompletedBool(site.completed)
+            //         setTrashSand(site.trash_sand)
+            //         setCorrection(site.correction)
+            //         setSiteEstTotal(site.estTotal)
+            //         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
+            //     }else if(site.showSite && site.employee){
+            //         setButtonInfo("Employee")
+            //         navigate('/employee')
+            //     }
+            // }
         }))
-    },[navigate, setSites])
+    },[navigate, setSites, user])
 
     useEffect(() => {
         fetch('/api/companies')
@@ -68,17 +86,31 @@ function Authenticated({user, setUser}){
         setTrashSand(site.trash_sand)
         setCorrection(site.correction)
         setSiteEstTotal(site.est_total)
-        window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-            location: site.location, 
-            crew: site.crew,
-            total_sand_used:site.total_sand_used, 
-            total_on_site: site.total_on_site,
-            total_delivered: site.total_delivered,
-            trash_sand: site.trash_sand,
-            completed: site.completed,  
-            correction: site.correction,
-            estTotal: site.est_total,
-            showSite: true}))
+        const dataForm = {
+            work_site: site.id,
+            employee: null
+        }
+        fetch(`/api/user_work_site/${user.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataForm),
+          });
+        user.work_site = site.id
+        const workSite = sites.filter(work => work.id === user.work_site)[0]
+        setUserWorkSite(workSite)
+        // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+        //     location: site.location, 
+        //     crew: site.crew,
+        //     total_sand_used:site.total_sand_used, 
+        //     total_on_site: site.total_on_site,
+        //     total_delivered: site.total_delivered,
+        //     trash_sand: site.trash_sand,
+        //     completed: site.completed,  
+        //     correction: site.correction,
+        //     estTotal: site.est_total,
+        //     showSite: true}))
         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
     }
 
@@ -105,17 +137,17 @@ function Authenticated({user, setUser}){
                 site.trucks.push(truck)
                 setOnSite(site.total_on_site)
                 setSiteDelivery(site.total_delivered)
-                window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                    location: site.location,
-                    crew: site.crew, 
-                    total_sand_used:site.total_sand_used, 
-                    total_on_site: site.total_on_site,
-                    total_delivered: site.total_delivered,
-                    trash_sand: site.trash_sand,
-                    completed: site.completed,
-                    correction: site.correction,
-                    estTotal: site.est_total,  
-                    showSite: true}))
+                // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                //     location: site.location,
+                //     crew: site.crew, 
+                //     total_sand_used:site.total_sand_used, 
+                //     total_on_site: site.total_on_site,
+                //     total_delivered: site.total_delivered,
+                //     trash_sand: site.trash_sand,
+                //     completed: site.completed,
+                //     correction: site.correction,
+                //     estTotal: site.est_total,  
+                //     showSite: true}))
                 return site
             }else{
                 return site
@@ -137,17 +169,17 @@ function Authenticated({user, setUser}){
                     site.trucks.push(truck)
                     setOnSite(site.total_on_site)
                     setSiteDelivery(site.total_delivered)
-                    window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                        location: site.location,
-                        crew: site.crew, 
-                        total_sand_used:site.total_sand_used, 
-                        total_on_site: site.total_on_site,
-                        total_delivered: site.total_delivered,
-                        trash_sand: site.trash_sand,
-                        completed: site.completed, 
-                        correction: site.correction,
-                        estTotal: site.est_total, 
-                        showSite: true}))
+                    // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                    //     location: site.location,
+                    //     crew: site.crew, 
+                    //     total_sand_used:site.total_sand_used, 
+                    //     total_on_site: site.total_on_site,
+                    //     total_delivered: site.total_delivered,
+                    //     trash_sand: site.trash_sand,
+                    //     completed: site.completed, 
+                    //     correction: site.correction,
+                    //     estTotal: site.est_total, 
+                    //     showSite: true}))
                     return site
                 }else{
                     return site
@@ -185,17 +217,17 @@ function Authenticated({user, setUser}){
                 site.sand_useds.push(useSand)
                 setOnSite(onSite - useSand.pounds) 
                 setTSandUsed(tSandUsed + useSand.pounds)
-                window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                    location: site.location,
-                    crew: site.crew,
-                    total_sand_used:site.total_sand_used, 
-                    total_on_site: site.total_on_site,
-                    total_delivered: site.total_delivered,
-                    trash_sand: site.trash_sand,
-                    completed: site.completed,  
-                    correction: site.correction,
-                    estTotal: site.est_total,
-                    showSite: true}))
+                // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+                //     location: site.location,
+                //     crew: site.crew,
+                //     total_sand_used:site.total_sand_used, 
+                //     total_on_site: site.total_on_site,
+                //     total_delivered: site.total_delivered,
+                //     trash_sand: site.trash_sand,
+                //     completed: site.completed,  
+                //     correction: site.correction,
+                //     estTotal: site.est_total,
+                //     showSite: true}))
                 return site
             }else{
                 return site
@@ -219,12 +251,12 @@ function Authenticated({user, setUser}){
         setSites(updatedSite)
     }
 
-    const handleSiteCompletion = (id) => {
+    const handleSiteCompletion = (workSite) => {
         const form = {
             completed: !completedBool,
-            trash_sand: 0
+            trash_sand: 0,
           };
-          fetch(`/api/sites/${id}`, {
+          fetch(`/api/sites/${workSite.id}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
@@ -234,17 +266,17 @@ function Authenticated({user, setUser}){
           .then((site) => {
             setCompletedBool(!completedBool)
             setSites(sites)
-            window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-                location: site.location,
-                crew: site.crew,
-                total_sand_used: site.total_sand_used, 
-                total_on_site: site.total_on_site,
-                total_delivered: site.total_delivered,
-                trash_sand: site.trash_sand,
-                completed: site.completed,  
-                correction: site.correction,
-                estTotal: site.est_total,
-                showSite: true}))
+            // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
+            //     location: site.location,
+            //     crew: site.crew,
+            //     total_sand_used: site.total_sand_used, 
+            //     total_on_site: site.total_on_site,
+            //     total_delivered: site.total_delivered,
+            //     trash_sand: site.trash_sand,
+            //     completed: site.completed,  
+            //     correction: site.correction,
+            //     estTotal: site.est_total,
+            //     showSite: true}))
           })
     }
 
@@ -306,6 +338,7 @@ function Authenticated({user, setUser}){
                 />}/>
                 <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
                 sites={sites} 
+                userWorkSite={userWorkSite}
                 user={user}
                 siteEstTotal={siteEstTotal}
                 setButtonInfo={setButtonInfo}

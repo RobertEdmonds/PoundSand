@@ -30,7 +30,7 @@ class Api::SitesController < ApplicationController
         if(site_status_params[:trash_sand] > 0)
             @site.update!(trash_sand: (@site.trash_sand + site_status_params[:trash_sand]), total_on_site: (@site.total_on_site - site_status_params[:trash_sand]))
         else
-            @site.update!(site_status_params)
+            @site.update!(completed: site_status_params[:completed])
         end
         render json: @site, status: :created
     end

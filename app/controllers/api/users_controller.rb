@@ -22,6 +22,12 @@ class Api::UsersController < ApplicationController
         render json: user, status: :created 
     end
 
+    def update_user_site 
+        user = User.find(session[:user_id])
+        user.update!(user_work_site_params)
+        render json: user, status: :created 
+    end
+
     def reset_password
         user = User.find(params[:id])
         user.update(user_password_params)
@@ -57,6 +63,10 @@ class Api::UsersController < ApplicationController
 
     def user_password_params
         params.permit(:password, :password_confirmation, :log_number)
+    end
+
+    def user_work_site_params 
+        params.permit(:work_site, :employee)
     end
 
     def authorize_user

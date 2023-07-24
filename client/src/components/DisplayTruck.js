@@ -75,7 +75,7 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                         return(
                             <tr key={site.id}>
                                 <th className="row">{site.mine}</th>
-                                <td>{site.mine_total_per_day.toLocaleString("en-US")}</td>
+                                <td>{`${site.mine_total_per_day.toLocaleString("en-US")}(${(site.mine_total_per_day / 2000).toLocaleString("en-US")})`}</td>
                             </tr>
                         )
                     })}
