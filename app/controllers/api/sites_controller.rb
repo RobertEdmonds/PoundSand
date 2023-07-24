@@ -41,10 +41,10 @@ class Api::SitesController < ApplicationController
         render json: @site, status: :created
     end
 
-    # def destroy 
-    #     @site.destroy
-    #     head :no_content
-    # end
+    def destroy 
+        @site.destroy
+        head :no_content
+    end
 
     private 
 

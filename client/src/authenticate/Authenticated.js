@@ -30,6 +30,9 @@ function Authenticated({user, setUser}){
             setSites(site)
             if(user.work_site > 0 && !user.employee){
                 const workSite = site.filter(work => work.id === user.work_site)[0]
+                if(!workSite){
+                    navigate('/')
+                }
                 setUserWorkSite(workSite)
                 setButtonInfo(workSite.location)
                 setTSandUsed(workSite.total_sand_used)
@@ -41,7 +44,6 @@ function Authenticated({user, setUser}){
                 setSiteEstTotal(workSite.est_total)
                 navigate(`/site/${workSite.location}/${workSite.crew}/${workSite.id}`)
             }else if(!user.work_site && user.employee){
-                console.log("employee")
                 setButtonInfo("Employee")
                 navigate('/employee')
             }
@@ -76,6 +78,11 @@ function Authenticated({user, setUser}){
 
     const handleAddCompany = (company) => {
         setCompanyList([...companyList, company])
+    }
+
+    const showSiteDeletion = (site) => {
+        const updatedSites = sites.filter(work => work.id !== site.id)
+        setSites(updatedSites)
     }
 
     const handleSiteDisplayButton = (site) => {
@@ -335,6 +342,7 @@ function Authenticated({user, setUser}){
                 handleSiteDisplayButton={handleSiteDisplayButton}
                 user={user}
                 handleUpdatedSite={handleUpdatedSite}
+                showSiteDeletion={showSiteDeletion}
                 />}/>
                 <Route path={`/site/:location/:crew/:id`} element={<DisplaySite 
                 sites={sites} 

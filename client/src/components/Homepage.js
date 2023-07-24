@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EditSite from "../forms/EditSite";
 
-function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpdatedSite}){
+function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpdatedSite, showSiteDeletion}){
     const [ location, setLocation ] = useState('')
     const [ crew, setCrew ] = useState('')
     const [ po, setPo ] = useState('')
@@ -16,6 +16,14 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
         setCompanyId(site.company_id)
         setId(site.id)
         setEstTotal(site.est_total)
+    }
+
+    const handleDeleteSite = (site) => {
+        fetch(`/api/sites/${site.id}`, {
+            method: "DELETE",
+        }).then(() => {
+            showSiteDeletion(site)
+        })
     }
 
     return(
@@ -59,6 +67,15 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                                   Edit Site
                                   </button>
                                 ) : (<></>)}
+                                {user.boss  && user.username === "RylanJohnson" && (
+                                  <button 
+                                    type="button" 
+                                    className="btn btn-outline-primary" 
+                                    onClick={() => handleDeleteSite(site)} 
+                                    style={{fontWeight: "bold"}}>
+                                  Delete Site
+                                  </button>
+                                )}
                             </div>
                         </div>
                     </div>

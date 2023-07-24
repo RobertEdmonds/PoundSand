@@ -56,6 +56,8 @@ function Header({sites,
             },
             body: JSON.stringify(dataForm),
           });
+        user.work_site = null
+        user.employee = true
         // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: true, employee: true}))
         navigate('/employee')
     }
