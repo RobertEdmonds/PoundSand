@@ -14,7 +14,8 @@ function SandSite({handleAddSite, companyList}){
             location,
             crew, 
             po,
-            company_id: parseInt(companyId)
+            company_id: parseInt(companyId),
+            est_total: parseInt(estTotal)
         }
         setError([])
         setSuccess(false)
