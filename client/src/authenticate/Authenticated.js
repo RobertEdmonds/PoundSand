@@ -76,6 +76,10 @@ function Authenticated({user, setUser}){
         .then(companies => setCompanyList(companies))
     },[])
 
+    // const showCompanyDeletion = (id) => {
+
+    // }
+
     const handleAddCompany = (company) => {
         setCompanyList([...companyList, company])
     }
@@ -372,7 +376,7 @@ function Authenticated({user, setUser}){
                 {user.boss && (
                   <>
                     <Route path={'/employee'} element={<User />}/>
-                    <Route path={'/companies'} element={<Companies companyList={companyList}/>}/>
+                    <Route path={'/companies'} element={<Companies companyList={companyList} user={user}/>}/>
                   </>
                 )}
             </Routes>
