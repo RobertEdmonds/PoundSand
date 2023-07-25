@@ -76,9 +76,16 @@ function Authenticated({user, setUser}){
         .then(companies => setCompanyList(companies))
     },[])
 
-    // const showCompanyDeletion = (id) => {
-
-    // }
+    const showCompanyUpdate = (company) => {
+        const updatedCompanies = companyList.map(business => {
+            if(business.id === company.id){
+                return company
+            }else{
+                return business
+            }
+        })
+        setCompanyList(updatedCompanies)
+    }
 
     const handleAddCompany = (company) => {
         setCompanyList([...companyList, company])
@@ -376,7 +383,7 @@ function Authenticated({user, setUser}){
                 {user.boss && (
                   <>
                     <Route path={'/employee'} element={<User />}/>
-                    <Route path={'/companies'} element={<Companies companyList={companyList} user={user}/>}/>
+                    <Route path={'/companies'} element={<Companies companyList={companyList} user={user}  showCompanyUpdate={showCompanyUpdate}/>}/>
                   </>
                 )}
             </Routes>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :sites
     resources :users, only: [:index]
     # resources :company_users
-    resources :companies, only: [:create, :index]
+    resources :companies, only: [:create, :index, :update]
 
     post '/signup', to: 'users#create'
     get '/me', to: 'users#show'

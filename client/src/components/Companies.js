@@ -1,11 +1,7 @@
-export default function Companies({companyList, user, showCompanyDeletion}){
-    // const handleDeleteCompany = (id) => {
-    //     fetch(`/api/sites/${id}`, {
-    //         method: "DELETE",
-    //     }).then(() => {
-    //         showCompanyDeletion(id)
-    //     })
-    // }
+import UpdateCompany from "../forms/UpdateCompany";
+
+export default function Companies({companyList, user, showCompanyUpdate}){
+    
 
     return(
         <div className="container text-center">
@@ -17,15 +13,9 @@ export default function Companies({companyList, user, showCompanyDeletion}){
                         <div className="card-body">
                             <h5 className="card-title">{company.name}</h5>
                             <h5 className="card-title">{company.code}</h5>
-                            {/* {user.boss  && user.username === "RylanJohnson" && (
-                                  <button 
-                                    type="button" 
-                                    className="btn btn-outline-primary" 
-                                    onClick={() => handleDeleteCompany(company.id)} 
-                                    style={{fontWeight: "bold"}}>
-                                  Delete Company
-                                  </button>
-                                )} */}
+                            {user.boss  && user.username === "RobertEdmonds" && (
+                              <UpdateCompany company={company} showCompanyUpdate={showCompanyUpdate}/>  
+                            )}
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 class Api::CompaniesController < ApplicationController
-    before_action :authorize_user, only: [:create]
+    before_action :authorize_user, only: [:create, :destroy, :active_update]
     before_action :authorize_user_view, only: [:index]
 
     def index 
@@ -14,6 +14,16 @@ class Api::CompaniesController < ApplicationController
     def create 
         company = Company.create!(company_params)
         render json: company,status: :created 
+    end
+
+    def update  
+        company = Company.find(params[:id])
+        company.update(active: !company.active)
+        business_user = CompanyUser.where(company_id: params[:id])
+        if business_user.length() > 0
+            business_user.map { |user| user.destroy }
+        end
+        render json: company, status: :created 
     end
 
     private
