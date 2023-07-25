@@ -103,7 +103,6 @@ function DisplaySite({sites,
         orderStage -= 1
         const stageDate = value[1][1].slice(0, 10).split('-')
         const stageTime = value[1][1].slice(11, 16)
-        console.log(stageTime)
         return(
             <tr key={value[0]}>
                 <td>{orderStage}.</td>

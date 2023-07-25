@@ -13,7 +13,7 @@ export default function Companies({companyList, user, showCompanyUpdate}){
                         <div className="card-body">
                             <h5 className="card-title">{company.name}</h5>
                             <h5 className="card-title">{company.code}</h5>
-                            {user.boss  && user.username === "RobertEdmonds" && (
+                            {user.boss  && user.username === "RylanJohnson" && (
                               <UpdateCompany company={company} showCompanyUpdate={showCompanyUpdate}/>  
                             )}
                         </div>
