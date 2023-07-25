@@ -101,9 +101,13 @@ function DisplaySite({sites,
     let orderStage = (Object.entries(dictionaryStage).length + 1)
     const displayStage = Object.entries(dictionaryStage).sort((a, b) => a[1][1] > b[1][1] ? -1 : 1).map((value) => {
         orderStage -= 1
+        const stageDate = value[1][1].slice(0, 10).split('-')
+        const stageTime = value[1][1].slice(11, 16)
+        console.log(stageTime)
         return(
             <tr key={value[0]}>
                 <td>{orderStage}.</td>
+                <td>{stageDate[1]}/{stageDate[2]}/{stageDate[0]}({stageTime})</td>
                 <td>{value[0]}</td>
                 <td>{`${value[1][0].toLocaleString("en-US")}(${(value[1][0] / 2000).toLocaleString("en-US")})`}</td>
             </tr> 
@@ -266,6 +270,7 @@ function DisplaySite({sites,
                     <thead>
                         <tr>
                             <th scope="col">Order</th>
+                            <th scope="col">Date(Time)</th>
                             <th scope="col">Stage</th>
                             <th scope="col">Total Pounds(Tons)</th>
                         </tr>

@@ -32,7 +32,7 @@ function DisplaySand({sandUsed, sandTime, showUseSandDelete, user}){
                             const sandDate = sand.date.split('-')
                                 return(
                                     <tr key={sand.id}>
-                                        <th scope="row">{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</th>
+                                        <th scope="row">{sandDate[1]}/{sandDate[2]}/{sandDate[0]} <br/> {sand.created_at.slice(11, 16)}</th>
                                         <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
                                         <td>{sand.stage}</td>
                                         <td>{sand.moisture}</td>

@@ -43,7 +43,7 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                     const truckDate = truck.date.split("-")
                         return(
                             <tr key={truck.id}>
-                                <th scope="row">{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</th>
+                                <th scope="row">{truckDate[1]}/{truckDate[2]}/{truckDate[0]} <br/> {truck.created_at.slice(11, 16)} </th>
                                 <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString('en-US')})`}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
