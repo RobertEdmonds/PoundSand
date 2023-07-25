@@ -92,6 +92,19 @@ function Login({setUser, setCompanyUser}){
                   </>
                 )}
             </form>
+            <div className="container" style={{width: "50%", color: "white", textAlign: "center", fontWeight: "bold", fontStyle: "Copperplate"}}>
+              Mobile App:
+              <div className="row justify-content-md-center">
+                <div className="col col-lg-2" >
+                  <a className="btn btn-primary" style={{fontWeight: "bold", fontStyle: "Copperplate"}} href="https://apps.apple.com/us/app/aqua-prop-sand/id6451090955" role="button">iOS</a>
+                </div>
+                <div className="col-md-auto">
+                </div>
+                <div className="col col-lg-2" >
+                  <a className="btn btn-primary disabled" style={{fontWeight: "bold", fontStyle: "Copperplate"}} href="https://apps.apple.com/us/app/aqua-prop-sand/id6451090955" role="button" aria-disabled="true">Android</a>
+                </div>
+              </div>  
+            </div>
             {/* <button onClick={() => setLoading(!loading)}></button> */}
         </>
     )
