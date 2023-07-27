@@ -308,7 +308,7 @@ function Authenticated({user, setUser}){
     const handleCorrection = (id) => {
         setOnSite(siteDelivery - (tSandUsed + (tSandUsed * (parseFloat(correction)/100))))
         const form = {
-            correction: parseFloat(correction),
+            correction: parseFloat(correction / 100),
           };
           fetch(`/api/site_correction/${id}`, {
             method: "PATCH",
@@ -317,17 +317,6 @@ function Authenticated({user, setUser}){
             },
             body: JSON.stringify(form),
           }).then(resp => resp.json())
-          .then(site => window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-            location: site.location,
-            crew: site.crew,
-            total_sand_used: site.total_sand_used, 
-            total_on_site: site.total_on_site,
-            total_delivered: site.total_delivered,
-            trash_sand: site.trash_sand,
-            completed: site.completed,  
-            correction: site.correction,
-            estTotal: site.est_total,
-            showSite: true})))
         // (correction)
     }
 

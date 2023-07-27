@@ -36,8 +36,7 @@ class Api::SitesController < ApplicationController
     end
 
     def update_correction
-        @site.update!(site_correction_params)
-        @site.update!(total_on_site: (@site.total_delivered - (@site.total_sand_used + (@site.total_sand_used * (site_correction_params[:correction] / 100)))))
+        @site.update!(correction: (site_correction_params[:correction] * 100), total_on_site: (@site.total_delivered - (@site.total_sand_used + (@site.total_sand_used * site_correction_params[:correction]))))
         render json: @site, status: :created
     end
 
@@ -57,7 +56,7 @@ class Api::SitesController < ApplicationController
     end
 
     def site_correction_params 
-        params.permit(:correction)
+        params.permit(:id, :correction)
     end
 
     def set_site 
