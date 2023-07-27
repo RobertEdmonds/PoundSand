@@ -98,6 +98,7 @@ function DisplaySite({sites,
         }
     }
 
+
     let orderStage = (Object.entries(dictionaryStage).length + 1)
     const displayStage = Object.entries(dictionaryStage).sort((a, b) => a[1][1] > b[1][1] ? -1 : 1).map((value) => {
         orderStage -= 1
