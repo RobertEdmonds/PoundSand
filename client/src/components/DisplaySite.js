@@ -7,6 +7,7 @@ import DisplayTruck from "./DisplayTruck";
 import DisplaySand from "./DisplaySand";
 import EditTruckLoad from "../forms/EditTruckLoad";
 import TrashSand from "../forms/TrashSand";
+import EditSandUsed from "../forms/EditSandUsed";
 
 function DisplaySite({sites,
     userWorkSite, 
@@ -26,7 +27,8 @@ function DisplaySite({sites,
     setTrashSand,
     correction,
     setCorrection,
-    handleCorrection
+    handleCorrection,
+    showEditUsedSand
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -40,6 +42,12 @@ function DisplaySite({sites,
     const [ gross, setGross ] = useState(0)
     const [ ship, setShip ] = useState('')
     const [ po, setPo ] = useState('')
+    const [ pounds, setPounds ] = useState('')
+    const [ stage, setStage ] = useState('')
+    const [ moisture, setMoisture ] = useState('')
+    const [ sandId, setSandId ] = useState(0)
+    const [ sandUsedDate, setSandUsedDate ] = useState(0)
+    const [ oldSandUsed, setOldSandUsed ] = useState([])
 
     const handleDateChange = (bool) => {
         setDateDirection(bool)
@@ -85,6 +93,15 @@ function DisplaySite({sites,
         setShip(truck.ship_to)
         setPo(truck.po)
         setEditTruck(truck)
+    }
+
+    const handleUseSandEdit = (sand) => {
+        setOldSandUsed(sand)
+        setMoisture(sand.moisture)
+        setStage(sand.stage)
+        setPounds(sand.pounds / 2000)
+        setSandId(sand.id)
+        setSandUsedDate(sand.date)
     }
 
     let displayMoisture = sandUsed.map(sand => sand.moisture)
@@ -147,9 +164,22 @@ function DisplaySite({sites,
                 po={po}
                 sites={sites}
                  />
+             <EditSandUsed 
+                moisture={moisture} 
+                setMoisture={setMoisture} 
+                stage={stage} 
+                setStage={setStage} 
+                pounds={pounds} 
+                setPounds={setPounds} 
+                id={id}
+                sandId={sandId}
+                sandUsedDate={sandUsedDate}
+                showEditUsedSand={showEditUsedSand} 
+                oldSandUsed={oldSandUsed}
+                />
             <TrashSand id={id} trashSand={trashSand} setTrashSand={setTrashSand} onSite={onSite} setOnSite={setOnSite}/>
             <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user}/>
-            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user}/>
+            <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user} handleUseSandEdit={handleUseSandEdit}/>
             <div className="container text-center" style={{width: "100%"}}>
                 <div className="row align-items-start" >
                     <div className="col badge fs-2" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>

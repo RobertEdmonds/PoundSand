@@ -1,7 +1,7 @@
 
-
-function DisplaySand({sandUsed, sandTime, showUseSandDelete, user}){
+function DisplaySand({sandUsed, sandTime, showUseSandDelete, user, handleUseSandEdit}){
     let sandDateArray = sandUsed.filter(truck => truck.date === sandTime)
+
     const handleUseSandDelete = (sand) => {
         fetch(`/api/sand_useds/${sand.id}`, {
             method: "DELETE",
@@ -38,7 +38,14 @@ function DisplaySand({sandUsed, sandTime, showUseSandDelete, user}){
                                         <td>{sand.moisture}</td>
                                         <td>{`${sand.total_amount_per_day.toLocaleString("en-US")}(${(sand.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                                         {!user.email && (
-                                            <td><button type="button" className="btn btn-info" onClick={() => handleUseSandDelete(sand)}>Delete</button></td>
+                                            <>
+                                                <td><button type="button" className="btn btn-info" onClick={() => handleUseSandDelete(sand)}>Delete</button></td>
+                                                <td><button type="button" 
+                                                    className="btn btn-primary" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#editSandUsed"
+                                                    onClick={() => handleUseSandEdit(sand)}>Edit</button></td>
+                                            </>
                                         )}
                                     </tr>
                                 )

@@ -1,6 +1,6 @@
 class Api::SandUsedsController < ApplicationController
     before_action :authorize_view_user, only: [:index]
-    before_action :authorize_user, only: [:create, :destroy]
+    before_action :authorize_user, only: [:create, :update, :destroy]
 
     def index
         render json: SandUsed.all, status: :ok
@@ -22,6 +22,24 @@ class Api::SandUsedsController < ApplicationController
         render json: sand_used, status: :created
     end
 
+    def update 
+        sand_used = SandUsed.find(params[:id])
+        site = Site.find(sand_used.site_id)
+        site.update!(total_sand_used: (site.total_sand_used - sand_used.pounds), total_on_site: (site.total_on_site + sand_used.pounds))
+        sand_used.update!(update_sand_params)
+        site.update!(total_sand_used: (site.total_sand_used + sand_used.pounds), total_on_site: (site.total_on_site - sand_used.pounds))
+        if SandUsed.where(date: sand_used.date).length() > 1 && SandUsed.where(site_id: site.id).length() > 1
+            sand_used_list = SandUsed.where(date: sand_used.date, site_id: site.id) 
+            total = 0
+            sand_used_list.map { |sand| total += sand.pounds }
+            sand_used.update!(total_amount_per_day: total)
+            sand_used_list.sort_by(&:created_at).last.update!(total_amount_per_day: total)
+        else
+            sand_used.update!(total_amount_per_day: sand_used.pounds)
+        end
+        render json: sand_used, status: :created 
+    end
+
     def destroy
         sand_used = SandUsed.find(params[:id])
         site = Site.find(sand_used.site_id)
@@ -39,6 +57,10 @@ class Api::SandUsedsController < ApplicationController
 
     def sand_used_params
         params.permit(:pounds, :stage, :moisture, :site_id)
+    end
+
+    def update_sand_params 
+        params.permit(:id, :pounds, :stage, :moisture, :date, :site_id)
     end
 
     def authorize_user

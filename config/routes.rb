@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :sand_useds, only: [:index, :create, :destroy]
+    resources :sand_useds, only: [:index, :create, :update, :destroy]
     resources :trucks, only: [:index, :create, :update]
     resources :sites
     resources :users, only: [:index]
