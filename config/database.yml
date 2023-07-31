@@ -22,5 +22,6 @@ test:
   database: pound_sand_test
 
 production:
+
   <<: *default
   # database: db/production.sqlite3

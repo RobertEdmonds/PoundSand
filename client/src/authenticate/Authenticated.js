@@ -22,6 +22,7 @@ function Authenticated({user, setUser}){
     const [ userWorkSite, setUserWorkSite ] = useState([])
     const navigate = useNavigate()
 
+
     useEffect(() => {
         const interval = setInterval(() => {
         fetch('/api/sites')

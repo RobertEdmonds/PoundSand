@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   namespace :api do
     resources :sand_useds, only: [:index, :create, :update, :destroy]
     resources :trucks, only: [:index, :create, :update]
     resources :sites
     resources :users, only: [:index]
+    resources :buckets, only: [:index, :create]
     # resources :company_users
     resources :companies, only: [:create, :index, :update]
 
