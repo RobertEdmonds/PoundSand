@@ -7,11 +7,12 @@ ruby "~> 3.0.0"
 gem "rails", "~> 7.0.4"
 
 # Use sqlite3 as the database for Active Record
-
+# gem "sprockets-rails"
 # Use the Puma web server [https://github.com/puma/puma]
+# gem "importmap-rails"
 gem "puma", "~> 5.0"
 
-gem 'redis'
+# gem 'redis'
 
 gem "bcrypt", "~> 3.1.7"
 gem 'active_model_serializers'
@@ -29,8 +30,9 @@ group :development, :test do
 end
 
 group :development do
+  gem 'listen', '~> 3.3'
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem "spring"
 end
 
 # group :production do 
@@ -39,4 +41,4 @@ end
 gem "pg", "~> 1.5"
 
 
-gem "rack-cors", "~> 2.0"
+# gem "rack-cors", "~> 2.0"

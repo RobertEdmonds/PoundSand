@@ -10,18 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_31_181005) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_24_231254) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "buckets", force: :cascade do |t|
-    t.bigint "sand_used_id", null: false
-    t.integer "pounds"
-    t.string "stage"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["sand_used_id"], name: "index_buckets_on_sand_used_id"
-  end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -104,7 +95,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_181005) do
     t.boolean "employee"
   end
 
-  add_foreign_key "buckets", "sand_useds"
   add_foreign_key "company_users", "companies"
   add_foreign_key "sand_useds", "sites"
   add_foreign_key "sites", "companies"

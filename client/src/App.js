@@ -8,6 +8,7 @@ function App() {
   const [ user, setUser ] = useState(null)
   const [ companyUser, setCompanyUser ] = useState(null)
 
+
   useEffect(() => {
     fetch("/api/me").then((resp) => {
       if (resp.ok) {

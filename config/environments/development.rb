@@ -1,5 +1,6 @@
 require "active_support/core_ext/integer/time"
 require "action_cable/engine"
+require "active_storage/engine"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -19,8 +20,15 @@ Rails.application.configure do
   config.server_timing = true
 
   # Enable/disable caching. By default caching is disabled.
+#   config.action_cable.url = 'ws://[::1]/cable'
+#   config.action_cable.allowed_request_origins = [/http:\/\/*/, 
+# /https:\/\/*/]
+#   config.action_cable.disable_request_forgery_protection = true
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
+    # config.action_controller.perform_caching = true
+    # config.action_controller.enable_fragment_cache_logging = true 
+
     config.cache_store = :memory_store
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
@@ -30,6 +38,9 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+
+  # Store uploaded files on the local file system (see config/storage.yml for options).
+  config.active_storage.service = :local
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -54,6 +65,7 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Uncomment if you wish to allow Action Cable access from any origin.
-  config.action_cable.url = 'ws://localhost:3000/cable'
-  config.action_cable.disable_request_forgery_protection = true
+  # config.action_cable.url = 'ws://[::1]:3000/cable'
+  # # config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
+  # config.action_cable.disable_request_forgery_protection = true
 end

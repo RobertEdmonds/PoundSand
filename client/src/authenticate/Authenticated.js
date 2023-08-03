@@ -27,48 +27,8 @@ function Authenticated({user, setUser}){
         const interval = setInterval(() => {
         fetch('/api/sites')
         .then(resp => resp.json().then(site => {
-            // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
             setAllSites(site)
             setSites(site)
-            // if(user.work_site > 0 && !user.employee){
-            //     const workSite = site.filter(work => work.id === user.work_site)[0]
-            //     if(!workSite){
-            //         navigate('/')
-            //     }
-            //     setUserWorkSite(workSite)
-            //     setButtonInfo(workSite.location)
-            //     setTSandUsed(workSite.total_sand_used)
-            //     setOnSite(workSite.total_on_site)
-            //     setSiteDelivery(workSite.total_delivered)
-            //     setCompletedBool(workSite.completed)
-            //     setTrashSand(workSite.trash_sand)
-            //     setCorrection(workSite.correction)
-            //     setSiteEstTotal(workSite.est_total)
-            //     navigate(`/site/${workSite.location}/${workSite.crew}/${workSite.id}`)
-            // }else if(!user.work_site && user.employee){
-            //     setButtonInfo("Employee")
-            //     navigate('/employee')
-            // }
-            // const data = window.localStorage.getItem('MY_SAND_SITE')
-            // if(data === null){
-            //     navigate('/')
-            // }else{
-            //     const site = JSON.parse(data)
-            //     if(site.showSite && !site.employee){
-            //         setButtonInfo(site.location)
-            //         setTSandUsed(site.total_sand_used)
-            //         setOnSite(site.total_on_site)
-            //         setSiteDelivery(site.total_delivered)
-            //         setCompletedBool(site.completed)
-            //         setTrashSand(site.trash_sand)
-            //         setCorrection(site.correction)
-            //         setSiteEstTotal(site.estTotal)
-            //         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
-            //     }else if(site.showSite && site.employee){
-            //         setButtonInfo("Employee")
-            //         navigate('/employee')
-            //     }
-            // }
         }))
     },180000)
     return () => clearInterval(interval);
@@ -150,17 +110,6 @@ function Authenticated({user, setUser}){
         user.work_site = site.id
         const workSite = sites.filter(work => work.id === user.work_site)[0]
         setUserWorkSite(workSite)
-        // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
-        //     location: site.location, 
-        //     crew: site.crew,
-        //     total_sand_used:site.total_sand_used, 
-        //     total_on_site: site.total_on_site,
-        //     total_delivered: site.total_delivered,
-        //     trash_sand: site.trash_sand,
-        //     completed: site.completed,  
-        //     correction: site.correction,
-        //     estTotal: site.est_total,
-        //     showSite: true}))
         navigate(`/site/${site.location}/${site.crew}/${site.id}`)
     }
 
