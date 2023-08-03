@@ -40,6 +40,7 @@ function DisplaySite({sites,
     const [ sandTime, setSandTime ] = useState('')
     const [ truck, setTruck ] = useState('')
     const [ mine, setMine ] = useState('')
+    const [ ticket, setTicket ] = useState('')
     const [ tare, setTare ] = useState(0)
     const [ gross, setGross ] = useState(0)
     const [ ship, setShip ] = useState('')
@@ -94,6 +95,7 @@ function DisplaySite({sites,
         setGross(truck.gross_weight)
         setShip(truck.ship_to)
         setPo(truck.po)
+        setTicket(truck.ticket_number)
         setEditTruck(truck)
     }
 
@@ -190,6 +192,8 @@ function DisplaySite({sites,
                 ship={ship}
                 setPo={setPo}
                 po={po}
+                ticket={ticket}
+                setTicket={setTicket}
                 sites={sites}
                  />
              <EditSandUsed 

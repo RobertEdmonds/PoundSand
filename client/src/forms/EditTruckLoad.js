@@ -14,6 +14,8 @@ export default function EditTruckLoad({editTruck,
     ship,
     setPo,
     po,
+    ticket, 
+    setTicket,
     sites
 }){
     const [ error, setError ] = useState([])
@@ -25,7 +27,8 @@ export default function EditTruckLoad({editTruck,
             mine: mine.trim(),  
             tare_weight: tare, 
             gross_weight: gross, 
-            ship_to: ship, 
+            ship_to: ship,
+            ticket_number: ticket, 
             po: po, 
         }
         setError([])
@@ -101,6 +104,18 @@ export default function EditTruckLoad({editTruck,
                         />
                     </div>
                 </div>
+                <div className="mb-3">
+                        <label htmlFor="inputMine" className="form-label">Ticket #</label>
+                        <div className="col-sm-10">
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="inputMine"
+                            value={ticket}
+                            onChange={(e) => setTicket(e.target.value)}
+                            />
+                        </div>
+                    </div>
                 <div className="mb-3">
                     <label htmlFor="inputTareWeight" className="form-label">Tare Weight(pounds)</label>
                     <div className="col-sm-10">
