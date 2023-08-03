@@ -145,6 +145,19 @@ function DisplaySite({sites,
             writeFileXLSX(wb, "MyExcel.xlsx")
         }
 
+    const handleSandExcelExport = (sandArray, date) => {
+        const excelArray = sandArray.filter(delivery => delivery.date === date)
+        const excelData = []
+        for(let i=0; i < excelArray.length; i++){
+            excelData.push({"Date": excelArray[i].date, "Time": excelArray[i].created_at.slice(11, 16), "Weight(Pounds)": excelArray[i].pounds, "Stage": excelArray[i].stage})
+        }
+        const wb = utils.book_new()
+        const ws = utils.json_to_sheet(excelData)
+
+        utils.book_append_sheet(wb, ws, excelArray[0].date)
+        writeFileXLSX(wb, "MyExcel.xlsx")
+    }
+
     return(
         <div>
             <DisplayNav 
@@ -301,7 +314,9 @@ function DisplaySite({sites,
                                     data-bs-toggle="modal" 
                                     data-bs-target="#staticSand"
                                     style={{fontWeight: "bold"}} 
-                                    onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button></th>
+                                    onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button>
+                                    <button className="btn btn-secondary" type="button" style={{fontWeight: "bold"}} onClick={() => handleSandExcelExport(sandUsed, sand.date)}>Export</button>
+                                    </th>
                                     <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
                                     <td>{sand.stage}</td>
                                     <td>{sand.moisture}</td>

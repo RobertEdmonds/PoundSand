@@ -1,5 +1,6 @@
 import { useState } from "react"
 import {  useParams } from "react-router-dom";
+import { utils, writeFileXLSX } from 'xlsx';
 import DisplayNav from "./DisplayNav"
 import DisplayTruck from "./DisplayTruck"
 import DisplaySand from "./DisplaySand"
@@ -48,6 +49,32 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
     for(let i = 0; i < Object.values(dictionaryTruck).length; i++){
         displayTruckLoad.push(truckArray[(Object.values(dictionaryTruck)[i])+ amount - 1])
         amount += (Object.values(dictionaryTruck)[i])
+    }
+
+    const handleExcelExport = (trucks, date) => {
+        const excelArray = trucks.filter(delivery => delivery.date === date)
+        const excelData = []
+        for(let i=0; i < excelArray.length; i++){
+            excelData.push({"Truck": excelArray[i].truck, "Mine": excelArray[i].mine, "Weight(Pounds)": excelArray[i].total, "Ticket Number": excelArray[i].ticket_number})
+        }
+        const wb = utils.book_new()
+        const ws = utils.json_to_sheet(excelData)
+
+        utils.book_append_sheet(wb, ws, excelArray[0].date)
+        writeFileXLSX(wb, "MyExcel.xlsx")
+    }
+
+    const handleSandExcelExport = (sandArray, date) => {
+        const excelArray = sandArray.filter(delivery => delivery.date === date)
+        const excelData = []
+        for(let i=0; i < excelArray.length; i++){
+            excelData.push({"Date": excelArray[i].date, "Time": excelArray[i].created_at.slice(11, 16), "Weight(Pounds)": excelArray[i].pounds, "Stage": excelArray[i].stage})
+        }
+        const wb = utils.book_new()
+        const ws = utils.json_to_sheet(excelData)
+
+        utils.book_append_sheet(wb, ws, excelArray[0].date)
+        writeFileXLSX(wb, "MyExcel.xlsx")
     }
 
     return(
@@ -134,7 +161,9 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#staticTruck" 
                                 style={{fontWeight: "bold"}}
-                                onClick={() => setTruckTime(truck.date)}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button></th>
+                                onClick={() => setTruckTime(truck.date)}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button>
+                                <button className="btn btn-secondary" type="button" style={{fontWeight: "bold"}} onClick={() => handleExcelExport(truckArray, truck.date)}>Export</button>
+                                </th>
                                 <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString("en-US")})`}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
@@ -167,7 +196,9 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#staticSand"
                                 style={{fontWeight: "bold"}} 
-                                onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button></th>
+                                onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button>
+                                <button className="btn btn-secondary" type="button" style={{fontWeight: "bold"}} onClick={() => handleSandExcelExport(sandUsed, sand.date)}>Export</button>
+                                </th>
                                 <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
                                 <td>{sand.stage}</td>
                                 <td>{sand.moisture}</td>
