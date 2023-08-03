@@ -64,6 +64,16 @@ class Api::TrucksController < ApplicationController
 
     def destroy
         truck = Truck.find(params[:id])
+        site = Site.find(truck.site_id)
+        site.update!(total_on_site: (site.total_on_site - truck.total), total_delivered: (site.total_delivered - truck.total))
+        if Truck.where(date: truck.date).length() > 1 && Truck.where(site_id: site.id).length() > 1
+            truck_list = Truck.where(date: truck.date, site_id: site.id)
+            # truck_mine_list = Truck.where(date: truck.date, site_id: site.id, mine: truck.mine)
+            # if truck_mine_list.length() > 1
+            #     truck_mine_list.last.update!(total_amount_per_day: (truck_list.last.total_amount_per_day - truck.total), mine_total_per_day: (truck_list.last.mine_total_per_day - truck.total))
+            # end
+            truck_list.last.update!(total_amount_per_day: (truck_list.last.total_amount_per_day - truck.total))
+        end
         truck.destroy
         head :no_content
     end

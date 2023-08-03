@@ -1,5 +1,5 @@
 require "active_support/core_ext/integer/time"
-require "action_cable/engine"
+# require "action_cable/engine"
 require "active_storage/engine"
 
 Rails.application.configure do

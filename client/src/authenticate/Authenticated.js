@@ -155,6 +155,25 @@ function Authenticated({user, setUser}){
         setSites(updatedSite)
     }
 
+    const showTruckDelete = (oldTruck) => {
+        const updatedSite = sites.filter(site => {
+            if(site.id === oldTruck.site_id){
+                site.total_on_site -= oldTruck.total
+                site.total_delivered -= oldTruck.total 
+                const deletePrevious = site.trucks.filter(foundTruck => foundTruck.id !== oldTruck.id)
+                site.trucks = deletePrevious
+                setOnSite(site.total_on_site)
+                setSiteDelivery(site.total_delivered)
+                
+                return site
+            }else{
+                return site
+            }
+        })
+        setSites(updatedSite)
+
+    }
+
     const handleEditSand = (truck, beforeEdit) => {
         if(truck.site_id === beforeEdit.site_id){
             const updatedSite = sites.filter(site => {
@@ -163,9 +182,14 @@ function Authenticated({user, setUser}){
                     site.total_delivered -= beforeEdit.total 
                     site.total_on_site += truck.total
                     site.total_delivered += truck.total 
-                    const deletePrevious = site.trucks.filter(foundTruck => foundTruck.id !== truck.id)
+                    const deletePrevious = site.trucks.map(foundTruck => {
+                        if(foundTruck.id === truck.id){
+                            return truck 
+                        }else{
+                            return foundTruck
+                        }
+                    })
                     site.trucks = deletePrevious
-                    site.trucks.push(truck)
                     setOnSite(site.total_on_site)
                     setSiteDelivery(site.total_delivered)
                     // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({id: site.id, 
@@ -368,6 +392,7 @@ function Authenticated({user, setUser}){
                 showUseSandDelete={showUseSandDelete}
                 handleCorrection={handleCorrection}
                 showEditUsedSand={showEditUsedSand}
+                showTruckDelete={showTruckDelete}
                 />}/>
                 {user.log_number === 0 && (
                     <Route path={`/reset_password/:id`} element={<ResetPW setUser={setUser} user={user}/>}/>

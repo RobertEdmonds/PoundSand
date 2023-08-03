@@ -1,4 +1,4 @@
-function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
+function DisplayTruck({truckArray, truckTime, goToEditForm, user, showTruckDelete}){
     const truckDateArray = truckArray.filter(truck => truck.date === truckTime)
     // {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}
     
@@ -12,11 +12,11 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
         }
     }
 
-    // const goToDeleteForm = (truck) => {
-    //     fetch(`/api/trucks/${truck.id}`, {
-    //         method: "DELETE",
-    //       }).then(() => console.log(truck));
-    // }
+    const goToDeleteForm = (truck) => {
+        fetch(`/api/trucks/${truck.id}`, {
+            method: "DELETE",
+          }).then(() => showTruckDelete(truck));
+    }
 
     return(
         <div className="modal fade modal-dialog-scrollable modal-xl" id="staticTruck" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,7 +39,7 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                     </tr>
                 </thead>
                 <tbody>
-                {truckDateArray.map(truck => {
+                {truckDateArray.sort((a, b) => a.created_at > b.created_at ? -1 : 1).reverse().map(truck => {
                     const truckDate = truck.date.split("-")
                         return(
                             <tr key={truck.id}>
@@ -52,9 +52,9 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user}){
                                 {!user.email && (
                                     <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToEditForm(truck)}>Edit</button></td>
                                 )}
-                                {/* {!user.email && (
-                                    <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToDeleteForm(truck)}>Delete</button></td>
-                                )} */}
+                                {!user.email && (
+                                    <td><button type="button" className="btn btn-info" onClick={() => goToDeleteForm(truck)}>Delete</button></td>
+                                )}
                             </tr>
                         )
                     })

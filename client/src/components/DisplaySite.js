@@ -29,7 +29,8 @@ function DisplaySite({sites,
     correction,
     setCorrection,
     handleCorrection,
-    showEditUsedSand
+    showEditUsedSand,
+    showTruckDelete
     }){
     const { location, crew, id} = useParams()
     const [ displayInfo, setDisplayInfo ] = useState(false)
@@ -205,7 +206,7 @@ function DisplaySite({sites,
                 oldSandUsed={oldSandUsed}
                 />
             <TrashSand id={id} trashSand={trashSand} setTrashSand={setTrashSand} onSite={onSite} setOnSite={setOnSite}/>
-            <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user}/>
+            <DisplayTruck truckArray={truckArray} truckTime={truckTime} goToEditForm={goToEditForm} user={user} showTruckDelete={showTruckDelete} />
             <DisplaySand sandUsed={sandUsed} sandTime={sandTime} showUseSandDelete={showUseSandDelete} user={user} handleUseSandEdit={handleUseSandEdit}/>
             <div className="container text-center" style={{width: "100%"}}>
                 <div className="row align-items-start" >
