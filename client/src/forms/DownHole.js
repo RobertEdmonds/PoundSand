@@ -1,19 +1,26 @@
 import { useState } from "react"
+import moment from 'moment'
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 function DownHole({id, handleUseSand}){
     const [ pounds, setPounds ] = useState('')
     const [ stage, setStage ] = useState('')
     const [ moisture, setMoisture ] = useState('')
     const [ error, setError ] = useState([])
+    const [ date, setDate ] = useState([])
     const [ success, setSuccess ] = useState(false)
 
 
     const handleDownHole = () => {
+        const correctDate = moment(date.$d).format('MMMM Do YYYY, h:mm:ss a')
         const formData = {
             pounds: Math.round(parseInt(pounds) * 2000),
             stage,
             moisture,
-            site_id: parseInt(id)
+            site_id: parseInt(id),
+            date: correctDate
         }
         setError([])
         setSuccess(false)
@@ -30,6 +37,7 @@ function DownHole({id, handleUseSand}){
                     setPounds('')
                     setStage('')
                     setMoisture(0.0)
+                    setDate([])
                     handleUseSand(sand)
                 })
             }else{
@@ -69,6 +77,15 @@ function DownHole({id, handleUseSand}){
                             />
                         </div>
                     </div>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker
+                        sx={{ color: "success.main", width: "90%", paddingLeft: "10%" }}
+                        // label="Start Time"
+                        value={date}
+                        onChange={(e) => setDate(e)}
+                        // renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
                     <div className="mb-3 row" style={{width: "95%", paddingLeft: "10%"}}>
                         <label htmlFor="inputStage" className="col-sm-2 col-form-label">Stage</label>
                         <div className="input-group">

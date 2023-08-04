@@ -8,13 +8,12 @@ class Api::SandUsedsController < ApplicationController
 
     def create 
         sand_used = SandUsed.create!(sand_used_params)
-        sand_used.update!(date: Date.current())
         site = Site.find(sand_used.site_id)
         site.update!(total_sand_used: (site.total_sand_used + sand_used.pounds), total_on_site: (site.total_on_site - sand_used.pounds))
-        if SandUsed.where(date: sand_used.date).length() > 1 && SandUsed.where(site_id: site.id).length() > 1
-            sand_used_list = SandUsed.where(date: sand_used.date, site_id: site.id)
+        sand_array = SandUsed.where(site_id: site.id).select {|found| found.date.to_date == sand_used.date.to_date }
+        if sand_array.length() > 1 
             total = 0
-            sand_used_list.map { |sand| total += sand.pounds }
+            sand_array.map { |sand| total += sand.pounds }
             sand_used.update!(total_amount_per_day: total)
         else
             sand_used.update!(total_amount_per_day: sand_used.pounds)
@@ -28,12 +27,12 @@ class Api::SandUsedsController < ApplicationController
         site.update!(total_sand_used: (site.total_sand_used - sand_used.pounds), total_on_site: (site.total_on_site + sand_used.pounds))
         sand_used.update!(update_sand_params)
         site.update!(total_sand_used: (site.total_sand_used + sand_used.pounds), total_on_site: (site.total_on_site - sand_used.pounds))
-        if SandUsed.where(date: sand_used.date).length() > 1 && SandUsed.where(site_id: site.id).length() > 1
-            sand_used_list = SandUsed.where(date: sand_used.date, site_id: site.id) 
+        sand_array = SandUsed.where(site_id: site.id).select {|found| found.date.to_date == sand_used.date.to_date }
+        if sand_array.length() > 1
             total = 0
-            sand_used_list.map { |sand| total += sand.pounds }
+            sand_array.map { |sand| total += sand.pounds }
             sand_used.update!(total_amount_per_day: total)
-            sand_used_list.sort_by(&:created_at).last.update!(total_amount_per_day: total)
+            sand_array.sort_by(&:created_at).last.update!(total_amount_per_day: total)
         else
             sand_used.update!(total_amount_per_day: sand_used.pounds)
         end
@@ -44,9 +43,9 @@ class Api::SandUsedsController < ApplicationController
         sand_used = SandUsed.find(params[:id])
         site = Site.find(sand_used.site_id)
         site.update(total_on_site: (site.total_on_site + sand_used.pounds), total_sand_used: (site.total_sand_used - sand_used.pounds))
-        if SandUsed.where(date: sand_used.date).length() > 1 && SandUsed.where(site_id: site.id).length() > 1
-            sand_used_list = SandUsed.where(date: sand_used.date, site_id: site.id)
-            sand_used_list.last.update!(total_amount_per_day: (sand_used_list.last.total_amount_per_day - sand_used.pounds))
+        sand_array = SandUsed.where(site_id: site.id).select {|found| found.date.to_date == sand_used.date.to_date }
+        if sand_array.length() > 1
+            sand_array.last.update!(total_amount_per_day: (sand_used_list.last.total_amount_per_day - sand_used.pounds))
         end
         sand_used.destroy 
         head :no_content
@@ -56,7 +55,7 @@ class Api::SandUsedsController < ApplicationController
     private
 
     def sand_used_params
-        params.permit(:pounds, :stage, :moisture, :site_id)
+        params.permit(:pounds, :stage, :moisture, :site_id, :date)
     end
 
     def update_sand_params 

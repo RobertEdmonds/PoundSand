@@ -1,6 +1,6 @@
 
 function DisplaySand({sandUsed, sandTime, showUseSandDelete, user, handleUseSandEdit}){
-    let sandDateArray = sandUsed.filter(truck => truck.date === sandTime)
+    let sandDateArray = sandUsed.filter(truck => truck.date.slice(0, 10) === sandTime)
 
     const handleUseSandDelete = (sand) => {
         fetch(`/api/sand_useds/${sand.id}`, {
@@ -29,10 +29,12 @@ function DisplaySand({sandUsed, sandTime, showUseSandDelete, user, handleUseSand
                         </thead>
                         <tbody>
                         {sandDateArray.map(sand => {
-                            const sandDate = sand.date.split('-')
+                            const sandDate = sand.date.slice(0, 10).split('-')
+                            // const sandDate = sand.date.split('-')
+                            // const sandDate = [1, 2, 3]
                                 return(
                                     <tr key={sand.id}>
-                                        <th scope="row">{sandDate[1]}/{sandDate[2]}/{sandDate[0]} <br/> {sand.created_at.slice(11, 16)}</th>
+                                        <th scope="row">{sandDate[1]}/{sandDate[2]}/{sandDate[0]} <br/> {sand.date.slice(11, 16)}</th>
                                         <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
                                         <td>{sand.stage}</td>
                                         <td>{sand.moisture}</td>

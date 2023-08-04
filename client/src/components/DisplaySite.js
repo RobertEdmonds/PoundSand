@@ -59,10 +59,15 @@ function DisplaySite({sites,
     const sandUsed = userWorkSite.sand_useds
     const dictionaryUsed = {}
         for(let i = 0; i < sandUsed.length; i++){
-            if(dictionaryUsed.hasOwnProperty(sandUsed[i].date)){
-                dictionaryUsed[sandUsed[i].date] += 1
+            // if(dictionaryUsed.hasOwnProperty(sandUsed[i].date)){
+            //     dictionaryUsed[sandUsed[i].date] += 1
+            // }else{
+            //     dictionaryUsed[sandUsed[i].date] = 1
+            // }
+            if(dictionaryUsed.hasOwnProperty(sandUsed[i].date.slice(0, 10))){
+                dictionaryUsed[sandUsed[i].date.slice(0, 10)] += 1
             }else{
-                dictionaryUsed[sandUsed[i].date] = 1
+                dictionaryUsed[sandUsed[i].date.slice(0, 10)] = 1
             }
         }
     const displaySandUsed = [] 
@@ -113,9 +118,9 @@ function DisplaySite({sites,
     const dictionaryStage = {}
     for(let i = 0; i < sandUsed.length; i++){
         if(dictionaryStage.hasOwnProperty(sandUsed[i].stage)){
-            dictionaryStage[sandUsed[i].stage] = [(dictionaryStage[sandUsed[i].stage][0] + sandUsed[i].pounds), sandUsed[i].created_at]
+            dictionaryStage[sandUsed[i].stage] = [(dictionaryStage[sandUsed[i].stage][0] + sandUsed[i].pounds), sandUsed[i].date]
         }else{
-            dictionaryStage[sandUsed[i].stage] = [sandUsed[i].pounds, sandUsed[i].created_at]
+            dictionaryStage[sandUsed[i].stage] = [sandUsed[i].pounds, sandUsed[i].date]
         }
     }
 
@@ -152,7 +157,7 @@ function DisplaySite({sites,
         const excelArray = sandArray.filter(delivery => delivery.date === date)
         const excelData = []
         for(let i=0; i < excelArray.length; i++){
-            excelData.push({"Date": excelArray[i].date, "Time": excelArray[i].created_at.slice(11, 16), "Weight(Pounds)": excelArray[i].pounds, "Stage": excelArray[i].stage})
+            excelData.push({"Date": excelArray[i].date.slice(0, 10), "Time": excelArray[i].date.slice(11, 16), "Weight(Pounds)": excelArray[i].pounds, "Stage": excelArray[i].stage})
         }
         const wb = utils.book_new()
         const ws = utils.json_to_sheet(excelData)
@@ -206,6 +211,7 @@ function DisplaySite({sites,
                 id={id}
                 sandId={sandId}
                 sandUsedDate={sandUsedDate}
+                setSandUsedDate={setSandUsedDate}
                 showEditUsedSand={showEditUsedSand} 
                 oldSandUsed={oldSandUsed}
                 />
@@ -310,7 +316,8 @@ function DisplaySite({sites,
                     </thead>
                     <tbody>
                     {(dateDirection ? displaySandUsed.reverse() : displaySandUsed).map(sand => {
-                        const sandDate = sand.date.split('-')
+                        const sandDate = sand.date.slice(0, 10).split('-')
+                        // const sandDate = sand.date.split('-')
                             return(
                                 <tr key={sand.id}>
                                     <th scope="row"><button 
@@ -319,7 +326,7 @@ function DisplaySite({sites,
                                     data-bs-toggle="modal" 
                                     data-bs-target="#staticSand"
                                     style={{fontWeight: "bold"}} 
-                                    onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button>
+                                    onClick={() => setSandTime(sand.date.slice(0, 10))}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button>
                                     <button className="btn btn-secondary" type="button" style={{fontWeight: "bold"}} onClick={() => handleSandExcelExport(sandUsed, sand.date)}>Export</button>
                                     </th>
                                     <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>

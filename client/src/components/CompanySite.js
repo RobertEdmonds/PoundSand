@@ -51,6 +51,31 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
         amount += (Object.values(dictionaryTruck)[i])
     }
 
+    const dictionaryStage = {}
+    for(let i = 0; i < sandUsed.length; i++){
+        if(dictionaryStage.hasOwnProperty(sandUsed[i].stage)){
+            dictionaryStage[sandUsed[i].stage] = [(dictionaryStage[sandUsed[i].stage][0] + sandUsed[i].pounds), sandUsed[i].date]
+        }else{
+            dictionaryStage[sandUsed[i].stage] = [sandUsed[i].pounds, sandUsed[i].date]
+        }
+    }
+
+
+    let orderStage = (Object.entries(dictionaryStage).length + 1)
+    const displayStage = Object.entries(dictionaryStage).sort((a, b) => a[1][1] > b[1][1] ? -1 : 1).map((value) => {
+        orderStage -= 1
+        const stageDate = value[1][1].slice(0, 10).split('-')
+        const stageTime = value[1][1].slice(11, 16)
+        return(
+            <tr key={value[0]}>
+                <td>{orderStage}.</td>
+                <td>{stageDate[1]}/{stageDate[2]}/{stageDate[0]}({stageTime})</td>
+                <td>{value[0]}</td>
+                <td>{`${value[1][0].toLocaleString("en-US")}(${(value[1][0] / 2000).toLocaleString("en-US")})`}</td>
+            </tr> 
+        )
+        })
+
     const handleExcelExport = (trucks, date) => {
         const excelArray = trucks.filter(delivery => delivery.date === date)
         const excelData = []
@@ -68,7 +93,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
         const excelArray = sandArray.filter(delivery => delivery.date === date)
         const excelData = []
         for(let i=0; i < excelArray.length; i++){
-            excelData.push({"Date": excelArray[i].date, "Time": excelArray[i].created_at.slice(11, 16), "Weight(Pounds)": excelArray[i].pounds, "Stage": excelArray[i].stage})
+            excelData.push({"Date": excelArray[i].date.slice(0, 10), "Time": excelArray[i].date.slice(11, 16), "Weight(Pounds)": excelArray[i].pounds, "Stage": excelArray[i].stage})
         }
         const wb = utils.book_new()
         const ws = utils.json_to_sheet(excelData)
@@ -175,6 +200,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 </tbody>
             </table>
             ):(
+                <>
             <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
                 <thead>
                     <tr>
@@ -187,7 +213,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 </thead>
                 <tbody>
                 {(dateDirection ? displaySandUsed.reverse() : displaySandUsed).map(sand => {
-                    const sandDate = sand.date.split('-')
+                    const sandDate = sand.date.slice(0, 10).split('-')
                         return(
                             <tr key={sand.id}>
                                 <th scope="row"><button 
@@ -196,7 +222,7 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#staticSand"
                                 style={{fontWeight: "bold"}} 
-                                onClick={() => setSandTime(sand.date)}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button>
+                                onClick={() => setSandTime(sand.date.slice(0, 10))}>{sandDate[1]}/{sandDate[2]}/{sandDate[0]}</button>
                                 <button className="btn btn-secondary" type="button" style={{fontWeight: "bold"}} onClick={() => handleSandExcelExport(sandUsed, sand.date)}>Export</button>
                                 </th>
                                 <td>{`${sand.pounds.toLocaleString("en-US")}(${(sand.pounds / 2000).toLocaleString("en-US")})`}</td>
@@ -209,6 +235,20 @@ export default function CompanySite({showSite, siteDelivery, onSite, tSandUsed, 
                 }        
                 </tbody>
             </table>
+            <table className="table" style={{backgroundColor: "rgb(21, 75, 126)", color: "white", fontWeight: "bold"}}>
+                <thead>
+                    <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">Date(Time)</th>
+                        <th scope="col">Stage</th>
+                        <th scope="col">Total Pounds(Tons)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {displayStage}
+                </tbody>
+            </table>
+            </>
             )}
         </div>
     )

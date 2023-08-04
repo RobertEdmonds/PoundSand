@@ -239,9 +239,15 @@ function Authenticated({user, setUser}){
                 site.total_sand_used -= oldSandUsed.total 
                 site.total_on_site -= sand.total
                 site.total_delivered += sand.total 
-                const deletePrevious = site.sand_useds.filter(foundSand => foundSand.id !== sand.id)
+                const deletePrevious = site.sand_useds.map(foundSand => {
+                    if(foundSand.id === sand.id){
+                        return sand 
+                    }else{
+                        return foundSand
+                    }
+                })
                 site.sand_useds = deletePrevious
-                site.sand_useds.push(sand)
+                // site.sand_useds.push(sand)
                 site.sand_useds.filter(used => used.date === sand.date).sort((a, b) => (a.id > b.id ? -1 : 1))[0].total_amount_per_day = sand.total_amount_per_day
                 setOnSite(site.total_on_site)
                 setTSandUsed(site.total_sand_used)
@@ -254,7 +260,7 @@ function Authenticated({user, setUser}){
     }
 
     const handleUseSand = (useSand) => {
-        const updatedSite = sites.filter(site => {
+        const updatedSite = sites.map(site => {
             if(site.id === useSand.site_id){
                 site.total_sand_used += useSand.pounds
                 site.total_on_site -= useSand.pounds
