@@ -52,6 +52,8 @@ function DisplaySite({sites,
     const [ sandUsedDate, setSandUsedDate ] = useState(0)
     const [ oldSandUsed, setOldSandUsed ] = useState([])
 
+    console.log(userWorkSite)
+
     const handleDateChange = (bool) => {
         setDateDirection(bool)
     }
