@@ -52,7 +52,7 @@ function DisplaySite({sites,
     const [ sandUsedDate, setSandUsedDate ] = useState(0)
     const [ oldSandUsed, setOldSandUsed ] = useState([])
 
-    console.log("whole Site"userWorkSite)
+    console.log("whole Site", userWorkSite)
 
     const handleDateChange = (bool) => {
         setDateDirection(bool)
@@ -73,7 +73,7 @@ function DisplaySite({sites,
             }
         }
 
-    console.log("Dictionary", dictionaryUsed)
+    console.log("dictionary", dictionaryUsed)
     const displaySandUsed = [] 
     let count = 0
     for(let i = 0; i < Object.values(dictionaryUsed).length; i++){
