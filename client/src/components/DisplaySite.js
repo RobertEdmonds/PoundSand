@@ -52,7 +52,6 @@ function DisplaySite({sites,
     const [ sandUsedDate, setSandUsedDate ] = useState(0)
     const [ oldSandUsed, setOldSandUsed ] = useState([])
 
-    console.log("whole Site", userWorkSite)
 
     const handleDateChange = (bool) => {
         setDateDirection(bool)
@@ -73,7 +72,7 @@ function DisplaySite({sites,
             }
         }
 
-    console.log("dictionary", dictionaryUsed)
+
     const displaySandUsed = [] 
     let count = 0
     for(let i = 0; i < Object.values(dictionaryUsed).length; i++){
@@ -81,7 +80,6 @@ function DisplaySite({sites,
         count += (Object.values(dictionaryUsed)[i])
     }
 
-    console.log("display", displaySandUsed)
     // sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)[0]
     const truckArray = userWorkSite.trucks
     const dictionaryTruck = {}

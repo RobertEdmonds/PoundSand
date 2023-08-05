@@ -41,12 +41,12 @@ class Api::SandUsedsController < ApplicationController
 
     def destroy
         sand_used = SandUsed.find(params[:id])
-        # site = Site.find(sand_used.site_id)
-        # site.update(total_on_site: (site.total_on_site + sand_used.pounds), total_sand_used: (site.total_sand_used - sand_used.pounds))
-        # sand_array = SandUsed.where(site_id: site.id).select {|found| found.date.to_date == sand_used.date.to_date }
-        # if sand_array.length() > 1
-        #     sand_array.last.update!(total_amount_per_day: (sand_array.last.total_amount_per_day - sand_used.pounds))
-        # end
+        site = Site.find(sand_used.site_id)
+        site.update(total_on_site: (site.total_on_site + sand_used.pounds), total_sand_used: (site.total_sand_used - sand_used.pounds))
+        sand_array = SandUsed.where(site_id: site.id).select {|found| found.date.to_date == sand_used.date.to_date }
+        if sand_array.length() > 1
+            sand_array.last.update!(total_amount_per_day: (sand_array.last.total_amount_per_day - sand_used.pounds))
+        end
         sand_used.destroy 
         head :no_content
     end
