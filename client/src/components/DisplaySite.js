@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
 import { utils, writeFileXLSX } from 'xlsx';
 import DownHole from "../forms/DownHole";
@@ -11,7 +11,8 @@ import TrashSand from "../forms/TrashSand";
 import EditSandUsed from "../forms/EditSandUsed";
 
 function DisplaySite({sites,
-    userWorkSite, 
+    userWorkSite,
+    setUserWorkSite, 
     onSite, 
     setOnSite,
     tSandUsed,
@@ -33,6 +34,7 @@ function DisplaySite({sites,
     showTruckDelete
     }){
     const { location, crew, id} = useParams()
+    // const [ showSite, setShowSite ] = useState([])
     const [ displayInfo, setDisplayInfo ] = useState(false)
     const [ dateDirection, setDateDirection ] = useState(false)
     const [ editTruck, setEditTruck ] = useState([])
@@ -51,7 +53,21 @@ function DisplaySite({sites,
     const [ sandId, setSandId ] = useState(0)
     const [ sandUsedDate, setSandUsedDate ] = useState(0)
     const [ oldSandUsed, setOldSandUsed ] = useState([])
-
+    
+    // useEffect(() => {
+    //     fetch(`/api/show_site/${id}`)
+    //     .then(r => r.json())
+    //     .then(site => setShowSite(site))
+    // },[id])
+    useEffect(() => {
+        const interval = setInterval(() => {
+        fetch(`/api/show_site/${id}`)
+        .then(resp => resp.json().then(site => {
+            setUserWorkSite(site)
+        }))
+    },120000)
+    return () => clearInterval(interval);
+    },[id, setUserWorkSite])
 
     const handleDateChange = (bool) => {
         setDateDirection(bool)
@@ -183,7 +199,7 @@ function DisplaySite({sites,
             crew={crew}
             id={id}
             user={user}
-            sites={sites}
+            sites={userWorkSite}
             />
             <DownHole id={id} handleUseSand={handleUseSand}/>
             <TruckLoad id={id} location={location} handleAddSand={handleAddSand}/>

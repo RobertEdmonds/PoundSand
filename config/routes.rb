@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     patch '/site_correction/:id', to: 'sites#update_correction'
     patch '/update_site/:id', to: 'sites#site_update'
     get '/mobile_sites', to: 'sites#mobile_index'
+    get '/show_site/:id', to: 'sites#user_site_show'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

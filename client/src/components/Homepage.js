@@ -37,7 +37,7 @@ function Homepage({sites, handleSiteDisplayButton, companyList, user, handleUpda
                             <div className="card-body">
                                 <h5 className="card-title h2">{site.location}</h5>
                                 <h5 className="card-title h3">{site.crew}</h5>
-                                {!!user.email ? (<></>) : (
+                                {!!user.email || !companyList.filter(company => company.id === site.company_id)[0] ? (<></>) : (
                                     <p className="card-text">{companyList.filter(company => company.id === site.company_id)[0].name}</p>
                                 )}
                                 <p className="card-text">Est. Total: <br/>{`${(site.est_total).toLocaleString("en-US")}(${(site.est_total / 2000).toLocaleString("en-US")})`}</p>

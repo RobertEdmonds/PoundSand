@@ -1,14 +1,18 @@
 class Api::SitesController < ApplicationController
     before_action :authorize_user, except: [:show]
     before_action :authorize_company_user, only: [:show]
-    before_action :set_site, only: [:update, :show, :destroy, :update_correction, :site_update]
+    before_action :set_site, only: [:update, :user_site_show, :show, :destroy, :update_correction, :site_update]
 
     def index
-        render json: Site.all, status: :ok
+        render json: Site.all, each_serializer: MobileSiteSerializer, status: :ok
     end
 
     def mobile_index
         render json: Site.all, each_serializer: MobileSiteSerializer
+    end
+
+    def user_site_show
+        render json: @site, status: :ok 
     end
 
     def show 
@@ -66,14 +70,14 @@ class Api::SitesController < ApplicationController
     def authorize_user
         user_found = current_user
         if !user_found
-            render json: { error: "You don't have permission to perform that action" }, status: :forbidden
+            render json: { error: "You don't have user permission to perform that action" }, status: :forbidden
         end
     end
 
     def authorize_company_user 
         user_found = current_company_user
         if !user_found
-            render json: { error: "You don't have permission to perform that action" }, status: :forbidden
+            render json: { error: "You don't have company permission to perform that action" }, status: :forbidden
         end
     end
             
