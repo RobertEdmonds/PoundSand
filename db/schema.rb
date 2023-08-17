@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_03_202800) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_17_160004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_202800) do
     t.boolean "edited", default: false
     t.string "ticket_number"
     t.integer "mine_total_per_day", default: 0
+    t.datetime "time", default: "2023-05-09 00:00:00"
     t.index ["site_id"], name: "index_trucks_on_site_id"
   end
 

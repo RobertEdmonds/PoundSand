@@ -98,12 +98,13 @@ function DisplaySite({sites,
 
     // sites.filter(site => site.id === parseInt(id)).map(site => site.trucks)[0]
     const truckArray = userWorkSite.trucks
+    // console.log(truckArray[0].time === "2023-05-09T00:00:00.000Z")
     const dictionaryTruck = {}
         for(let i = 0; i < truckArray.length; i++){
-            if(dictionaryTruck.hasOwnProperty(truckArray[i].date)){
-                dictionaryTruck[truckArray[i].date] += 1
+            if(dictionaryTruck.hasOwnProperty(truckArray[i].date.slice(0, 10))){
+                dictionaryTruck[truckArray[i].date.slice(0, 10)] += 1
             }else{
-                dictionaryTruck[truckArray[i].date] = 1
+                dictionaryTruck[truckArray[i].date.slice(0, 10)] = 1
             }
         }
     const displayTruckLoad = [] 
@@ -301,7 +302,8 @@ function DisplaySite({sites,
                 </thead>
                 <tbody>
                 {(dateDirection ? displayTruckLoad.reverse() : displayTruckLoad).map(truck => {
-                    const truckDate = truck.date.split("-")
+                    if(truck.time === "2023-05-09T00:00:00.000Z"){
+                        const truckDate = truck.date.slice(0, 10).split("-")
                         return(
                             <tr key={truck.id}>
                                 <th scope="row"><button type="button" 
@@ -309,7 +311,7 @@ function DisplaySite({sites,
                                 data-bs-toggle="modal" 
                                 data-bs-target="#staticTruck" 
                                 style={{fontWeight: "bold"}}
-                                onClick={() => setTruckTime(truck.date)}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button>
+                                onClick={() => setTruckTime(truck.date.slice(0, 10))}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button>
                                 <button className="btn btn-secondary" type="button" style={{fontWeight: "bold"}} onClick={() => handleExcelExport(truckArray, truck.date)}>Export</button>
                                 </th>
                                 <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString("en-US")})`}</td>
@@ -318,6 +320,26 @@ function DisplaySite({sites,
                                 <td>{`${truck.total_amount_per_day.toLocaleString("en-US")}(${(truck.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
                             </tr>
                         )
+                    }else{
+                        const truckDate = truck.time.slice(0, 10).split("-")
+                        return(
+                            <tr key={truck.id}>
+                                <th scope="row"><button type="button" 
+                                className="btn btn-primary" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#staticTruck" 
+                                style={{fontWeight: "bold"}}
+                                onClick={() => setTruckTime(truck.time.slice(0, 10))}>{truckDate[1]}/{truckDate[2]}/{truckDate[0]}</button>
+                                <button className="btn btn-secondary" type="button" style={{fontWeight: "bold"}} onClick={() => handleExcelExport(truckArray, truck.date)}>Export</button>
+                                </th>
+                                <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString("en-US")})`}</td>
+                                <td>{truck.mine}</td>
+                                <td>{truck.po}</td>
+                                <td>{`${truck.total_amount_per_day.toLocaleString("en-US")}(${(truck.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
+                            </tr>
+                        )
+                    }
+                    
                     })
                 }        
                 </tbody>

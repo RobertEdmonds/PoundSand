@@ -1,4 +1,8 @@
 import { useState } from "react"
+import moment from 'moment';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 function TruckLoad({id, handleAddSand, location}){
     const [ truck, setTruck ] = useState('')
@@ -7,13 +11,18 @@ function TruckLoad({id, handleAddSand, location}){
     const [ gross, setGross ] = useState('')
     const [ ticket, setTicket ] = useState('')
     const [ po, setPo ] = useState('')
+    const [ date, setDate ] = useState([])
     const [ error, setError ] = useState([])
     const [ success, setSuccess ] = useState(false)
 
     const handleTruckLoad = () => {
+        const correctTime = moment(date.$d).format('MMMM Do YYYY, h:mm:ss a')
+        const correctDate = moment(date.$d).format()
         const formData = {
             truck, 
             mine: mine.trim(),
+            time: correctTime,
+            date: correctDate,
             ticket_number: ticket,  
             tare_weight: parseInt(tare), 
             gross_weight: parseInt(gross), 
@@ -37,6 +46,7 @@ function TruckLoad({id, handleAddSand, location}){
                 })
                 setTruck('')
                 setMine('')
+                setDate([])
                 setTare("")
                 setGross("")
                 setTicket('')
@@ -84,6 +94,15 @@ function TruckLoad({id, handleAddSand, location}){
                             />
                         </div>
                     </div>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker
+                        sx={{ color: "success.main", width: "90%", paddingLeft: "10%" }}
+                        // label="Start Time
+                        value={date}
+                        onChange={(e) => setDate(e)}
+                        // renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
                     <div className="mb-3" style={{width: "95%", paddingLeft: "15%"}}>
                         <label htmlFor="inputMine" className="form-label">Mine</label>
                         <div className="col-sm-10">

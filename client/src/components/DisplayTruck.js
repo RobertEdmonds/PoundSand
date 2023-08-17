@@ -1,5 +1,5 @@
 function DisplayTruck({truckArray, truckTime, goToEditForm, user, showTruckDelete}){
-    const truckDateArray = truckArray.filter(truck => truck.date === truckTime)
+    const truckDateArray = truckArray.filter(truck => truck.date.slice(0, 10)  === truckTime)
     // {Math.ceil((displayMoisture.reduce((a, v) => a + v,0)/displayMoisture.length) * 100)/100}
     
     const mineArray = []
@@ -40,10 +40,29 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user, showTruckDelet
                 </thead>
                 <tbody>
                 {truckDateArray.sort((a, b) => a.created_at > b.created_at ? -1 : 1).reverse().map(truck => {
-                    const truckDate = truck.date.split("-")
+                    if(truck.time === "2023-05-09T00:00:00.000Z"){
+                        const truckDate = truck.date.slice(0, 10).split("-")
                         return(
                             <tr key={truck.id}>
-                                <th scope="row">{truckDate[1]}/{truckDate[2]}/{truckDate[0]} <br/> {truck.created_at.slice(11, 16)} </th>
+                                <th scope="row">{truckDate[1]}/{truckDate[2]}/{truckDate[0]} <br/> {truck.date.slice(11, 16)} </th>
+                                <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString('en-US')})`}</td>
+                                <td>{truck.mine}</td>
+                                <td>{truck.po}</td>
+                                <td>{truck.ticket_number}</td>
+                                <td>{`${truck.total_amount_per_day.toLocaleString("en-US")}(${(truck.total_amount_per_day / 2000).toLocaleString("en-US")})`}</td>
+                                {!user.email && (
+                                    <td><button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#editTruckLoad" onClick={() => goToEditForm(truck)}>Edit</button></td>
+                                )}
+                                {!user.email && (
+                                    <td><button type="button" className="btn btn-info" onClick={() => goToDeleteForm(truck)}>Delete</button></td>
+                                )}
+                            </tr>
+                        ) 
+                    }else{
+                        const truckDate = truck.time.slice(0, 10).split("-")
+                        return(
+                            <tr key={truck.id}>
+                                <th scope="row">{truckDate[1]}/{truckDate[2]}/{truckDate[0]} <br/> {truck.time.slice(11, 16)} </th>
                                 <td>{`${truck.total.toLocaleString("en-US")}(${(truck.total / 2000).toLocaleString('en-US')})`}</td>
                                 <td>{truck.mine}</td>
                                 <td>{truck.po}</td>
@@ -57,6 +76,7 @@ function DisplayTruck({truckArray, truckTime, goToEditForm, user, showTruckDelet
                                 )}
                             </tr>
                         )
+                    }
                     })
                 }        
                 </tbody>
