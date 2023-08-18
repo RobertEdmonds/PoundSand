@@ -40,6 +40,19 @@ function Header({sites,
     const handleCompletedBool = () =>{
         navigate('/')
         setCompletedBool(true)
+        const dataForm = {
+            work_site: null,
+            employee: false
+        }
+        fetch(`/api/user_work_site/${user.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataForm),
+          });
+        user.work_site = null
+        user.employee = null
         // window.localStorage.setItem("MY_SAND_SITE", JSON.stringify({showSite: false}))
         setButtonInfo('Completed Sites')
     }

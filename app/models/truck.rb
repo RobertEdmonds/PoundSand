@@ -1,7 +1,7 @@
 class Truck < ApplicationRecord
     belongs_to :site 
 
-    validates :truck, :mine, :tare_weight, :gross_weight, :ship_to, :po, {presence: true}
+    validates :truck, :mine, :time, :tare_weight, :gross_weight, :ship_to, :po, {presence: true}
     validates :ticket_number, uniqueness: {scope: [:mine], message: "already has been used for this mine"}
     validate :right_weight
     validate :po_check, on: :create
